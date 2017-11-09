@@ -27,7 +27,8 @@ public class HelloWorldApplication implements CommandLineRunner {
     public void run(String... strings) throws Exception {
 
         log.info("Creating tables");
-
+        
+/**
         Scanner sc = new Scanner(new File("script_db.sql"));
         if(sc == null) {
         	log.error("File script_db.sql doesn't exist !");
@@ -40,6 +41,7 @@ public class HelloWorldApplication implements CommandLineRunner {
         log.info("Script used for DB initialization :");
         log.info(script_to_execute);
         jdbcTemplate.execute(script_to_execute);
+**/        
         /*
         jdbcTemplate.execute("DROP TABLE greetings IF EXISTS");
         jdbcTemplate.execute("CREATE TABLE greetings(" +
