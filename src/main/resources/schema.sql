@@ -1,4 +1,4 @@
-DROP TABLE greetings IF EXISTS;
+DROP TABLE IF EXISTS greetings;
 
 CREATE TABLE greetings (
     greetings_id serial PRIMARY KEY,
