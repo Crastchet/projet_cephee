@@ -20,8 +20,14 @@ public class HelloWorldApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(HelloWorldApplication.class);
 	}
+
+	@Override
+	public void run(String... arg0) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	@Bean
+	/*@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 			String[] beanNames = ctx.getBeanDefinitionNames();
@@ -29,7 +35,7 @@ public class HelloWorldApplication implements CommandLineRunner {
 			for(String beanName : beanNames)
 				System.out.println(beanName);
 		};
-	}
+}
 	
 	@Autowired
     JdbcTemplate jdbcTemplate;
@@ -68,12 +74,12 @@ public class HelloWorldApplication implements CommandLineRunner {
 
         // Uses JdbcTemplate's batchUpdate operation to bulk load data
         jdbcTemplate.batchUpdate("INSERT INTO greetings(greetings, name, language) VALUES (?,?,?)", splitUpNames);
-		*/
+		
         
         log.info("Querying for greetings records where name = 'mondo':");
         jdbcTemplate.query(
                 "SELECT greetings_id, greetings, name, language FROM greetings WHERE name = ?", new Object[] { "mondo" },
                 (rs, rowNum) -> new Greetings(rs.getLong("greetings_id"), rs.getString("greetings"), rs.getString("name"), rs.getString("language"))
         ).forEach(greetings -> log.info(greetings.toString()));
-    }
+    }*/
 }
