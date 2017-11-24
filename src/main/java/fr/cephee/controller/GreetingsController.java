@@ -1,4 +1,4 @@
-package controler;
+package fr.cephee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
