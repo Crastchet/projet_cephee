@@ -1,5 +1,7 @@
 package fr.cephee.helloworld.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
     JdbcTemplate jdbcTemplate;
@@ -24,6 +27,7 @@ public class LoginController {
 			return "loginError";
 		}
 		
+		log.info("ON PASSE BIEN PAR ICI " + user_firstname);
 		String user_lastname = jdbcTemplate.queryForObject("SELECT lastname FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
 		String user_birth = jdbcTemplate.queryForObject("SELECT birth FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
 		
