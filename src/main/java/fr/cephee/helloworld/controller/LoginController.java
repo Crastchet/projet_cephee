@@ -1,7 +1,5 @@
-package fr.cephee.controller;
+package fr.cephee.helloworld.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -9,13 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import fr.cephee.helloworld.HelloWorldApplication;
-
 
 @Controller
 public class LoginController {
 
-	private static final Logger log = LoggerFactory.getLogger(HelloWorldApplication.class);
 	
 	@Autowired
     JdbcTemplate jdbcTemplate;
@@ -34,7 +29,7 @@ public class LoginController {
 		
 		model.addAttribute("user_firstname", user_firstname);
 		model.addAttribute("user_lastname", user_lastname);
-		//model.addAttribute("user_birth", user_birth);
+		model.addAttribute("user_birth", user_birth);
 		
 		return "home";
 	}
