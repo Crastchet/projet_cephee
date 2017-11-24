@@ -8,7 +8,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </h:head>
 <h:body>
-	<p:commandButton value="Ajax Submit" id="ajax" styleClass="ui-priority-primary" />
+	<h:form>
+	<p:growl id="growl" life="2000" />
+	<p:commandButton value="Ajax Submit" update="growl" id="ajax" styleClass="ui-priority-primary" />
+	</h:form>
     <p>Choose your language :</p>
     <ul>
     	<li> <a href="/greetings?lang=french">French</a> </li>
