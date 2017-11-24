@@ -6,9 +6,10 @@
 <body>
 	<h1>Ici toutes les dernières publications ! </h1>
 	<div style="float:right;" id="account-box">
-		<span th:text="'Nom : ' + ${user_lastname}"/>
-		</br>
-		<span th:text="'Prénom : ' + ${user_firstname}"/>
+		<ul>
+			<li th:text="'Nom : ' + ${user_lastname}"/>
+			<li th:text="'Prénom : ' + ${user_firstname}"/>
+		</ul>
 	</div>	
 
 	<p><em>En fait pour l'instant il y a pas de publications sorry *ashamed*</em></p>
