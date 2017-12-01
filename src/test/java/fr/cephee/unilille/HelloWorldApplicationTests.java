@@ -1,8 +1,6 @@
-package fr.cephee.helloworld;
+package fr.cephee.unilille;
 
 import static org.junit.Assert.assertTrue;
-
-import javax.validation.constraints.AssertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
