@@ -1,4 +1,4 @@
-package fr.cephee.helloworld.controller;
+package fr.cephee.unilille.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class LoginController {
     JdbcTemplate jdbcTemplate;
 	
 	
-	@RequestMapping("/loginRequest")
+	@RequestMapping("/loginrequest")
 	public String processLogin(@RequestParam(value="suppliedLogin", required=true) String suppliedLogin, Model model) {
 		String user_firstname = jdbcTemplate.queryForObject("SELECT firstname FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
 		if(user_firstname == null) {
@@ -27,7 +27,6 @@ public class LoginController {
 			return "loginError";
 		}
 		
-		log.info("ON PASSE BIEN PAR ICI " + user_firstname);
 		String user_lastname = jdbcTemplate.queryForObject("SELECT lastname FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
 		String user_birth = jdbcTemplate.queryForObject("SELECT birth FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
 		
@@ -38,7 +37,7 @@ public class LoginController {
 		return "home";
 	}
 	
-	@RequestMapping("/loginForm")
+	@RequestMapping("/loginform")
 	public String launchLoginForm() {
 		return "login";
 	}

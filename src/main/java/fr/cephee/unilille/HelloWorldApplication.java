@@ -1,4 +1,4 @@
-package fr.cephee.helloworld;
+package fr.cephee.unilille;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

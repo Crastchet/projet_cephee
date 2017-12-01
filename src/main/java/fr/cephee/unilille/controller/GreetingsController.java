@@ -1,4 +1,4 @@
-package fr.cephee.helloworld.controller;
+package fr.cephee.unilille.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

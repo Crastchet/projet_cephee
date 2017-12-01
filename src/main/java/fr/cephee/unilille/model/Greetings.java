@@ -1,4 +1,4 @@
-package fr.cephee.helloworld.model;
+package fr.cephee.unilille.model;
 
 public class Greetings {
 	
