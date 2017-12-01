@@ -21,7 +21,7 @@ public class LoginController {
 	
 	@RequestMapping("/loginrequest")
 	public String processLogin(@RequestParam(value="suppliedLogin", required=true) String suppliedLogin, Model model) {
-		String user_firstname = jdbcTemplate.queryForObject("SELECT firstname FROM Students WHERE login = ?", String.class, suppliedLogin);
+		String user_firstname = (String) jdbcTemplate.queryForObject("SELECT firstname FROM Students WHERE login = ?", String.class, suppliedLogin);
 		if(user_firstname == null) {
 			model.addAttribute("error_message", "Login" + suppliedLogin + " wasn't found in student database");
 			return "loginError";
