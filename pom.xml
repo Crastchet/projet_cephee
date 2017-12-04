@@ -6,7 +6,7 @@
 	<groupId> fr.cephee</groupId>
 	<artifactId>uni-lille</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<inceptionYear>2014</inceptionYear>
 	<licenses>
 		<license>
