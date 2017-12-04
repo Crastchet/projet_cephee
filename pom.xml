@@ -6,7 +6,7 @@
 	<groupId>fr.cephee</groupId>
 	<artifactId>uni-lille</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>uni-lille</name>
 	<description>Demo project for Spring Boot</description>
