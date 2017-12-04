@@ -6,8 +6,6 @@
 	<groupId>fr.cephee</groupId>
 	<artifactId>uni-lille</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
-	<name>uni-lille</name>
 	<packaging>war</packaging>
 	<inceptionYear>2014</inceptionYear>
 	<licenses>
