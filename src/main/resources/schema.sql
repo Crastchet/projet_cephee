@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS greetings, students;
+/*DROP TABLE IF EXISTS greetings, students;
 
 CREATE TABLE greetings (
     greetings_id serial PRIMARY KEY,
@@ -29,7 +29,7 @@ CREATE TABLE students (
 INSERT INTO students (login, firstname, lastname, birth) VALUES ('thibs', 'Thibault', 'Coilliaux', '1995-05-13 14:00:00');
 INSERT INTO students (login, firstname, lastname, birth) VALUES ('soso', 'Sofian', 'Neor', '1902-01-08 04:05:06');
 INSERT INTO students (login, firstname, lastname, birth) VALUES ('vinz', 'Vincent', 'Leclercq', '1903-02-08 04:05:06');
-INSERT INTO students (login, firstname, lastname, birth) VALUES ('clem', 'Clément', 'Descamps', '1904-03-08 04:05:06');
+INSERT INTO students (login, firstname, lastname, birth) VALUES ('clem', 'Clément', 'Descamps', '1904-03-08 04:05:06');*/
 
 
  
