@@ -14,7 +14,7 @@ public class MemberController {
 	@Autowired
 	private MemberPersistence datamem;
 
-	@RequestMapping("/create")
+	@RequestMapping("/createMember")
 	@ResponseBody
 	public String create(String login, String firstname, String lastname)
 	{
@@ -28,12 +28,12 @@ public class MemberController {
 			userId = String.valueOf(member.getId());
 		}
 		catch (Exception ex) {
-			return "Error creating the user: " + ex.toString();
+			return "Error creating the member: " + ex.toString();
 		}
-		return "User succesfully created with id = " + userId;
+		return "member succesfully created with id = " + userId;
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/deleteMember")
 	@ResponseBody
 	public String delete(int id) {
 		try {
@@ -41,12 +41,12 @@ public class MemberController {
 			datamem.delete(user);
 		}
 		catch (Exception ex) {
-			return "Error deleting the user:" + ex.toString();
+			return "Error deleting the member:" + ex.toString();
 		}
-		return "User succesfully deleted!";
+		return "member succesfully deleted!";
 	}
 
-	@RequestMapping("/get-by-login")
+	@RequestMapping("/get-by-loginMember")
 	@ResponseBody
 	public String getByLogin(String login) {
 		String userId = "";
@@ -55,12 +55,12 @@ public class MemberController {
 			userId = String.valueOf(user.getId());
 		}
 		catch (Exception ex) {
-			return "User not found";
+			return "member not found";
 		}
-		return "The user id is: " + userId;
+		return "The member id is: " + userId;
 	}
 
-	@RequestMapping("/update")
+	@RequestMapping("/updateMember")
 	@ResponseBody
 	public String updateUser(int id, String email, String firstname, String lastname) {
 		try {
@@ -71,8 +71,8 @@ public class MemberController {
 			datamem.save(user);
 		}
 		catch (Exception ex) {
-			return "Error updating the user: " + ex.toString();
+			return "Error updating the member: " + ex.toString();
 		}
-		return "User succesfully updated!";
+		return "member succesfully updated!";
 	}
 }

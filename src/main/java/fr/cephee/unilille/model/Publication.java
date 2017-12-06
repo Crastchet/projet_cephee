@@ -28,11 +28,16 @@ public class Publication implements Serializable {
 	@OneToMany
 	private List<Category> category;
 	
-	private boolean autohrised = false;
+	private boolean authorised = true;
 	
 	public Publication()
 	{
 		
+	}
+	
+	public Publication(int id)
+	{
+		this.id = id;
 	}
 	
 	public int getId() {
@@ -59,20 +64,15 @@ public class Publication implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-/*
+
 	public Member getAuthor() {
 		return author;
 	}
 
 	public void setAuthor(Member author) {
 		this.author = author;
-	}*/
-
-	
-
-	public boolean isAutohrised() {
-		return autohrised;
 	}
+
 
 	public List<Category> getCategory() {
 		return category;
@@ -82,8 +82,14 @@ public class Publication implements Serializable {
 		this.category = category;
 	}
 
-	public void setAutohrised(boolean autohrised) {
-		this.autohrised = autohrised;
+
+
+	public boolean isAuthorised() {
+		return authorised;
+	}
+
+	public void setAuthorised(boolean authorised) {
+		this.authorised = authorised;
 	}
 
 	public Date getDateCreation() {
