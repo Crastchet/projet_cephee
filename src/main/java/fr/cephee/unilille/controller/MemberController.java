@@ -13,7 +13,7 @@ import fr.cephee.unilille.model.Member;
 @Controller
 public class MemberController {
 
-	@Autowired
+	/*@Autowired
 	private MemberPersistence datamem;
 
 	@RequestMapping("/createmember")
@@ -82,5 +82,5 @@ public class MemberController {
 			return "Error updating the member: " + ex.toString();
 		}
 		return "member succesfully updated!";
-	}
+	}*/
 }
