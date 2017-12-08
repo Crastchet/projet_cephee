@@ -3,7 +3,6 @@ package fr.cephee.unilille.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,13 +24,13 @@ public class ProfileController {
 			model.addAttribute("error_message", "Login " + login + " wasn't found in student database");
 			return "error";
 		}
-			
+		
 		model.addAttribute("member", member);
-		model.addAttribute("error_message", "Login " + suppliedLogin + " wasn't found in student database");
-		return "home";
-
+		boolean ownProfile = false;
+		if(ownProfile)
+			return "profileEditable";
+		else
+			return "profile";
 	}
-
-	@Re
 	
 }
