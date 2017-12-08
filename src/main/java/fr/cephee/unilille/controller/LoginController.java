@@ -31,14 +31,6 @@ public class LoginController {
 			return "loginError";
 		}
 		
-		String member_firstname = jdbcTemplate.queryForObject("SELECT firstname FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
-		String member_lastname = jdbcTemplate.queryForObject("SELECT lastname FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
-		String member_birth = jdbcTemplate.queryForObject("SELECT birth FROM Students WHERE login = ?", new Object[] { suppliedLogin }, String.class);
-		
-		model.addAttribute("user_firstname", member_firstname);
-		model.addAttribute("user_lastname", member_lastname);
-		model.addAttribute("user_birth", member_birth);
-		
 		return "home";
 	}
 	
