@@ -1,17 +1,23 @@
 package fr.cephee.unilille.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.MemberForm;
 
 
 @Controller
@@ -23,6 +29,15 @@ public class LoginController {
 	@Autowired
 	private MemberPersistence datamem;
 
+	@RequestMapping(value = "/login")
+	public String loginPage(Model model)
+	{		
+		 MemberForm memberForm = new MemberForm();
+		 model.addAttribute("memberForm", memberForm);
+		return "login";
+	}
+	
+	
 	@RequestMapping("/createmember")
 	@ResponseBody
 	public String create(@RequestParam(value="login", required=true) String login,
@@ -55,14 +70,19 @@ public class LoginController {
 		return "member succesfully deleted!";
 	}
 
-	@RequestMapping("/getmemberbylogin")
-	public String getByLogin(@RequestParam(value="login", required=true) String suppliedLogin,
+	@RequestMapping(value = "/getmemberbylogin", method = RequestMethod.POST)
+	public String getByLogin(@Valid  @ModelAttribute("memberForm") MemberForm memberForm, BindingResult result,
 			Model model) {
-		Member member = datamem.findByLogin(suppliedLogin);
-		if (member == null)
-			return "loginError";
-		model.addAttribute("member", member);
-		model.addAttribute("error_message", "Login " + suppliedLogin + " wasn't found in student database");
+		Member member = datamem.findByLogin(memberForm.getLogin());
+		
+		if (member == null) {
+			result.addError(new ObjectError("memberForm", "This login doesn't exist in database"));
+		}
+		if (result.hasErrors())	
+		{
+			return "login";
+		}
+		model.addAttribute("member", member);		
 		return "home";
 
 	}
@@ -84,17 +104,6 @@ public class LoginController {
 			return "Error updating the member: " + ex.toString();
 		}
 		return "member succesfully updated!";
-	}
-
-	@RequestMapping("/loginrequest")
-	public String processLogin(@RequestParam(value="suppliedLogin", required=true) String suppliedLogin, Model model) {
-		/*List<String> strLst  = jdbcTemplate.query("SELECT * FROM Students WHERE login = ?", new MemberRowMapper(), suppliedLogin);
-		if(strLst.isEmpty()) {
-			model.addAttribute("error_message", "Login " + suppliedLogin + " wasn't found in student database");
-			return "loginError";
-		}*/
-
-		return "home";
 	}
 
 	@RequestMapping("/loginform")

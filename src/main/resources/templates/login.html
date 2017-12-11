@@ -1,17 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Home</title>
+<title>Getting Started: Handling Form Submission</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<form action="/loginrequest">
-	Enter your login : <input name="suppliedLogin"/>
-	<input type="submit" value="submit"/>
-</form>
-
+	<form action="#" th:action="@{/getmemberbylogin.html}" th:object="${memberForm}"
+		method="post">
+		<p>
+		<input type="text" th:field="*{login}"/>
+		</p>
+		<p>
+		  <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" th:errorclass="fieldError">login Error</span>
+		</p>
+		<p>
+			<input type="submit" value="Submit" /> <input type="reset"
+				value="Reset" />
+		</p>
+	</form>
 </body>
 </html>
