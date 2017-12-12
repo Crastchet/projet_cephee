@@ -1,6 +1,6 @@
 package fr.cephee.unilille.controller;
 
-import javax.validation.Valid;
+import javax.validation.Validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,9 @@ public class LoginController {
 	@Autowired
 	private MemberPersistence datamem;
 
+	@Autowired
+	Validator validator;
+	
 	@RequestMapping(value = "/login")
 	public String loginPage(Model model)
 	{		
@@ -71,18 +76,16 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/getmemberbylogin", method = RequestMethod.POST)
-	public String getByLogin(@Valid  @ModelAttribute("memberForm") MemberForm memberForm, BindingResult result,
-			Model model) {
+	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm, BindingResult result,
+			Model model, Errors errors) {
 		Member member = datamem.findByLogin(memberForm.getLogin());
-		
-		if (member == null) {
-			result.addError(new ObjectError("memberForm", "This login doesn't exist in database"));
-		}
+		memberForm.setMember(member);
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, memberForm, errors);		
 		if (result.hasErrors())	
 		{
 			return "login";
 		}
-		model.addAttribute("member", member);		
+		model.addAttribute("member", member);	
 		return "home";
 
 	}

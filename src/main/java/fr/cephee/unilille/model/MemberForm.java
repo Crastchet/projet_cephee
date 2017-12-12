@@ -10,6 +10,9 @@ public class MemberForm {
 	@NotEmpty(message = "Please enter a login")
 	private String login;
 	
+	@NotNull(message  = "Utilisateur non trouvé")
+	private Member member;
+	
 	//private String password;
 	
 	public String getLogin() {
@@ -18,15 +21,23 @@ public class MemberForm {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+	
 	/*public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}*/
+
 	
 	public MemberForm()
 	{
 		
+	}
+	public Member getMember() {
+		return member;
+	}
+	public void setMember(Member member) {
+		this.member = member;
 	}
 }
