@@ -5,12 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HelloWorldApplication implements CommandLineRunner {
+public class UniLilleApplication implements CommandLineRunner {
 
 	//private static final Logger log = LoggerFactory.getLogger(HelloWorldApplication.class);
 	
 	public static void main(String[] args) {
-		SpringApplication.run(HelloWorldApplication.class);
+		SpringApplication.run(UniLilleApplication.class);
 	}
 
 	@Override
