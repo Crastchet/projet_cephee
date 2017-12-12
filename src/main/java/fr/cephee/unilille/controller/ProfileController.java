@@ -22,7 +22,7 @@ public class ProfileController {
 		Member member = datamem.findByLogin(login);
 		if (member == null) {
 			model.addAttribute("error_message", "Login " + login + " wasn't found in student database");
-			return "error";
+			return "errorPage";
 		}
 		
 		model.addAttribute("member", member);
