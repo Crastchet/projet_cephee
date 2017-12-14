@@ -30,15 +30,15 @@ public class Publication implements Serializable {
 	
 	private boolean authorised = true;
 	
-	public Publication()
-	{
+	
+	public Publication() {
 		
 	}
 	
-	public Publication(int id)
-	{
+	public Publication(int id) {
 		this.id = id;
 	}
+	
 	
 	public int getId() {
 		return id;
@@ -46,8 +46,6 @@ public class Publication implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public String getTitle() {
 		return title;
@@ -73,7 +71,6 @@ public class Publication implements Serializable {
 		this.author = author;
 	}
 
-
 	public List<Category> getCategory() {
 		return category;
 	}
@@ -81,8 +78,6 @@ public class Publication implements Serializable {
 	public void setCategory(List<Category> category) {
 		this.category = category;
 	}
-
-
 
 	public boolean isAuthorised() {
 		return authorised;

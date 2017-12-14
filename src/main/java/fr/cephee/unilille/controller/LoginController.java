@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +36,8 @@ public class LoginController {
 	@RequestMapping(value = "/login")
 	public String loginPage(Model model)
 	{		
-		 MemberForm memberForm = new MemberForm();
-		 model.addAttribute("memberForm", memberForm);
+		MemberForm memberForm = new MemberForm();
+		model.addAttribute("memberForm", memberForm);
 		return "login";
 	}
 	
@@ -76,13 +75,15 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/getmemberbylogin", method = RequestMethod.POST)
-	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm, BindingResult result,
-			Model model, Errors errors) {
+	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm,
+			BindingResult result,
+			Model model,
+			Errors errors) {
+		
 		Member member = datamem.findByLogin(memberForm.getLogin());
 		memberForm.setMember(member);
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, memberForm, errors);		
-		if (result.hasErrors())	
-		{
+		if (result.hasErrors())	{
 			return "login";
 		}
 		model.addAttribute("member", member);	
@@ -107,11 +108,6 @@ public class LoginController {
 			return "Error updating the member: " + ex.toString();
 		}
 		return "member succesfully updated!";
-	}
-
-	@RequestMapping("/loginform")
-	public String launchLoginForm() {
-		return "login";
 	}
 
 }

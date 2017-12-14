@@ -6,14 +6,19 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class MemberForm {
 	
-	@NotNull(message = "Please enter a login")
-	@NotEmpty(message = "Please enter a login")
+	@NotNull(message = "Entrez votre identifiant")
+	@NotEmpty(message = "Entrez votre identifiant")
 	private String login;
 	
 	@NotNull(message  = "Utilisateur non trouvé")
 	private Member member;
 	
 	//private String password;
+	
+	
+	public MemberForm()	{
+		
+	}
 	
 	public String getLogin() {
 		return login;
@@ -22,22 +27,19 @@ public class MemberForm {
 		this.login = login;
 	}
 	
-	/*public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}*/
-
-	
-	public MemberForm()
-	{
-		
-	}
 	public Member getMember() {
 		return member;
 	}
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	
+	/*public String getPassword() {
+	return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}*/
+
 }

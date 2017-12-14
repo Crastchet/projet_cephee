@@ -1,7 +1,7 @@
 /*DROP TABLE IF EXISTS greetings, students;
 
-CREATE TABLE greetings (
-    greetings_id serial PRIMARY KEY,
+CREATE TABLE member (
+    member_id serial PRIMARY KEY,
     greetings varchar (255) NOT NULL,
     name varchar (255) NOT NULL,
     language varchar (255) NOT NULL
@@ -17,8 +17,8 @@ INSERT INTO greetings (greetings, name, language) VALUES ('Hallo', 'wereld', 'du
 
 
 
-CREATE TABLE students (
-	student_id serial PRIMARY KEY,
+CREATE TABLE member (
+	member_id serial PRIMARY KEY,
 	login varchar(255) NOT NULL UNIQUE,
 	firstname varchar (255) NOT NULL,
 	lastname varchar (255) NOT NULL,

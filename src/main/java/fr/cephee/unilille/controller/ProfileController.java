@@ -17,11 +17,13 @@ public class ProfileController {
 	
 	@RequestMapping("/profile")
 	public String profile(
-			@RequestParam(value="login", required=true) String login,		//The member login who asks to see his profile
+			@RequestParam(value="login", required=false) String login,		//The member login who asks to see his profile
 			Model model) {
+		if(login == null)
+			login = "thibs"; // à remplacer avec systeme de session
 		Member member = datamem.findByLogin(login);
 		if (member == null) {
-			model.addAttribute("error_message", "Login " + login + " wasn't found in student database");
+			model.addAttribute("error_message", "Profile of " + login + " wasn't found in student database");
 			return "errorPage";
 		}
 		
