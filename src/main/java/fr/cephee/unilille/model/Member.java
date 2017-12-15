@@ -82,10 +82,10 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean getProfileActivated() {
+	public boolean getActivated() {
 		return this.activated;
 	}
-	public void setProfileActived(boolean activate) {
+	public void setActived(boolean activate) {
 		this.activated = activate;
 	}
 
