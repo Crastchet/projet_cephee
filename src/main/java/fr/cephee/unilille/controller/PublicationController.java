@@ -1,47 +1,66 @@
 package fr.cephee.unilille.controller;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
+import fr.cephee.unilille.model.PublicationForm;
 
 @Controller
 public class PublicationController {
 	@Autowired
 	private PublicationPersistence datamem;
-	
-	@RequestMapping("/createPublication")
-	@ResponseBody
-	public String create(String title, String content, Date date, Member author, List<Category> listCategory)
+
+	@RequestMapping(value = "/formPublication")
+	public String publicationForm(Model model)
 	{
-		
-		String publicationInfo = "";
+		PublicationForm publicationForm = new PublicationForm();
+		model.addAttribute("publicationForm", publicationForm);
+		return "createPublication";		
+	}
+	
+	@RequestMapping(value = "/publicationPage", method = RequestMethod.POST)
+	public String publicationPage(Model model, @ModelAttribute("publication") Publication publication)
+	{
+		PublicationForm publicationForm = new PublicationForm();
+		model.addAttribute("publicationForm", publicationForm);
+		return "publication";
+	}
+	
+	@RequestMapping(value = "/createPublication", method = RequestMethod.POST)
+	public String createPublication(@ModelAttribute("publicationForm") PublicationForm publicationForm, Model model, HttpSession session)
+	{
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.DAY_OF_MONTH, 0);
 		try {
 			Publication publication = new Publication();
-			publication.setTitle(title);
-			publication.setContent(content);
+			publication.setTitle(publicationForm.getTitle());
+			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
-			publication.setAuthor(author);
-			publication.setCategory(listCategory);
+			publication.setAuthor((Member) session.getAttribute("member"));
+			//publication.setCategory(listCategory);
 			datamem.save(publication);
-			publicationInfo = String.valueOf(publication.getId());
+			model.addAttribute("publication", publication);
 		}
 		catch (Exception ex) {
-			return "Error creating the publication: " + ex.toString();
+			return "ErrorPage";
 		}
-		return "publication succesfully created with id = " + publicationInfo;
+		return "publication";
 	}
 	
 	@RequestMapping("/deletePublication")
-	@ResponseBody
 	public String delete(int id) {
 		try {
 			Publication publication = new Publication(id);
@@ -54,7 +73,6 @@ public class PublicationController {
 	}
 
 	@RequestMapping("/get-by-AuthorPublication")
-	@ResponseBody
 	public String getByLogin(Member author) {
 		String publiId = "";
 		try {
@@ -68,7 +86,6 @@ public class PublicationController {
 	}
 
 	@RequestMapping("/updatePublication")
-	@ResponseBody
 	public String updatePublication(int id, String title, String content, List<Category> listCategory) {
 		try {
 			Publication publi = datamem.findById(id);
