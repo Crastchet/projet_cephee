@@ -1,5 +1,6 @@
 package fr.cephee.unilille.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 
 import org.slf4j.Logger;
@@ -78,7 +79,8 @@ public class LoginController {
 	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm,
 			BindingResult result,
 			Model model,
-			Errors errors) {
+			Errors errors,
+			HttpSession session) {
 		
 		Member member = datamem.findByLogin(memberForm.getLogin());
 		memberForm.setMember(member);
@@ -87,6 +89,7 @@ public class LoginController {
 			return "login";
 		}
 		model.addAttribute("member", member);	
+		session.setAttribute("member", member);
 		return "home";
 
 	}
