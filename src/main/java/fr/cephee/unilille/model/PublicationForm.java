@@ -1,8 +1,7 @@
 package fr.cephee.unilille.model;
 
-import java.util.Date;
-
-import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -14,14 +13,28 @@ public class PublicationForm {
 	@NotEmpty
 	private String content;
 
-
-	private Date dateCreation; //Date.util en attendant
+	@NotEmpty
+	private String typePublication;
+	
+	private List<Category> listCategory = new ArrayList<Category>();
+	
+	private List<Competence> listCompetence = new ArrayList<Competence>();
 	
 	private Member author;
 	
 	public PublicationForm(){
-		
 	}
+
+	
+	public String getTypePublication() {
+		return typePublication;
+	}
+
+
+	public void setTypePublication(String typePublication) {
+		this.typePublication = typePublication;
+	}
+
 
 	public String getTitle() {
 		return title;
@@ -38,15 +51,7 @@ public class PublicationForm {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	public Date getDateCreation() {
-		return dateCreation;
-	}
-
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
+	
 	public Member getAuthor() {
 		return author;
 	}
@@ -54,6 +59,25 @@ public class PublicationForm {
 	public void setAuthor(Member author) {
 		this.author = author;
 	}
+
+	public List<Category> getListCategory() {
+		return listCategory;
+	}
+
+	public void setListCategory(List<Category> listCategory) {
+		this.listCategory = listCategory;
+	}
+
+
+	public List<Competence> getListCompetence() {
+		return listCompetence;
+	}
+
+
+	public void setListCompetence(List<Competence> listCompetence) {
+		this.listCompetence = listCompetence;
+	}
+	
 	
 	
 }

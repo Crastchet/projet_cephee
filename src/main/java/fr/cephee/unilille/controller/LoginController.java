@@ -34,6 +34,13 @@ public class LoginController {
 	@Autowired
 	Validator validator;
 	
+	@RequestMapping(value = "/home")
+	public String returnToHome(Model model, HttpSession session)
+	{		
+		model.addAttribute("member", session.getAttribute("member"));
+		return "home";
+	}
+	
 	@RequestMapping(value = "/login")
 	public String loginPage(Model model)
 	{		

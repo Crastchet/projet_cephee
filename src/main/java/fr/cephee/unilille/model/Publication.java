@@ -26,7 +26,7 @@ public class Publication implements Serializable {
 	private Member author;
 
 	@OneToMany
-	private List<Category> category = new ArrayList<Category>();;
+	private List<Category> category = new ArrayList<Category>();
 	
 	private boolean authorised = true;
 	
