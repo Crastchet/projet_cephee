@@ -1,5 +1,7 @@
 package fr.cephee.unilille.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.MemberForm;
+import fr.cephee.unilille.model.Publication;
 
 
 @Controller
@@ -34,14 +38,19 @@ public class LoginController {
 	@Autowired
 	Validator validator;
 	
+	@Autowired
+	private PublicationPersistence datapub;
+	
 	@RequestMapping(value = "/home")
 	public String returnToHome(Model model, HttpSession session)
 	{		
 		model.addAttribute("member", session.getAttribute("member"));
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationAsc();
+		model.addAttribute("listlasttenpub", tenLastPub);
 		return "home";
 	}
 	
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = {"/", "/login"})
 	public String loginPage(Model model)
 	{		
 		MemberForm memberForm = new MemberForm();
@@ -49,6 +58,14 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping(value = "/disconnect")
+	public String disconnect(Model model, HttpSession session)
+	{	
+		session.removeAttribute("member");
+		MemberForm memberForm = new MemberForm();
+		model.addAttribute("memberForm", memberForm);
+		return "login";
+	}
 	
 	@RequestMapping("/createmember")
 	@ResponseBody
@@ -96,6 +113,8 @@ public class LoginController {
 		}
 		model.addAttribute("member", member);
 		session.setAttribute("member", member);
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationAsc();
+		model.addAttribute("listlasttenpub", tenLastPub);
 		return "home";
 
 	}

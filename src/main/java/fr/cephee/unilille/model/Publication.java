@@ -89,5 +89,11 @@ public class Publication implements Serializable {
 
 	public void setAuthorised(boolean authorised) {
 		this.authorised = authorised;
+	}
+
+	public Calendar getDateCreation() {
+		return dateCreation;
 	} 
+	
+	
 }
