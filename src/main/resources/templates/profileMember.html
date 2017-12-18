@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+</head>
+
+<body>
+
+	<div th:replace="../static/header :: header">&nbsp;</div>
+	
+	<div th:replace="profileHeader">&nbsp;</div>
+
+	<div id="divcompetences" style="float:right;margin-right:550px;display:none">
+		<h4> Vos compétences </h4>
+		<ul class="collection">
+			<li class="collection-item">Sport</li>
+			<li class="collection-item">Musique</li>
+		</ul>
+		<ul id="dropdown2" class="dropdown-content">
+		    <li><a href="#!">Sport</a></li>
+		    <li><a href="#!">Cuisine</a></li>
+		    <li><a href="#!">Musique</a></li>
+		</ul>
+		<a class="btn dropdown-button" href="#!" data-activates="dropdown2">Ajouter une compétence<i class="material-icons right">arrow_drop_down</i></a>
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s12">
+	    				<textarea id="textarea1" class="materialize-textarea"></textarea>
+	   					<label for="textarea1">Décrivez plus en détail votre compétence</label>
+	  				</div>
+	  			</div>
+	  		</form>
+		</div>      
+	</div>
+	
+	<div id="divpubli" style="float:right;margin-right:600px;display:none">
+		<h4> Vos publications </h4>
+	</div>
+	
+	<div id="divrecherche" style="float:right;margin-right:550px;display:none">
+		<h4> Ce que vous recherchez </h4>
+	</div>
+	
+	<div id="divnotif" style="float:right;margin-right:600px;display:none">
+		<h4> Vos notifications </h4>
+	</div>
+	
+	<div th:replace="../static/footer :: footer">&nbsp;</div>
+	
+</body>
+
+</html>
