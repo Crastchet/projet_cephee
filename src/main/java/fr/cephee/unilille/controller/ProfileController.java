@@ -33,7 +33,7 @@ public class ProfileController {
 			HttpSession session) {
 		
 		Member m = new Member();
-		m.setLogin("Mimi");
+		m.setLogin("JACK");
 		model.addAttribute("member", m);
 		if(login.equals("c"))
 			return "profileMember";
