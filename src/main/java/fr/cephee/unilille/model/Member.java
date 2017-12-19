@@ -21,29 +21,23 @@ public class Member {
 	private String lastname;
 	private Date birth; //utiliser type Date de SQL ou java.util ?
 	private String email;
-	
+	private boolean activated;		//profile activated or not
 	@OneToMany(mappedBy="author")
 	List<Publication> listpublication = new ArrayList<Publication>();
 	
 	public Member()
 	{
-		
+		this.activated = false;
 	}
 	
 	public Member(int id)
 	{
+		this();
 		this.id = id;
 	}
 	
 	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	
 	public List<Publication> getListpublication() {
 		return listpublication;
 	}
@@ -82,4 +76,17 @@ public class Member {
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public boolean getActivated() {
+		return this.activated;
+	}
+	public void setActived(boolean activate) {
+		this.activated = activate;
+	}
+
 }

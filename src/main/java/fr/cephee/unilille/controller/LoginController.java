@@ -103,7 +103,8 @@ public class LoginController {
 	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm,
 			BindingResult result,
 			Model model,
-			Errors errors, HttpSession session) {
+			Errors errors,
+			HttpSession session) {
 		
 		Member member = datamem.findByLogin(memberForm.getLogin());
 		memberForm.setMember(member);
@@ -115,8 +116,8 @@ public class LoginController {
 		session.setAttribute("member", member);
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationAsc();
 		model.addAttribute("listlasttenpub", tenLastPub);
-		return "home";
 
+		return "home";
 	}
 
 	@RequestMapping("/updatemember")
