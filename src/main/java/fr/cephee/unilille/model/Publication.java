@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Publication implements Serializable {
@@ -25,7 +25,7 @@ public class Publication implements Serializable {
 	@ManyToOne
 	private Member author;
 
-	@OneToMany
+	@ManyToMany
 	private List<Category> category = new ArrayList<Category>();
 	
 	private boolean authorised = true;
