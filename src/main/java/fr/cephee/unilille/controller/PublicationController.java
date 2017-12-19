@@ -1,11 +1,12 @@
 package fr.cephee.unilille.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +25,13 @@ import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Project;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationForm;
+import fr.cephee.unilille.model.TypePublicationWrapper;
 
 @Controller
 public class PublicationController {
+	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private PublicationPersistence datamem;
 
@@ -37,20 +42,19 @@ public class PublicationController {
 	private CompetencePersistence dataComp;
 	
 	@RequestMapping(value = "/formPublication")
-	public String publicationForm(Model model)
+	public String publicationForm(@ModelAttribute TypePublicationWrapper form, Model model)
 	{
 		PublicationForm publicationForm = new PublicationForm();
 		model.addAttribute("publicationForm", publicationForm);
 		
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
-		List<String> typePublication = new ArrayList<String>();
-		typePublication.add("Projet");
-		typePublication.add("Echange");
-		typePublication.add("Evenement");
+		form.getPublicationList().add("Projet");
+		form.getPublicationList().add("Echange");
+		form.getPublicationList().add("Evenement");
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
-		model.addAttribute("typepublicationlist", typePublication);
+		model.addAttribute("typepublicationlist", form);
 		return "createPublication";
 	}
 	
@@ -78,22 +82,25 @@ public class PublicationController {
 	{
 		Calendar date = Calendar.getInstance();
 		date.set(Calendar.DAY_OF_MONTH, 0);
+
 		try {
 			Publication publication = checkTypePublication(publicationForm.getTypePublication());
 			publication.setTitle(publicationForm.getTitle());
+			publication.setAuthorised(true);
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
 			publication.setAuthor((Member) session.getAttribute("member"));
-			publication.setCategory(publicationForm.getListCategory());		
+			publication.setCategory(publicationForm.getListCategory());
 			if (publication instanceof Project)
 			{
 				((Project) publication).setListcompetence(publicationForm.getListCompetence());
-			}
+			}			
 			datamem.save(publication);
 			model.addAttribute("publication", publication);
 		}
 		catch (Exception ex) {
-			return "ErrorPage";
+			log.info(ex.toString());
+			return "errorPage";
 		}
 		return "publication";
 	}

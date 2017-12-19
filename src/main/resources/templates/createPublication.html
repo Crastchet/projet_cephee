@@ -5,11 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<form action="#" th:action="@{/createPublication}"
-		th:object="${publicationForm}" method="post">
+	<form action="#" th:action="@{/createPublication}" th:object="${publicationForm}" method="post">
 
-		<select th:field="*{listCompetence}">
-			<option th:each="type : ${typepublicationlist}" th:value="0"
+		<select th:field="*{typePublication}">
+			<option th:each="type : ${typepublicationlist.getPublicationList()}" th:value="${type}"
 				th:text="${type}"></option>
 		</select>
 		<p>
