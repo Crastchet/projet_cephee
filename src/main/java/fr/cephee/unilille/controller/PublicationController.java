@@ -60,7 +60,7 @@ public class PublicationController {
 		return "chooseTypePublication";
 	}
 
-	@RequestMapping(value = "/formPublication")
+	/*@RequestMapping(value = "/formPublication")
 	public String publicationForm(@ModelAttribute TypePublicationWrapper form, Model model) {
 		PublicationForm publicationForm = new PublicationForm();
 		model.addAttribute("publicationForm", publicationForm);
@@ -74,7 +74,7 @@ public class PublicationController {
 		model.addAttribute("competenceList", listcompetence);
 		model.addAttribute("typepublicationlist", form);
 		return "createPublication";
-	}
+	}*/
 
 	@RequestMapping(value = "/publicationPage", method = RequestMethod.POST)
 	public String publicationPage(Model model, @ModelAttribute("publication") Publication publication) {
