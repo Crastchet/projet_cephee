@@ -1,0 +1,6 @@
+mvnw
+target/
+src/main/resources/application.properties
+.project
+.settings
+.*
