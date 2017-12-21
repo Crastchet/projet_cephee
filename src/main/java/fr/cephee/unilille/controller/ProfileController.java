@@ -32,12 +32,6 @@ public class ProfileController {
 			Model model,
 			HttpSession session) {
 		
-		Member m = new Member();
-		m.setLogin("JACK");
-		model.addAttribute("member", m);
-		if(login.equals("c"))
-			return "profileMember";
-		
 		//If no login is specified, return session profile
 		if(login == null)
 			return this.profile(
