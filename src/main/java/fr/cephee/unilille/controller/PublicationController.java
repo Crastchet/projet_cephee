@@ -26,7 +26,7 @@ import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
-import fr.cephee.unilille.model.Project;
+import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.TypePublicationWrapper;
@@ -117,7 +117,7 @@ public class PublicationController {
 		date.set(Calendar.DAY_OF_MONTH, 0);
 
 		try {
-			Project publication = new Project();
+			PublicationProject publication = new PublicationProject();
 			publication.setTitle(publicationForm.getTitle());
 			publication.setAuthorised(true);
 			publication.setContent(publicationForm.getContent());
