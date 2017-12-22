@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Project extends Publication {
+public class PublicationProject extends Publication {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +19,7 @@ public class Project extends Publication {
 	@ManyToMany
 	List<Competence> listcompetence = new ArrayList<Competence>();
 	
-	public Project()
+	public PublicationProject()
 	{
 		
 	}

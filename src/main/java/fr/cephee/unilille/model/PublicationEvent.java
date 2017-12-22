@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Event extends Publication {
+public class PublicationEvent extends Publication {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +20,7 @@ public class Event extends Publication {
 	private Date endevent;
 	private String location;
 
-	public Event()
+	public PublicationEvent()
 	{
 
 	}
