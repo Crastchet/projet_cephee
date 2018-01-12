@@ -22,9 +22,7 @@
     	
 	<div>
 		<ul>
-			<li th:each="item : *{listlasttenpub}" th:text="${item.title}"></li>
-			<li th:each="item : *{listlasttenpub}" th:text="${item.content}"></li>
-			<li th:each="item : *{listlasttenpub}" th:text="${item.formatted}"></li>
+			<li th:each="item : *{listlasttenpub}" th:text="'Titre : ' + ${item.title} + ' Description : ' + ${item.content}  + ' Crée le ' + ${item.dateCreation}"></li>
 		</ul>
 	</div>
 

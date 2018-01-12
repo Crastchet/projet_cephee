@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,7 +23,9 @@ public class Publication implements Serializable {
 	
 	private String title;
 	private String content;
-	private Calendar dateCreation; 
+	private Date dateCreation;
+	private Date dateModification;
+
 	@ManyToOne
 	private Member author;
 
@@ -31,26 +34,14 @@ public class Publication implements Serializable {
 
 	private boolean authorised = true;
 	
-	private String formatted = "";
-	
-	public void setDateCreation(Calendar dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-		formatted = format1.format(dateCreation.getTime());
 	}
 
 	public Publication() {
 		
 	}
 	
-	
-	public String getFormatted() {
-		return formatted;
-	}
-
-	public void setFormatted(String formatted) {
-		this.formatted = formatted;
-	}
 
 	public Publication(int id) {
 		this.id = id;
@@ -104,9 +95,17 @@ public class Publication implements Serializable {
 		this.authorised = authorised;
 	}
 
-	public Calendar getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	} 
 	
+	
+	public Date getDateModification() {
+		return dateModification;
+	}
+
+	public void setDateModification(Date dateModification) {
+		this.dateModification = dateModification;
+	}
 	
 }

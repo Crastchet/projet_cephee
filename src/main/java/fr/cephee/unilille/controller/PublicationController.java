@@ -1,7 +1,6 @@
 package fr.cephee.unilille.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -113,8 +112,7 @@ public class PublicationController {
 				log.info(obj.toString());
 			return "createProject";
 		}
-		Calendar date = Calendar.getInstance();
-		date.set(Calendar.DATE, 1);
+		Date date = new Date();
 
 		try {
 			PublicationProject publication = new PublicationProject();
