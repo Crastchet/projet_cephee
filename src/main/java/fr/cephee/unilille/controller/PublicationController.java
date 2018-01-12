@@ -1,10 +1,10 @@
 package fr.cephee.unilille.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import javax.validation.Validator;
 
 import org.slf4j.Logger;
@@ -26,9 +26,9 @@ import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
-import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationForm;
+import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.TypePublicationWrapper;
 
 @Controller
@@ -114,7 +114,7 @@ public class PublicationController {
 			return "createProject";
 		}
 		Calendar date = Calendar.getInstance();
-		date.set(Calendar.DAY_OF_MONTH, 0);
+		date.set(Calendar.DATE, 1);
 
 		try {
 			PublicationProject publication = new PublicationProject();

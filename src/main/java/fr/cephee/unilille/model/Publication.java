@@ -1,6 +1,7 @@
 package fr.cephee.unilille.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -26,19 +27,31 @@ public class Publication implements Serializable {
 	private Member author;
 
 	@ManyToMany
-	private List<Category> category = new ArrayList<Category>();
-	
+	private List<Category> category = new ArrayList<Category>();	
+
 	private boolean authorised = true;
 	
+	private String formatted = "";
 	
 	public void setDateCreation(Calendar dateCreation) {
 		this.dateCreation = dateCreation;
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		formatted = format1.format(dateCreation.getTime());
 	}
 
 	public Publication() {
 		
 	}
 	
+	
+	public String getFormatted() {
+		return formatted;
+	}
+
+	public void setFormatted(String formatted) {
+		this.formatted = formatted;
+	}
+
 	public Publication(int id) {
 		this.id = id;
 	}

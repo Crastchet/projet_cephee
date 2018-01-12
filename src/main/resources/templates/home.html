@@ -24,7 +24,7 @@
 		<ul>
 			<li th:each="item : *{listlasttenpub}" th:text="${item.title}"></li>
 			<li th:each="item : *{listlasttenpub}" th:text="${item.content}"></li>
-			<li th:each="item : *{listlasttenpub}" th:text="${item.dateCreation.getTime()}"></li>
+			<li th:each="item : *{listlasttenpub}" th:text="${item.formatted}"></li>
 		</ul>
 	</div>
 
