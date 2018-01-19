@@ -7,45 +7,31 @@
 </head>
 
 <body>
-
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-	
-	<div th:replace="profileHeader">&nbsp;</div>
+
+	<div style="float:left;margin-left:30px;" th:text="'Profil de ' + ${member.login}"><h3></h3></div>
+	<div style="float:right;margin-right:30px;" th:text="${member.login}"> <img src="img/avatar.jpg" style="vertical-align:middle;margin-left:10px;" height="100" width="100"/> </div>
+
 
 	<div id="divcompetences" style="float:right;margin-right:550px;display:none">
-		<h4> Vos compétences </h4>
+		<h4>Ses compétences</h4>
 		<ul class="collection">
-			<li class="collection-item">Sport</li>
-			<li class="collection-item">Musique</li>
+			<li class="collection-item">Sport [static]</li>
+			<li class="collection-item">Musique [static]</li>
 		</ul>
 		<ul id="dropdown2" class="dropdown-content">
-		    <li><a href="#!">Sport</a></li>
-		    <li><a href="#!">Cuisine</a></li>
-		    <li><a href="#!">Musique</a></li>
+		    <li><a href="#!">Sport [static]</a></li>
+		    <li><a href="#!">Cuisine [static]</a></li>
+		    <li><a href="#!">Musique [static]</a></li>
 		</ul>
-		<a class="btn dropdown-button" href="#!" data-activates="dropdown2">Ajouter une compétence<i class="material-icons right">arrow_drop_down</i></a>
-		<div class="row">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s12">
-	    				<textarea id="textarea1" class="materialize-textarea"></textarea>
-	   					<label for="textarea1">Décrivez plus en détail votre compétence</label>
-	  				</div>
-	  			</div>
-	  		</form>
-		</div>      
 	</div>
 	
 	<div id="divpubli" style="float:right;margin-right:600px;display:none">
-		<h4> Vos publications </h4>
+		<h4> Ses publications (un peu intrusif ça nan ?)</h4>
 	</div>
 	
 	<div id="divrecherche" style="float:right;margin-right:550px;display:none">
-		<h4> Ce que vous recherchez </h4>
-	</div>
-	
-	<div id="divnotif" style="float:right;margin-right:600px;display:none">
-		<h4> Vos notifications </h4>
+		<h4>Ce qu'il recherche</h4>
 	</div>
 	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
