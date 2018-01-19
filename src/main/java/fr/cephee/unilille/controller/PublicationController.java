@@ -29,6 +29,7 @@ import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationEvent;
 import fr.cephee.unilille.model.PublicationEventForm;
+import fr.cephee.unilille.model.PublicationExchange;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.TypePublicationWrapper;
@@ -92,6 +93,36 @@ public class PublicationController {
 			return "errorPage";
 	}
 
+	@RequestMapping(value = "/registerExchange", method = RequestMethod.POST)
+	public String createExchange(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
+			HttpSession session, Errors errors) {
+		publicationForm.setTypePublication("Echange");
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
+		
+		if (result.hasErrors())
+		{
+			for (ObjectError obj : result.getAllErrors())
+				log.info(obj.toString());
+			return "createExchange";
+		}
+		Date date = new Date();
+
+		try {
+			PublicationExchange publication = new PublicationExchange();
+			publication.setTitle(publicationForm.getTitle());
+			publication.setAuthorised(true);
+			publication.setContent(publicationForm.getContent());
+			publication.setDateCreation(date);
+			publication.setAuthor((Member) session.getAttribute("member"));
+			publication.setCategory(publicationForm.getListCategory());
+			datamem.save(publication);
+			model.addAttribute("publication", publication);
+		} catch (Exception ex) {
+			log.info(ex.toString());
+			return "errorPage";
+		}
+		return "publication";
+	}
 	
 	@RequestMapping(value = "/registerProject", method = RequestMethod.POST)
 	public String createProject(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
