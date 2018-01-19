@@ -1,6 +1,7 @@
 package fr.cephee.unilille.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,6 +22,7 @@ public class PublicationForm {
 	private List<Competence> listCompetence = new ArrayList<Competence>();
 	
 	private Member author;
+	
 	
 	public PublicationForm(){
 	}
@@ -77,7 +79,6 @@ public class PublicationForm {
 	public void setListCompetence(List<Competence> listCompetence) {
 		this.listCompetence = listCompetence;
 	}
-	
 	
 	
 }
