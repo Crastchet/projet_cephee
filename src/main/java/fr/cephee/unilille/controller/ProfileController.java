@@ -65,7 +65,7 @@ public class ProfileController {
 		//If it is not my Profile
 		//If profile is not activated - ???
 		if( member.getActivated() == false ) {
-			return "profileMember-NotActivated";
+			return "profileMember-NotActivated"; //EN FAIT RETOURNER UNE PAGE ERREUR AVEC MESSAGE "ce membre n'existe pas"
 			/** vieille version **/
 			//model.addAttribute("active", false); 						//parler de cette convention de nommage
 		}
