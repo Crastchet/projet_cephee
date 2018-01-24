@@ -1,0 +1,36 @@
+div.categoryClass {
+  background-color: #fff;
+  border: dashed 2px #ccc;
+  margin: auto 2em;
+  padding: 1em;
+}
+
+div.competenceClass {
+  background-color: #fff;
+  border: dashed 2px #ccc;
+  margin: auto 2em;
+  padding: 1em;
+}
+
+ul.options {
+  list-style-type: none;
+  width: 15em;
+  margin: 0.3em 0;
+  padding: 0;
+}
+
+ul.options li {
+  background: #def url('../img/cross_bright.png') no-repeat 98% center;
+  margin: 1px;
+  padding: 0.1em 0.3em;
+  cursor: pointer;
+  color: #46a;
+  font-weight: bold;
+  border: solid 1px #cde;
+}
+
+select.options {
+  swidth: 15em;
+  color: #46a;
+  font-weight: bold;
+}

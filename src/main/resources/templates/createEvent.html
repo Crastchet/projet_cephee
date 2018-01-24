@@ -3,8 +3,12 @@
 <head>
 <title>Créer votre evenement</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/css/selectorPublication.css}"
+	href="/css/selectorPublication.css" />
 </head>
 <body>
+	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
 	<form action="#" th:action="@{/registerEvent}"
 		th:object="${publicationForm}" method="post">
 		<p>
@@ -28,25 +32,38 @@
 		<p>
 			<input type="date" name="date de debut de l'evenement"
 				th:field="*{startevent}" /> <input id="timeStart" type="time"
-				name="Heure de debut" th:field="*{hourstartevent}"/>
+				name="Heure de debut" th:field="*{hourstartevent}" />
 		</p>
 
 		<p>
 			<input type="date" name="date de fin de l'evenement"
 				th:field="*{endevent}" /> <input id="timeEnd" type="time"
-				name="Heure de fin" th:field="*{hourendevent}"/>
+				name="Heure de fin" th:field="*{hourendevent}" />
 		</p>
 
-		<p th:each="category : ${categoryList}">
-			CATEGORIES <input type="checkbox" th:field="*{listCategory}"
-				th:value="${category.id}" /> <label th:text="${category.title}">example</label>
-		</p>
+		<h3>Choisissez une ou plusieurs categories</h3>
+		<div class="categoryClass">
+			<ul class="options">
+			</ul>
+			<select onchange="selectIngredient(this);" th:field="*{listCategory}">
+				<option th:value="null"></option>
+				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+					th:text="${catego.title}"></option>
+			</select> <input type="submit" />
+		</div>
 
-		<p th:each="competence : ${competenceList}">
-			COMPETENCE <input type="checkbox" th:field="*{listCompetence}"
-				th:value="${competence.id}" /> <label
-				th:text="${competence.description}">example</label>
-		</p>
+		<h3>Choisissez une ou plusieurs competences</h3>
+		<div class="competenceClass">
+			<ul class="options">
+			</ul>
+			<select onchange="selectIngredient(this);"
+				th:field="*{listCompetence}">
+				<option th:value="null"></option>
+				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
+					th:text="${comp.description}"></option>
+			</select> <input type="submit" th:field="*{listCompetence}" />
+		</div>
+
 		<p>
 			<input type="submit" value="Fin Creation Evenement" /> <input
 				type="reset" value="Reset" />

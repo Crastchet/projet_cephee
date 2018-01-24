@@ -45,7 +45,7 @@ public class LoginController {
 	public String returnToHome(Model model, HttpSession session)
 	{		
 		model.addAttribute("member", session.getAttribute("member"));
-		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationAsc();
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDesc();
 		model.addAttribute("listlasttenpub", tenLastPub);
 		return "home";
 	}
@@ -114,7 +114,7 @@ public class LoginController {
 		}
 		model.addAttribute("member", member);
 		session.setAttribute("member", member);
-		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationAsc();
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDesc();
 		model.addAttribute("listlasttenpub", tenLastPub);
 
 		return "home";

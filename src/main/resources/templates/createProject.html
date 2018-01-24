@@ -3,8 +3,13 @@
 <head>
 <title>Créer votre projet</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/css/selectorPublication.css}"
+	href="/css/selectorPublication.css" />
 </head>
 <body>
+	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
+
 	<form action="#" th:action="@{/registerProject}"
 		th:object="${publicationForm}" method="post">
 		<p>
@@ -21,15 +26,34 @@
 			<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
 				th:errorclass="fieldError">content Error</span>
 		</p>
-		<p th:each="category : ${categoryList}"> CATEGORIES
-			<input type="checkbox" th:field="*{listCategory}"
-				th:value="${category.id}" /> <label th:text="${category.title}">example</label>
-		</p>
 
-		<p th:each="competence : ${competenceList}"> COMPETENCE
-			<input type="checkbox" th:field="*{listCompetence}"
-				th:value="${competence.id}" /> <label th:text="${competence.description}">example</label>
-		</p>
+		<!--  <form th:object="${user}" action="index.html" th:action="@{/save}" method="post">
+			<input type="hidden" th:field="*{id}" />-->
+		<br />
+
+		<h3>Choisissez une ou plusieurs categories</h3>
+		<div class="categoryClass">
+			<ul class="options">
+			</ul>
+			<select onchange="selectIngredient(this);" th:field="*{listCategory}">
+				<option th:value="null"></option>
+				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+					th:text="${catego.title}"></option>
+			</select> <input type="submit" />
+		</div>
+
+		<h3>Choisissez une ou plusieurs competences</h3>
+		<div class="competenceClass">
+			<ul class="options">
+			</ul>
+			<select onchange="selectIngredient(this);"
+				th:field="*{listCompetence}">
+				<option th:value="null"></option>
+				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
+					th:text="${comp.description}"></option>
+			</select> <input type="submit" th:field="*{listCompetence}" />
+		</div>
+
 		<p>
 			<input type="submit" value="Fin Creation Projet" /> <input
 				type="reset" value="Reset" />
@@ -38,4 +62,6 @@
 	<a th:href="@{/home}">Retour à l'accueil </a>
 
 </body>
+
 </html>
+

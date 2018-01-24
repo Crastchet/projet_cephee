@@ -13,5 +13,5 @@ import fr.cephee.unilille.model.Publication;
 public interface PublicationPersistence extends CrudRepository<Publication, Integer> {
 	public Publication findById(int id);
 	public Publication findByAuthor(Member author);
-	public List<Publication> findTop10ByOrderByDateCreationAsc();
+	public List<Publication> findTop10ByOrderByDateCreationDesc();
 }
