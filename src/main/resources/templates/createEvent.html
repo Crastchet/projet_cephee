@@ -9,6 +9,8 @@
 </head>
 <body>
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
+	<script type="text/javascript" th:src="@{/js/calendarFunc.js}"> </script>
+	<script>checkMinBetweenDate()</script>
 	<form action="#" th:action="@{/registerEvent}"
 		th:object="${publicationForm}" method="post">
 		<p>
@@ -30,16 +32,20 @@
 			Lieu de l'evenement : <input type="text" th:field="*{location}" />
 		</p>
 		<p>
-			<input type="date" name="date de debut de l'evenement"
-				th:field="*{startevent}" /> <input id="timeStart" type="time"
+			<input id="dateStart" type="date" name="date de debut de l'evenement"
+				th:field="*{startevent}" onchange="checkMinBetweenDate()" /> <input id="timeStart" type="time"
 				name="Heure de debut" th:field="*{hourstartevent}" />
 		</p>
 
+		<div id="warningDate" style="visibility: hidden">Vous ne pouvez choisir une date de
+			fin anterieure à celle de debut</div>
 		<p>
-			<input type="date" name="date de fin de l'evenement"
-				th:field="*{endevent}" /> <input id="timeEnd" type="time"
+			<input id="dateEnd" type="date" name="date de fin de l'evenement"
+				th:field="*{endevent}" onchange="checkMinBetweenDate()" /> <input id="timeEnd" type="time"
 				name="Heure de fin" th:field="*{hourendevent}" />
 		</p>
+
+		<script>maxToday()</script>
 
 		<h3>Choisissez une ou plusieurs categories</h3>
 		<div class="categoryClass">
@@ -65,7 +71,7 @@
 		</div>
 
 		<p>
-			<input type="submit" value="Fin Creation Evenement" /> <input
+			<input id="boutonCreation" type="submit" value="Fin Creation Evenement" disabled="disabled" /> <input
 				type="reset" value="Reset" />
 		</p>
 	</form>
