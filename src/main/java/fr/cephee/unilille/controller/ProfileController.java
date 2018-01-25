@@ -1,5 +1,8 @@
 package fr.cephee.unilille.controller;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Publication;
 
 @Controller
 public class ProfileController {
 
 	@Autowired
 	private MemberPersistence datamem;
+	
+	@Autowired
+	private PublicationPersistence datapub;
 	
 	
 	/**
@@ -72,5 +80,54 @@ public class ProfileController {
 		//If it is activated - ???
 		return "profileMember";
 	}
+	
+	
+	@RequestMapping("/profilepublications")
+	public String profilePublications(
+			@RequestParam(value="login", required=false) String login,		//The member login who asks to see his profile
+			Model model,
+			HttpSession session) {
+		
+		if(login == null)
+			return this.profile(
+					((Member)session.getAttribute("member")).getLogin(), 
+					model, 
+					session);
+		
+		Member member = datamem.findByLogin(login);
+		model.addAttribute("member", member);
+		
+		List<Publication> publicationsList = datapub.findByAuthor(member);
+		Publication[] publications = (Publication[]) publicationsList.toArray();
+		model.addAttribute("publications", publications);
+		
+		return "profilePublications";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

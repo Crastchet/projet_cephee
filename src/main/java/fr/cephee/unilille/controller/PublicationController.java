@@ -205,17 +205,17 @@ public class PublicationController {
 		return "publication succesfully deleted!";
 	}
 
-	@RequestMapping("/get-by-AuthorPublication")
-	public String getByLogin(Member author) {
-		String publiId = "";
-		try {
-			Publication publi = datamem.findByAuthor(author);
-			publiId = String.valueOf(publi.getId());
-		} catch (Exception ex) {
-			return "Publication not found";
-		}
-		return "The Publication id is: " + publiId;
-	}
+//	@RequestMapping("/get-by-AuthorPublication")
+//	public String getByLogin(Member author) {
+//		String publiId = "";
+//		try {
+//			Publication publi = datamem.findByAuthor(author);
+//			publiId = String.valueOf(publi.getId());
+//		} catch (Exception ex) {
+//			return "Publication not found";
+//		}
+//		return "The Publication id is: " + publiId;
+//	}
 
 	@RequestMapping("/updatePublication")
 	public String updatePublication(int id, String title, String content, List<Category> listCategory) {
