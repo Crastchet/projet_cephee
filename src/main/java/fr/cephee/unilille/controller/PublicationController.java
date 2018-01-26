@@ -1,5 +1,6 @@
 package fr.cephee.unilille.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
@@ -26,6 +28,9 @@ import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
+import fr.cephee.unilille.model.PublicationEvent;
+import fr.cephee.unilille.model.PublicationEventForm;
+import fr.cephee.unilille.model.PublicationExchange;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.TypePublicationWrapper;
@@ -50,6 +55,7 @@ public class PublicationController {
 	@RequestMapping(value = "/formTypePublication")
 	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model) {
 		PublicationForm publicationForm = new PublicationForm();
+		
 		model.addAttribute("publicationForm", publicationForm);
 
 		form.getPublicationList().add("Projet");
@@ -59,22 +65,6 @@ public class PublicationController {
 		return "chooseTypePublication";
 	}
 
-	/*@RequestMapping(value = "/formPublication")
-	public String publicationForm(@ModelAttribute TypePublicationWrapper form, Model model) {
-		PublicationForm publicationForm = new PublicationForm();
-		model.addAttribute("publicationForm", publicationForm);
-
-		List<Category> listcategory = dataCate.findAll();
-		List<Competence> listcompetence = dataComp.findAll();
-		form.getPublicationList().add("Projet");
-		form.getPublicationList().add("Echange");
-		form.getPublicationList().add("Evenement");
-		model.addAttribute("categoryList", listcategory);
-		model.addAttribute("competenceList", listcompetence);
-		model.addAttribute("typepublicationlist", form);
-		return "createPublication";
-	}*/
-
 	@RequestMapping(value = "/publicationPage", method = RequestMethod.POST)
 	public String publicationPage(Model model, @ModelAttribute("publication") Publication publication) {
 		PublicationForm publicationForm = new PublicationForm();
@@ -82,24 +72,61 @@ public class PublicationController {
 		return "publication";
 	}
 
-	@RequestMapping(value = "/checkTypePublication", method = RequestMethod.POST)
-	public String checkTypePublication(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
-			HttpSession session) {
+	@RequestMapping(value = "/checkTypePublication", method = RequestMethod.GET)
+	public String checkTypePublication(@RequestParam(value="publicationType", required=true) String publicationType, Model model,HttpSession session) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
 		
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
-		if (publicationForm.getTypePublication().equals("Projet"))
+		
+		if (publicationType.equals("project")) {
+			model.addAttribute("publicationForm", new PublicationForm());
 			return "createProject";
-		else if (publicationForm.getTypePublication().equals("Evenement"))
+		}
+		else if (publicationType.equals("event"))
+		{
+			PublicationEventForm publicationEventForm = new PublicationEventForm();
+			model.addAttribute("publicationForm", publicationEventForm);
 			return "createEvent";
-		else if (publicationForm.getTypePublication().equals("Echange"))
+		}
+		else if (publicationType.equals("exchange"))
 			return "createExchange";
 		else
 			return "errorPage";
 	}
 
+	@RequestMapping(value = "/registerExchange", method = RequestMethod.POST)
+	public String createExchange(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
+			HttpSession session, Errors errors) {
+		publicationForm.setTypePublication("Echange");
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
+		
+		if (result.hasErrors())
+		{
+			for (ObjectError obj : result.getAllErrors())
+				log.info(obj.toString());
+			return "createExchange";
+		}
+		Date date = new Date();
+
+		try {
+			PublicationExchange publication = new PublicationExchange();
+			publication.setTitle(publicationForm.getTitle());
+			publication.setAuthorised(true);
+			publication.setContent(publicationForm.getContent());
+			publication.setDateCreation(date);
+			publication.setAuthor((Member) session.getAttribute("member"));
+			publication.setCategory(publicationForm.getListCategory());
+			datamem.save(publication);
+			model.addAttribute("publication", publication);
+		} catch (Exception ex) {
+			log.info(ex.toString());
+			return "errorPage";
+		}
+		return "publication";
+	}
+	
 	@RequestMapping(value = "/registerProject", method = RequestMethod.POST)
 	public String createProject(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
@@ -132,6 +159,44 @@ public class PublicationController {
 		return "publication";
 	}
 
+	@RequestMapping(value = "/registerEvent", method = RequestMethod.POST)
+	public String createEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm, BindingResult result, Model model,
+			HttpSession session, Errors errors) {
+		publicationForm.setTypePublication("Evenement");
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
+		
+		if (result.hasErrors())
+		{
+			for (ObjectError obj : result.getAllErrors())
+				log.info(obj.toString());
+			return "createEvent";
+		}
+		Date date = new Date();
+
+		try {
+			PublicationEvent publication = new PublicationEvent();
+			log.info(publicationForm.getHourstartevent());
+			publication.setTitle(publicationForm.getTitle());
+			publication.setAuthorised(true);
+			publication.setContent(publicationForm.getContent());
+			publication.setDateCreation(date);
+			publication.setAuthor((Member) session.getAttribute("member"));
+			publication.setCategory(publicationForm.getListCategory());
+			publication.setLocation(publicationForm.getLocation());	
+			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd hh:mm");
+			Date startd = sdf.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
+			Date endd = sdf.parse(publicationForm.getEndevent() + " " + publicationForm.getHourendevent());
+			publication.setStartevent(startd);
+			publication.setEndevent(endd);
+			datamem.save(publication);
+			model.addAttribute("publication", publication);
+		} catch (Exception ex) {
+			log.info(ex.toString());
+			return "errorPage";
+		}
+		return "publication";
+	}
+	
 	@RequestMapping("/deletePublication")
 	public String delete(int id) {
 		try {
@@ -143,17 +208,17 @@ public class PublicationController {
 		return "publication succesfully deleted!";
 	}
 
-	@RequestMapping("/get-by-AuthorPublication")
-	public String getByLogin(Member author) {
-		String publiId = "";
-		try {
-			Publication publi = datamem.findByAuthor(author);
-			publiId = String.valueOf(publi.getId());
-		} catch (Exception ex) {
-			return "Publication not found";
-		}
-		return "The Publication id is: " + publiId;
-	}
+//	@RequestMapping("/get-by-AuthorPublication")
+//	public String getByLogin(Member author) {
+//		String publiId = "";
+//		try {
+//			Publication publi = datamem.findByAuthor(author);
+//			publiId = String.valueOf(publi.getId());
+//		} catch (Exception ex) {
+//			return "Publication not found";
+//		}
+//		return "The Publication id is: " + publiId;
+//	}
 
 	@RequestMapping("/updatePublication")
 	public String updatePublication(int id, String title, String content, List<Category> listCategory) {
@@ -167,5 +232,12 @@ public class PublicationController {
 			return "Error updating the Publication: " + ex.toString();
 		}
 		return "Publication succesfully updated!";
+	}
+	
+	@RequestMapping("/seeDetailsPublication")
+	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,Model model) {
+		Publication publi = datamem.findById(id);
+		model.addAttribute("publi", publi);
+		return "detailsPublication";
 	}
 }

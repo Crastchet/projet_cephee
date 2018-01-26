@@ -9,8 +9,13 @@
 <body>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
-	<div style="float:left;margin-left:30px;" th:text="'Profil de ' + ${member.login}"><h3></h3></div>
-	<div style="float:right;margin-right:30px;" th:text="${member.login}"> <img src="img/avatar.jpg" style="vertical-align:middle;margin-left:10px;" height="100" width="100"/> </div>
+	<div style="float: left; margin-left: 30px;">
+		<blockquote>
+			<h3 th:text="'Profil de ' + ${member.login}"></h3>
+		</blockquote>
+	</div>
+	
+	<div th:replace="profileHeader">&nbsp;</div>	
 
 
 	<div id="divcompetences" style="float:right;margin-right:550px;display:none">
@@ -33,6 +38,7 @@
 	<div id="divrecherche" style="float:right;margin-right:550px;display:none">
 		<h4>Ce qu'il recherche</h4>
 	</div>
+	
 	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 	

@@ -1,5 +1,7 @@
 package fr.cephee.unilille.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Publication;
 
 @Controller
 public class ProfileController {
 
 	@Autowired
 	private MemberPersistence datamem;
+	
+	@Autowired
+	private PublicationPersistence datapub;
 	
 	
 	/**
@@ -41,36 +48,30 @@ public class ProfileController {
 		
 		Member member = datamem.findByLogin(login);
 		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
-		//FAIRE LE IF LOGIN DOESN'T EXIST etc
+		
+		
 		model.addAttribute("member", member);
 		
 		//If it is my Profile
 		if( itIsMemberSession ) {
 			//If profile is not activated - we suggest to activate
-			if( member.getActivated() == false ) {
+			if( member.getActivated() == false )
 				return "profilePersonnal-NotActivated";				    //parler de cette convention de nommage
-				/** vielle version **/
-				//model.addAttribute("display_activate-button", true); 	//parler de cette convention de nommage
-			}
 			//If it is activated - we don't suggest to activate
 			else {
+				this.addProfilePublications(member, model);
 				return "profilePersonnal";
-				/** vieille version **/
-				//model.addAttribute("display_activate-button", false); //parler de cette convention de nommage
-				//model.addAttribute("display_editable-buttons", true);
 			}
-			
 		}
 		
 		//If it is not my Profile
-		//If profile is not activated - ???
-		if( member.getActivated() == false ) {
-			return "profileMember-NotActivated"; //EN FAIT RETOURNER UNE PAGE ERREUR AVEC MESSAGE "ce membre n'existe pas"
-			/** vieille version **/
-			//model.addAttribute("active", false); 						//parler de cette convention de nommage
-		}
-		//If it is activated - ???
 		return "profileMember";
+	}
+	
+	
+	private void addProfilePublications(Member member, Model model) {
+		List<Publication> publications = datapub.findByAuthor(member);
+		model.addAttribute("publications", publications);
 	}
 	
 }

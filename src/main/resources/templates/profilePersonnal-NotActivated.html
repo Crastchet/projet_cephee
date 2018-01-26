@@ -8,13 +8,18 @@
 
 <body background="img/background.jpg">
   	<div th:replace="fragments/header :: header">&nbsp;</div>
+	
+	<div style="float: left; margin-left: 30px;">
+		<blockquote>
+			<h3 th:text="'Votre profil [Non activé]'"></h3>
+		</blockquote>
+	</div>
+	
 	<div th:replace="profileHeader">&nbsp;</div>
 
-   	<div style="float:left;margin-left:30px;"><h3>Votre profil [Non activé]</h3></div>
-	<div style="float:right;margin-right:30px;" th:text="${member.login}"> <img src="img/avatar.jpg" style="vertical-align:middle;margin-left:10px;" height="100" width="100"/> </div>
 
-	
 	<p>ICI FAIRE UNE POP-UP POUR "ACTIVER PROFIL" en proposant les champs requis (mail, et les autres je sais pas)" / OU JUSTE FAIRE UN BOUTON "ACTIVER" QUI RENVOIE VERS UNE AUTRE PAGE SI VOUS Y ARRIVEZ PAS</p> 
+
 	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 

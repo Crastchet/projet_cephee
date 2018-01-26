@@ -25,6 +25,7 @@ public class Member {
 	@OneToMany(mappedBy="author")
 	List<Publication> listpublication = new ArrayList<Publication>();
 	
+	
 	public Member()
 	{
 		this.activated = false;

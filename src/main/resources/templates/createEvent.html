@@ -3,8 +3,78 @@
 <head>
 <title>Créer votre evenement</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/css/selectorPublication.css}"
+	href="/css/selectorPublication.css" />
 </head>
 <body>
+	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
+	<script type="text/javascript" th:src="@{/js/calendarFunc.js}"> </script>
+	<script>checkMinBetweenDate()</script>
+	<form action="#" th:action="@{/registerEvent}"
+		th:object="${publicationForm}" method="post">
+		<p>
+			Titre : <input type="text" th:field="*{title}" />
+		</p>
+		<p>
+			<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+				th:errorclass="fieldError">title Error</span>
+		</p>
+		<p>
+			Description : <input type="text" th:field="*{content}" />
+		</p>
+		<p>
+			<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
+				th:errorclass="fieldError">content Error</span>
+		</p>
 
+		<p>
+			Lieu de l'evenement : <input type="text" th:field="*{location}" />
+		</p>
+		<p>
+			<input id="dateStart" type="date" name="date de debut de l'evenement"
+				th:field="*{startevent}" onchange="checkMinBetweenDate()" /> <input id="timeStart" type="time"
+				name="Heure de debut" th:field="*{hourstartevent}" />
+		</p>
+
+		<div id="warningDate" style="visibility: hidden">Vous ne pouvez choisir une date de
+			fin anterieure à celle de debut</div>
+		<p>
+			<input id="dateEnd" type="date" name="date de fin de l'evenement"
+				th:field="*{endevent}" onchange="checkMinBetweenDate()" /> <input id="timeEnd" type="time"
+				name="Heure de fin" th:field="*{hourendevent}" />
+		</p>
+
+		<script>maxToday()</script>
+
+		<h3>Choisissez une ou plusieurs categories</h3>
+		<div class="categoryClass">
+			<ul class="options">
+			</ul>
+			<select onchange="selectIngredient(this);" th:field="*{listCategory}">
+				<option th:value="null"></option>
+				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+					th:text="${catego.title}"></option>
+			</select> <input type="submit" />
+		</div>
+
+		<h3>Choisissez une ou plusieurs competences</h3>
+		<div class="competenceClass">
+			<ul class="options">
+			</ul>
+			<select onchange="selectIngredient(this);"
+				th:field="*{listCompetence}">
+				<option th:value="null"></option>
+				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
+					th:text="${comp.description}"></option>
+			</select> <input type="submit" th:field="*{listCompetence}" />
+		</div>
+
+		<p>
+			<input id="boutonCreation" type="submit" value="Fin Creation Evenement" disabled="disabled" /> <input
+				type="reset" value="Reset" />
+		</p>
+	</form>
+	<a th:href="@{/home}">Retour à l'accueil </a>
 </body>
 </html>

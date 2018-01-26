@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Détails publication</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+</head>
+<body background="img/background.jpg">
+
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+		
+		<h1>Détails publication</h1>
+		<!--<div style="float: right;" id="account-box">
+			<ul>
+				<li th:text="'Nom : ' + ${member.lastname}" />
+				<li th:text="'Prénom : ' + ${member.firstname}" />
+			</ul>
+		</div> -->
+		
+		<p th:text="${publi.title}"></p>
+		
+		
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</body>
+</html>

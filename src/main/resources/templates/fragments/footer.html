@@ -2,21 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-	
+
 	<footer th:fragment="footer">
 		<!--Import jQuery before materialize.js-->
+
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large red"> <i class="large material-icons">mode_edit</i>
+			</a>
+			<ul>
+				<li><a th:href="@{/checkTypePublication(publicationType=project)}" class="btn-floating blue"><i class="material-icons">widgets</i></a>Nouveau projet</li>
+				<li><a th:href="@{/checkTypePublication(publicationType=exchange)}" class="btn-floating yellow darken-1"><i class="material-icons">compare_arrows</i></a>Nouvel échange</li>
+				<li><a th:href="@{/checkTypePublication(publicationType=event)}" class="btn-floating green"><i class="material-icons">event</i></a>Nouvel évènement</li>
+			</ul>
+		</div>
+
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/materialize.min.js"></script>
 		<script type="text/javascript">
-			  function masquer_div(id){
-			     document.getElementById(id).style.display = 'none';
-			  }
-			
-			  function afficher_div(id){
-			      document.getElementById(id).style.display = 'block';
-			  }
+			function masquer_div(id) {
+				document.getElementById(id).style.display = 'none';
+			}
+
+			function afficher_div(id) {
+				document.getElementById(id).style.display = 'block';
+			}
 		</script>
 	</footer>
-	
+
 </body>
 </html>
