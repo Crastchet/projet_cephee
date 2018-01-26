@@ -236,6 +236,12 @@ public class PublicationController {
 	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,Model model) {
 		Publication publi = datamem.findById(id);
 		model.addAttribute("publi", publi);
-		return "detailsPublication";
+		if (publi instanceof PublicationProject) {
+			return "detailsProject";
+		} else if (publi instanceof PublicationExchange) {
+			return "detailsExchange";
+		} else /*if (publi instanceof PublicationEvent)*/ {
+			return "detailsEvent";
+		}
 	}
 }
