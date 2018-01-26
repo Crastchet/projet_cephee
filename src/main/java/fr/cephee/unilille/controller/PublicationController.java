@@ -72,23 +72,25 @@ public class PublicationController {
 		return "publication";
 	}
 
-	@RequestMapping(value = "/checkTypePublication", method = RequestMethod.POST)
-	public String checkTypePublication(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
-			HttpSession session) {
+	@RequestMapping(value = "/checkTypePublication", method = RequestMethod.GET)
+	public String checkTypePublication(@RequestParam(value="publicationType", required=true) String publicationType, Model model,HttpSession session) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
 		
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
-		if (publicationForm.getTypePublication().equals("Projet"))
+		
+		if (publicationType.equals("project")) {
+			model.addAttribute("publicationForm", new PublicationForm());
 			return "createProject";
-		else if (publicationForm.getTypePublication().equals("Evenement"))
+		}
+		else if (publicationType.equals("event"))
 		{
 			PublicationEventForm publicationEventForm = new PublicationEventForm();
 			model.addAttribute("publicationForm", publicationEventForm);
 			return "createEvent";
 		}
-		else if (publicationForm.getTypePublication().equals("Echange"))
+		else if (publicationType.equals("exchange"))
 			return "createExchange";
 		else
 			return "errorPage";
