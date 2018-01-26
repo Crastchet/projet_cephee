@@ -8,9 +8,9 @@ import javax.persistence.Id;
 @Entity
 public class PublicationExchange extends Publication {
 
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int id;*/
 	
 	
 	public PublicationExchange()

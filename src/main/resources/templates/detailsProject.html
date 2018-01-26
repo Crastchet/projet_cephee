@@ -10,7 +10,7 @@
 
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 		
-		<h1>Détails Projet</h1>
+		<h2>Détails Projet</h2>
 		<!--<div style="float: right;" id="account-box">
 			<ul>
 				<li th:text="'Nom : ' + ${member.lastname}" />
@@ -19,8 +19,17 @@
 		</div> -->
 		
 		<p th:text="${publi.title}"></p>
-		
-		
+		<div class="row">
+		<div class="col s12 m6">
+			<div class="card teal lighten-3">
+				<div class="card-content white-text">
+					<div class="container">
+			        	<p th:text="${publi.content}"></p>
+			      	</div>
+		      	</div>
+	      	</div>
+      	</div>
+		</div>
 		
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
