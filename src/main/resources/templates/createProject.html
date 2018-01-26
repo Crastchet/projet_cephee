@@ -9,22 +9,16 @@
 </head>
 <body>
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
-
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
+	<script>checkForm()</script>
 	<form action="#" th:action="@{/registerproject}"
 		th:object="${publicationForm}" method="post">
 		<p>
-			Titre : <input type="text" th:field="*{title}" />
+			Titre : <input type="text" th:field="*{title}"  id="titre" onchange="checkForm()"/>
 		</p>
+		
 		<p>
-			<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
-				th:errorclass="fieldError">title Error</span>
-		</p>
-		<p>
-			Description : <input type="text" th:field="*{content}" />
-		</p>
-		<p>
-			<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
-				th:errorclass="fieldError">content Error</span>
+			Description : <input type="text" th:field="*{content}" id="content" onchange="checkForm()" />
 		</p>
 
 		<!--  <form th:object="${user}" action="index.html" th:action="@{/save}" method="post">
@@ -55,7 +49,7 @@
 		</div>
 
 		<p>
-			<input type="submit" value="Fin Creation Projet" /> <input
+			<input type="submit" value="Fin Creation Projet" id="boutonCreation" disabled="disabled"/> <input
 				type="reset" value="Reset" />
 		</p>
 	</form>

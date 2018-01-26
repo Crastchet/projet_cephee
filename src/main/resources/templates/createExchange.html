@@ -5,31 +5,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
+	<script>checkForm()</script>
 	<form action="#" th:action="@{/registerexchange}"
 		th:object="${publicationForm}" method="post">
 		<p>
-			Titre : <input type="text" th:field="*{title}" />
-		</p>
-		<p>
-			<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
-				th:errorclass="fieldError">title Error</span>
-		</p>
-		<p>
-			Description : <input type="text" th:field="*{content}" />
-		</p>
-		<p>
-			<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
-				th:errorclass="fieldError">content Error</span>
-		</p>
-		<p th:each="category : ${categoryList}"> CATEGORIES
-			<input type="checkbox" th:field="*{listCategory}"
-				th:value="${category.id}" /> <label th:text="${category.title}">example</label>
+			Titre : <input type="text" th:field="*{title}"  id="titre" onchange="checkForm()" />
 		</p>
 
 		<p>
-			<input type="submit" value="Fin Creation echange de service" /> <input
+			Description : <input type="text" th:field="*{content}" onchange="checkForm()" id="content"/>
+		</p>
+		
+		<p>
+			<input type="submit" value="Fin Creation Projet" id="boutonCreation" disabled="disabled"/> <input
 				type="reset" value="Reset" />
 		</p>
+		
 	</form>
 	<a th:href="@{/home}">Retour à l'accueil </a>
 </body>
