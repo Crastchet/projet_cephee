@@ -52,7 +52,7 @@ public class PublicationController {
 	@Autowired
 	private CompetencePersistence dataComp;
 
-	@RequestMapping(value = "/formTypePublication")
+	@RequestMapping(value = "/formtypepublication")
 	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model) {
 		PublicationForm publicationForm = new PublicationForm();
 		
@@ -65,14 +65,14 @@ public class PublicationController {
 		return "chooseTypePublication";
 	}
 
-	@RequestMapping(value = "/publicationPage", method = RequestMethod.POST)
+	@RequestMapping(value = "/publicationpage", method = RequestMethod.POST)
 	public String publicationPage(Model model, @ModelAttribute("publication") Publication publication) {
 		PublicationForm publicationForm = new PublicationForm();
 		model.addAttribute("publicationForm", publicationForm);
 		return "publication";
 	}
 
-	@RequestMapping(value = "/checkTypePublication", method = RequestMethod.POST)
+	@RequestMapping(value = "/checktypepublication", method = RequestMethod.POST)
 	public String checkTypePublication(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
 			HttpSession session) {
 		List<Category> listcategory = dataCate.findAll();
@@ -94,7 +94,7 @@ public class PublicationController {
 			return "errorPage";
 	}
 
-	@RequestMapping(value = "/registerExchange", method = RequestMethod.POST)
+	@RequestMapping(value = "/registerexchange", method = RequestMethod.POST)
 	public String createExchange(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Echange");
@@ -125,7 +125,7 @@ public class PublicationController {
 		return "publication";
 	}
 	
-	@RequestMapping(value = "/registerProject", method = RequestMethod.POST)
+	@RequestMapping(value = "/registerproject", method = RequestMethod.POST)
 	public String createProject(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Projet");
@@ -157,7 +157,7 @@ public class PublicationController {
 		return "publication";
 	}
 
-	@RequestMapping(value = "/registerEvent", method = RequestMethod.POST)
+	@RequestMapping(value = "/registerevent", method = RequestMethod.POST)
 	public String createEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Evenement");
@@ -195,7 +195,7 @@ public class PublicationController {
 		return "publication";
 	}
 	
-	@RequestMapping("/deletePublication")
+	@RequestMapping("/deletepublication")
 	public String delete(int id) {
 		try {
 			Publication publication = new Publication(id);
@@ -218,21 +218,21 @@ public class PublicationController {
 //		return "The Publication id is: " + publiId;
 //	}
 
-	@RequestMapping("/updatePublication")
+	@RequestMapping("/updatepublication")
 	public String updatePublication(int id, String title, String content, List<Category> listCategory) {
 		try {
 			Publication publi = datamem.findById(id);
 			publi.setTitle(title);
 			publi.setContent(content);
 			publi.setCategory(listCategory);
-			datamem.save(publi);
+			datamem.save(publi);	
 		} catch (Exception ex) {
 			return "Error updating the Publication: " + ex.toString();
 		}
 		return "Publication succesfully updated!";
 	}
 	
-	@RequestMapping("/seeDetailsPublication")
+	@RequestMapping("/seedetailspublication")
 	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,Model model) {
 		Publication publi = datamem.findById(id);
 		model.addAttribute("publi", publi);

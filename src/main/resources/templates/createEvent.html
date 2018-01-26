@@ -10,39 +10,32 @@
 <body>
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
 	<script type="text/javascript" th:src="@{/js/calendarFunc.js}"> </script>
-	<script>checkMinBetweenDate()</script>
-	<form action="#" th:action="@{/registerEvent}"
+	<script>checkEverything()</script>
+	<form action="#" th:action="@{/registerevent}"
 		th:object="${publicationForm}" method="post">
 		<p>
-			Titre : <input type="text" th:field="*{title}" />
+			Titre : <input type="text" th:field="*{title}" id="titre" onchange="checkEverything()"/>
 		</p>
 		<p>
-			<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
-				th:errorclass="fieldError">title Error</span>
-		</p>
-		<p>
-			Description : <input type="text" th:field="*{content}" />
-		</p>
-		<p>
-			<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
-				th:errorclass="fieldError">content Error</span>
+			Description : <input type="text" th:field="*{content}" id="content" onchange="checkEverything()"/>
 		</p>
 
 		<p>
-			Lieu de l'evenement : <input type="text" th:field="*{location}" />
+			Lieu de l'evenement : <input type="text" th:field="*{location}" id="location" onchange="checkEverything()"/>
 		</p>
+			<div id="warningDate" style="visibility: hidden">Vous ne pouvez choisir une date de
+			fin anterieure à celle de debut</div>
+			
 		<p>
 			<input id="dateStart" type="date" name="date de debut de l'evenement"
-				th:field="*{startevent}" onchange="checkMinBetweenDate()" /> <input id="timeStart" type="time"
-				name="Heure de debut" th:field="*{hourstartevent}" />
+				th:field="*{startevent}" onchange="checkEverything()" /> <input id="timeStart" type="time"
+				name="Heure de debut" th:field="*{hourstartevent}" onchange="checkEverything()"/>
 		</p>
 
-		<div id="warningDate" style="visibility: hidden">Vous ne pouvez choisir une date de
-			fin anterieure à celle de debut</div>
 		<p>
 			<input id="dateEnd" type="date" name="date de fin de l'evenement"
-				th:field="*{endevent}" onchange="checkMinBetweenDate()" /> <input id="timeEnd" type="time"
-				name="Heure de fin" th:field="*{hourendevent}" />
+				th:field="*{endevent}" onchange="checkEverything()" /> <input id="timeEnd" type="time"
+				name="Heure de fin" th:field="*{hourendevent}" onchange="checkEverything()" />
 		</p>
 
 		<script>maxToday()</script>
@@ -55,7 +48,7 @@
 				<option th:value="null"></option>
 				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 					th:text="${catego.title}"></option>
-			</select> <input type="submit" />
+			</select> 
 		</div>
 
 		<h3>Choisissez une ou plusieurs competences</h3>
@@ -67,7 +60,7 @@
 				<option th:value="null"></option>
 				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
 					th:text="${comp.description}"></option>
-			</select> <input type="submit" th:field="*{listCompetence}" />
+			</select>
 		</div>
 
 		<p>

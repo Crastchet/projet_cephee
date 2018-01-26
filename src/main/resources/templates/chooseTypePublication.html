@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<form action="#" th:action="@{/checkTypePublication}" th:object="${publicationForm}" method="post">
+	<form action="#" th:action="@{/checktypepublication}" th:object="${publicationForm}" method="post">
 
 		<select th:field="*{typePublication}">
 			<option th:each="type : ${typepublicationlist.getPublicationList()}" th:value="${type}"
