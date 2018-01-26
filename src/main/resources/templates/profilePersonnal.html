@@ -21,6 +21,18 @@
 
     <div id="divcompetences" style="float:right;margin-right:550px;display:none">
 		<h4> Vos compétences </h4>
+		<ul class="row" th:each="skill : *{skills}">
+			<li class="collection-item" th:text="${skill.name}">
+			<span th:text="${skill.level}"></span>
+			</li>
+		</ul>
+		
+		<ul id="dropdown2" class="dropdown-content">
+		    <li><a href="#!">Ici les catégories qui exsitent en base hein</a></li>
+		    <li><a href="#!">Cuisine</a></li>
+		    <li><a href="#!">Musique</a></li>
+		</ul>
+		
 		<ul class="collection">
 			<li class="collection-item">Sport</li>
 			<li class="collection-item">Musique</li>
@@ -44,8 +56,26 @@
    	</div>
 
     <div id="divpubli" style="float:right;margin-right:600px;display:none">
-          <h4>Vos publications</h4>
-    </div>
+		<h4>Vos publications</h4>
+		<ul class="row" th:each="item : *{publications}">
+			<li>
+				<div class="col s12 m6">
+					<div class="card blue-grey darken-1">
+						<div class="card-content white-text">
+							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+							<p th:text="${item.content}"></p>
+							<p th:text="${item.dateCreation}"></p>
+							<p th:text="${item.id}"></p>
+						</div>
+						<div class="card-action">
+							<a th:href="@{/seeDetailsPublication(id=${item.id})}">voir
+								détails</a>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 
     <div id="divrecherche" style="float:right;margin-right:550px;display:none">
          <h4>Ce que vous recherchez</h4>
