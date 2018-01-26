@@ -19,6 +19,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
@@ -229,5 +230,12 @@ public class PublicationController {
 			return "Error updating the Publication: " + ex.toString();
 		}
 		return "Publication succesfully updated!";
+	}
+	
+	@RequestMapping("/seeDetailsPublication")
+	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,Model model) {
+		Publication publi = datamem.findById(id);
+		model.addAttribute("publi", publi);
+		return "detailsPublication";
 	}
 }
