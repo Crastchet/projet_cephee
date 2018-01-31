@@ -10,9 +10,9 @@ import javax.persistence.Id;
 @Entity
 public class PublicationEvent extends Publication {
 
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int id;*/
 
 	private int idpubli;
 	private int nbparticipant;
