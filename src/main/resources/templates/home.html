@@ -14,21 +14,6 @@
 	
 	<h1>Accueil</h1>
     	
-	<!--<div>
-		 <ul>
-			<li th:each="item : *{listlasttenpub}" th:text="'Titre : ' + ${item.title} + ' Description : ' + ${item.content}  + ' Crée le ' + ${item.dateCreation}" th:href="@{/seeDetailsPublication}"></li>
-		</ul> 
-	</div>
-	
-	<h2>Dernières publications:</h2>
-	
-	<div class="publications" th:each="item : *{listlasttenpub}">
-		<p th:text="'Titre: ' + ${item.title}"></p>
-		<p th:text="'Description: ' + ${item.content}"></p>
-		<p th:text="'Crée le: ' + ${item.dateCreation}"></p>
-		<a th:href="@{/seeDetailsPublication}">voir détails de la publication</a>
-		
-	</div>-->
 	
 	<div class="row" th:each="item : *{listlasttenpub}">
         <div class="col s12 m6">

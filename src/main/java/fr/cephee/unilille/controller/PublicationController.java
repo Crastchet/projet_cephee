@@ -236,9 +236,20 @@ public class PublicationController {
 	}
 	
 	@RequestMapping("/seedetailspublication")
-	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,Model model) {
+	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,
+			Model model,
+			HttpSession session) {
 		Publication publi = datamem.findById(id);
 		model.addAttribute("publi", publi);
-		return "detailsPublication";
+		
+		model.addAttribute("member", session.getAttribute("member"));
+		
+		if (publi instanceof PublicationProject) {
+			return "detailsProject";
+		} else if (publi instanceof PublicationExchange) {
+			return "detailsExchange";
+		} else /*if (publi instanceof PublicationEvent)*/ {
+			return "detailsEvent";
+		}
 	}
 }
