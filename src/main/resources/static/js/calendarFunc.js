@@ -11,21 +11,36 @@ function maxToday() {
 	}
 
 	today = yyyy + '-' + mm + '-' + dd;
+
 	document.getElementById("dateStart").setAttribute("min", today);
 	document.getElementById("dateEnd").setAttribute("min", today);
 }
 
-function checkMinBetweenDate() {
-	var dateStart = new Date();
-	var dateEnd = new Date();
+function checkEverything() {
 
-	dateStart = document.getElementById("dateStart");
-	dateEnd = document.getElementById("dateEnd");
-	if (dateStart.value > dateEnd.value) {
-		document.getElementById("dateEnd").setAttribute("min", dateStart);
-		document.getElementById("warningDate").style.visibility = "visible";
-		document.getElementById("boutonCreation").disabled = true;
+	var heureStart = document.getElementById("timeStart");
+	var heureEnd = document.getElementById("timeEnd");
+	var dateStart = document.getElementById("dateStart");
+	var dateEnd = document.getElementById("dateEnd");
+	var titre = document.getElementById("titre");
+	var content = document.getElementById("content");
+	var location = document.getElementById("location");
+
+	if (dateEnd.value.length != 0 && dateStart.value.length != 0
+			&& heureEnd.value.length != 0 && heureStart.value.length != 0) {
+		if ((dateStart.value + heureStart.value) > (dateEnd.value + heureEnd.value))
+			if (heureStart.value > heureEnd.value)
+				document.getElementById("warningDate").style.visibility = "visible";
+			else
+				document.getElementById("warningDate").style.visibility = "hidden";
 	}
-	else
+
+	if (titre.value.length != 0 && content.value.length != 0
+			&& location.value.length != 0 && dateEnd.value.length != 0
+			&& dateStart.value.length != 0 && heureEnd.value.length != 0
+			&& heureStart.value.length != 0
+			&& heureStart.value < heureEnd.value) {
 		document.getElementById("boutonCreation").disabled = false;
+	} else
+		document.getElementById("boutonCreation").disabled = true;
 }
