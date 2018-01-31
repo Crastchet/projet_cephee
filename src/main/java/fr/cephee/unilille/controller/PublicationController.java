@@ -92,7 +92,10 @@ public class PublicationController {
 			return "createEvent";
 		}
 		else if (publicationType.equals("exchange"))
+		{
+			model.addAttribute("publicationForm", new PublicationForm());
 			return "createExchange";
+		}
 		else
 			return "errorPage";
 	}

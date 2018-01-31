@@ -26,20 +26,24 @@ function checkEverything() {
 	var content = document.getElementById("content");
 	var location = document.getElementById("location");
 
+
 	if (dateEnd.value.length != 0 && dateStart.value.length != 0
 			&& heureEnd.value.length != 0 && heureStart.value.length != 0) {
-		if ((dateStart.value + heureStart.value) > (dateEnd.value + heureEnd.value))
-			if (heureStart.value > heureEnd.value)
+		if ((dateStart.value + heureStart.value) > (dateEnd.value + heureEnd.value)){
 				document.getElementById("warningDate").style.visibility = "visible";
-			else
+				//document.getElementById("boutonCreation").disabled = true;
+				alert("WRONG");
+			} else {
 				document.getElementById("warningDate").style.visibility = "hidden";
+				alert("RTIGHT");
+			}
 	}
 
 	if (titre.value.length != 0 && content.value.length != 0
 			&& location.value.length != 0 && dateEnd.value.length != 0
 			&& dateStart.value.length != 0 && heureEnd.value.length != 0
-			&& heureStart.value.length != 0
-			&& heureStart.value < heureEnd.value) {
+			&& heureStart.value.length != 0) 
+		if ((dateStart.value + heureStart.value) < (dateEnd.value + heureEnd.value)){
 		document.getElementById("boutonCreation").disabled = false;
 	} else
 		document.getElementById("boutonCreation").disabled = true;
