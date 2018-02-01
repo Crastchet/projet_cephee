@@ -1,3 +1,4 @@
+
 function maxToday() {
 	var today = new Date();
 	var dd = today.getDate();
