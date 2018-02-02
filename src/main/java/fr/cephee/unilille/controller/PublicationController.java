@@ -44,7 +44,7 @@ public class PublicationController {
 	Validator validator;
 	
 	@Autowired
-	private PublicationPersistence datamem;
+	private PublicationPersistence datapub;
 
 	@Autowired
 	private CategoryPersistence dataCate;
@@ -124,7 +124,7 @@ public class PublicationController {
 			publication.setDateCreation(date);
 			publication.setAuthor((Member) session.getAttribute("member"));
 			publication.setCategory(publicationForm.getListCategory());
-			datamem.save(publication);
+			datapub.save(publication);
 			model.addAttribute("publication", publication);
 		} catch (Exception ex) {
 			log.info(ex.toString());
@@ -157,7 +157,7 @@ public class PublicationController {
 			publication.setAuthor((Member) session.getAttribute("member"));
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setListcompetence(publicationForm.getListCompetence());
-			datamem.save(publication);
+			datapub.save(publication);
 			model.addAttribute("publication", publication);
 		} catch (Exception ex) {
 			log.info(ex.toString());
@@ -194,7 +194,8 @@ public class PublicationController {
 			Date startd = sdf.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
 			log.info(startd.toString());
 			publication.setStartevent(startd);
-			datamem.save(publication);
+
+			datapub.save(publication);
 			model.addAttribute("publication", publication);
 		} catch (Exception ex) {
 			log.info(ex.toString());
@@ -207,7 +208,7 @@ public class PublicationController {
 	public String delete(int id) {
 		try {
 			Publication publication = new Publication(id);
-			datamem.delete(publication);
+			datapub.delete(publication);
 		} catch (Exception ex) {
 			return "Error deleting the publication:" + ex.toString();
 		}
@@ -229,11 +230,11 @@ public class PublicationController {
 	@RequestMapping("/updatepublication")
 	public String updatePublication(int id, String title, String content, List<Category> listCategory) {
 		try {
-			Publication publi = datamem.findById(id);
+			Publication publi = datapub.findById(id);
 			publi.setTitle(title);
 			publi.setContent(content);
 			publi.setCategory(listCategory);
-			datamem.save(publi);	
+			datapub.save(publi);	
 		} catch (Exception ex) {
 			return "Error updating the Publication: " + ex.toString();
 		}
@@ -244,7 +245,7 @@ public class PublicationController {
 	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,
 			Model model,
 			HttpSession session) {
-		Publication publi = datamem.findById(id);
+		Publication publi = datapub.findById(id);
 		model.addAttribute("publi", publi);
 		
 		model.addAttribute("member", session.getAttribute("member"));

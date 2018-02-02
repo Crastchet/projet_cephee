@@ -24,7 +24,9 @@ public class Member {
 	private String lastname;
 	private Date birth; //utiliser type Date de SQL ou java.util ?
 	private String email;
+	private String description;
 	private boolean activated;		//profile activated or not
+	private boolean isAdmin;
 	@OneToMany(mappedBy="author")
 	List<Publication> listpublication = new ArrayList<Publication>();
 	
@@ -32,6 +34,7 @@ public class Member {
 	public Member()
 	{
 		this.activated = false;
+		this.isAdmin = false;
 	}
 	
 	public Member(int id)
@@ -91,6 +94,18 @@ public class Member {
 	}
 	public void setActived(boolean activate) {
 		this.activated = activate;
+	}
+	public boolean getIsAdmin() {
+		return this.isAdmin;
+	}
+	public void setisAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
