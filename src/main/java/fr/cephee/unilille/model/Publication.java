@@ -22,7 +22,7 @@ public class Publication implements Serializable {
 	
 	private String title;
 	
-	@Lob
+	
 	private String content;
 	private Date dateCreation;
 	private Date dateModification;
