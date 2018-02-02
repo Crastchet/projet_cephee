@@ -21,5 +21,13 @@
 				value="Reset" />
 		</p>
 	</form>
+	<form action="#" th:action="@{/createmembertest}" th:object="${memberForm}" method="post" >
+		<p>
+		<input type="text" th:field="*{login}"/>
+		</p>
+		<p>
+			<input type="submit" value="Créer compte" />
+		</p>
+	</form>
 </body>
 </html>

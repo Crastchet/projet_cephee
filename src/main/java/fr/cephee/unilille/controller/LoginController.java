@@ -86,6 +86,25 @@ public class LoginController {
 		return "member succesfully created with login = " + login;
 	}
 
+	@RequestMapping("/createmembertest")
+	@ResponseBody
+	public String createTest(@RequestParam(value="login", required=true) String login)
+	{
+		if (datamem.findByLogin(login) != null)
+			return "Error creating the member: " + login + " alreay existing";
+		try {
+			Member member = new Member();
+			member.setLogin(login);
+			member.setFirstname("test1");
+			member.setLastname("test2");
+			datamem.save(member);
+		}
+		catch (Exception ex) {
+			return "Error creating the member: " + ex.toString();
+		}
+		return "Membre créee avec le login :  " + login + " Retournez sur la page précédente et connectez vous ";
+	}
+	
 	@RequestMapping("/deletemember")
 	@ResponseBody
 	public String delete(@RequestParam(value="id", required=true) int id) {
