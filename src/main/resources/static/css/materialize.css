@@ -9390,13 +9390,4 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   /*shape-rendering: crispEdges;*/
 }
 
-@font-face {
-  font-family: "Nuernberg";
-  src: url("../fonts/nuernberg/NuernbergMesse.woff") format("woff"), url("../fonts/nuernberg/NuernbergMesse.otf") format("otf");
-  font-weight: 500;
-}
-
-goodvibes {
-  font-family: "Nuernberg";
-}
 

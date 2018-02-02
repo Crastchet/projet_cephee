@@ -1,33 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head>
+   <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+</head>
 <body background="img/spiration-light.png">
 
 	<div style="float: right; margin-right: 30px;">
 		<h3 th:text="${member.login}"></h3>
 	</div>
 
-	<ul>
+	
+	<ul style="clear: both;">
 		<li>
-			<a 	class="waves-effect waves-light btn-large" onclick="afficher_div('divcompetences');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divnotif');">
-				<i class="material-icons left">cloud</i>Vos compétences
+			<a 	class="waves-effect waves-light btn-large" onclick="afficher_div('divcompetences');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divnotif');" 
+			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
+				<i class="material-icons left">add_circle_outline</i>Vos compétences
 			</a>
 		</li>
 		<li>
-			<a 	class="waves-effect waves-light btn-large" onclick="afficher_div('divpubli');masquer_div('divcompetences');masquer_div('divrecherche');masquer_div('divnotif');">
-				<i class="material-icons left">cloud</i>Vos publications
+			<a 	class="waves-effect waves-light btn-large" onclick="afficher_div('divpubli');masquer_div('divcompetences');masquer_div('divrecherche');masquer_div('divnotif');"
+			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
+				<i class="material-icons left">mode_edit</i>Vos publications
 			</a>
 		</li>
 		<li>
-			<a class="waves-effect waves-light btn-large" onclick="afficher_div('divrecherche');masquer_div('divpubli');masquer_div('divcompetences');masquer_div('divnotif');">
-				<i class="material-icons left">cloud</i>Ce que vous recherchez
+			<a class="waves-effect waves-light btn-large" onclick="afficher_div('divrecherche');masquer_div('divpubli');masquer_div('divcompetences');masquer_div('divnotif');"
+			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
+				<i class="material-icons left">search</i>Ce que vous recherchez
 			</a>
 		</li>
 		<li>
-			<a class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divcompetences');">
-				<i class="material-icons left">cloud</i>Notifications</a>
+			<a class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divcompetences');"
+			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
+				<i class="material-icons left">notifications</i>Notifications</a>
 		</li>
 	</ul>
+	
 
 </body>
 

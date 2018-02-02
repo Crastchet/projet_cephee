@@ -28,7 +28,10 @@ public class NavigationController {
 	}
 	
 	@RequestMapping(value = "/research")
-	public String goToResearch() {
+	public String goToResearch(Model model,
+			HttpSession session) {
+		model.addAttribute("member", session.getAttribute("member"));
+		
 		return "research";
 	}
 }
