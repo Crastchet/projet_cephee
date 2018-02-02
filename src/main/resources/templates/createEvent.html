@@ -4,14 +4,17 @@
 <title>Créer votre evenement</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
-<link rel="stylesheet" type="text/css" media="all"
-	href="/css/selectorPublication.css" />
-<link rel="stylesheet" type="text/css" media="all"
+	<link rel="stylesheet" type="text/css" media="all"
 	href="/css/materialize.css" />
 <link rel="stylesheet" type="text/css" media="all"
 	href="/css/materialize.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/style.css"
+	media="screen,projection" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/selectorPublication.css" />
 </head>
 <body background="img/spiration-light.png">
+<div th:replace="fragments/header :: header">&nbsp;</div>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -21,6 +24,7 @@
 	<script>
 		checkEverything()
 	</script>
+	<goodvibes>Créer votre evenement</goodvibes>
 	<form action="#" th:action="@{/registerevent}"
 		th:object="${publicationForm}" method="post">
 		<p>
@@ -36,48 +40,27 @@
 			Lieu de l'evenement : <input type="text" th:field="*{location}"
 				id="location" onchange="checkEverything()" />
 		</p>
-		<div id="warningDate" style="visibility: hidden">Vous ne pouvez
-			choisir une date de fin anterieure à celle de debut</div>
-
-		<p>
-			<input id="dateStart" type="date" name="date de debut de l'evenement"
+		
+			<label> date de debut de l'evenement</label>
+			<input id="dateStart" type="date" value="date de debut de l'evenement"
 				th:field="*{startevent}" onchange="checkEverything()" />
-		</p>
-
-		<div class="row">
-			<div class="input-field col s12">
-				<label for="timepicker_ampm_dark">Choisissez une heure de
-					debut</label> <input id="timeStart" class="timepicker" type="time"
+							<label> Heure de debut de l'evenement</label>
+			<div class="inputClock"> <input value="Choisissez votre heure" id="timeStart" class="timepicker" type="time"
 					onchange="checkEverything()" th:field="*{hourstartevent}" />
 			</div>
-		</div>
-
-		<!--  <p>
-			<input id="dateEnd" type="date" name="date de fin de l'evenement"
-				th:field="*{endevent}" onchange="checkEverything()" />
-		</p>
-
-		<div class="row">
-			<div class="input-field col s12">
-				<label for="timepicker_ampm_dark">Choisissez une heure de
-					fin</label> <input id="timeEnd" class="timepicker" type="time"
-					onchange="checkEverything()" th:field="*{hourendevent}" />
-			</div>
-		</div> -->
-	
+		
 			<script>
 			$('.timepicker').pickatime({
 		    default: 'now',
 		    twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
-		    donetext: 'OK B',
-		  autoclose: false
+		  autoclose: true
 		});
-	</script>		
+	</script>
 		<script>
 			maxToday()
 		</script>
 
-		<h3>Choisissez une ou plusieurs categories</h3>
+		<h3>Choisissez une ou plusieurs categories pour votre evenement</h3>
 		<div class="categoryClass">
 			<ul class="options">
 			</ul>
@@ -86,18 +69,6 @@
 				<option th:value="null"></option>
 				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 					th:text="${catego.title}"></option>
-			</select>
-		</div>
-
-		<h3>Choisissez une ou plusieurs competences</h3>
-		<div class="competenceClass">
-			<ul class="options">
-			</ul>
-			<select style="display: block;" onchange="selectIngredient(this);"
-				th:field="*{listCompetence}">
-				<option th:value="null"></option>
-				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
-					th:text="${comp.description}"></option>
 			</select>
 		</div>
 

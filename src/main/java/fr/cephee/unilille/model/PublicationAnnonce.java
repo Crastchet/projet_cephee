@@ -6,14 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class PublicationExchange extends Publication {
+public class PublicationAnnonce extends Publication {
 
 	/*@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;*/
 	
 	
-	public PublicationExchange()
+	public PublicationAnnonce()
 	{
 		
 	}

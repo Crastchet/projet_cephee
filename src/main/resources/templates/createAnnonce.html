@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Créer votre annonce</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" media="all"
+	href="/css/materialize.css" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/materialize.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/style.css"
+	media="screen,projection" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/selectorPublication.css" />
+</head>
+
+<body background="img/spiration-light.png">
+<div th:replace="fragments/header :: header">&nbsp;</div>
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
+	<script>checkForm()</script>
+	<form action="#" th:action="@{/registerannonce}"
+		th:object="${publicationForm}" method="post">
+		<p>
+			Titre : <input type="text" th:field="*{title}"  id="titre" onchange="checkForm()" />
+		</p>
+
+		<p>
+			Description : <input type="text" th:field="*{content}" onchange="checkForm()" id="content"/>
+		</p>
+		
+		<p>
+			<input type="submit" value="Fin de creation d annonce" id="boutonCreation" disabled="disabled"/> <input
+				type="reset" value="Reset" />
+		</p>
+		
+	</form>
+	<a th:href="@{/home}">Retour à l'accueil </a>
+</body>
+</html>

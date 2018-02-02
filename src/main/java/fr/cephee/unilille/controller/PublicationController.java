@@ -28,9 +28,9 @@ import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
+import fr.cephee.unilille.model.PublicationAnnonce;
 import fr.cephee.unilille.model.PublicationEvent;
 import fr.cephee.unilille.model.PublicationEventForm;
-import fr.cephee.unilille.model.PublicationExchange;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.TypePublicationWrapper;
@@ -53,11 +53,12 @@ public class PublicationController {
 	private CompetencePersistence dataComp;
 
 	@RequestMapping(value = "/formtypepublication")
-	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model) {
+	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, HttpSession session) {
 		PublicationForm publicationForm = new PublicationForm();
 		
 		model.addAttribute("publicationForm", publicationForm);
-
+		model.addAttribute("member", session.getAttribute("member"));
+		
 		form.getPublicationList().add("Projet");
 		form.getPublicationList().add("Echange");
 		form.getPublicationList().add("Evenement");
@@ -77,7 +78,7 @@ public class PublicationController {
 	public String checkTypePublication(@RequestParam(value="publicationType", required=true) String publicationType, Model model,HttpSession session) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
-		
+		model.addAttribute("member", session.getAttribute("member"));
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
 		
@@ -94,28 +95,29 @@ public class PublicationController {
 		else if (publicationType.equals("exchange"))
 		{
 			model.addAttribute("publicationForm", new PublicationForm());
-			return "createExchange";
+			return "createAnnonce";
 		}
 		else
 			return "errorPage";
 	}
 
-	@RequestMapping(value = "/registerexchange", method = RequestMethod.POST)
-	public String createExchange(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
+	@RequestMapping(value = "/registerannonce", method = RequestMethod.POST)
+	public String createAnnonce(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Echange");
+		model.addAttribute("member", session.getAttribute("member"));
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
 		
 		if (result.hasErrors())
 		{
 			for (ObjectError obj : result.getAllErrors())
 				log.info(obj.toString());
-			return "createExchange";
+			return "createAnnonce";
 		}
 		Date date = new Date();
 
 		try {
-			PublicationExchange publication = new PublicationExchange();
+			PublicationAnnonce publication = new PublicationAnnonce();
 			publication.setTitle(publicationForm.getTitle());
 			publication.setAuthorised(true);
 			publication.setContent(publicationForm.getContent());
@@ -134,6 +136,7 @@ public class PublicationController {
 	@RequestMapping(value = "/registerproject", method = RequestMethod.POST)
 	public String createProject(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
+		model.addAttribute("member", session.getAttribute("member"));
 		publicationForm.setTypePublication("Projet");
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
 		
@@ -167,6 +170,7 @@ public class PublicationController {
 	public String createEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Evenement");
+		model.addAttribute("member", session.getAttribute("member"));
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
 		if (result.hasErrors())
 		{
@@ -247,7 +251,7 @@ public class PublicationController {
 		
 		if (publi instanceof PublicationProject) {
 			return "detailsProject";
-		} else if (publi instanceof PublicationExchange) {
+		} else if (publi instanceof PublicationAnnonce) {
 			return "detailsExchange";
 		} else /*if (publi instanceof PublicationEvent)*/ {
 			return "detailsEvent";

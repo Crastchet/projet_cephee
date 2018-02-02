@@ -1,19 +1,40 @@
 @font-face {
-  font-family: "Nuernberg";
-  src: url("../fonts/nuernberg/NuernbergMesse.woff") format("woff"), url("../fonts/nuernberg/NuernbergMesse.otf") format("otf");
-  font-weight: 500;
+	font-family: "Nuernberg";
+	src: url("../fonts/nuernberg/NuernbergMesse.woff") format("woff"),
+		url("../fonts/nuernberg/NuernbergMesse.otf") format("otf");
+	font-weight: 500;
 }
 
 goodvibes {
-  font-family: "Nuernberg";
-  font-size: 100px;
+	font-family: "Nuernberg";
+	font-size: 100px;
 }
 
-#myselect 
-{
-	display : block !important;
+#myselect {
+	display: block !important;
 }
+
 buttonprofile {
-	height:200px;
-	width:200px
+	height: 200px;
+	width: 200px
+}
+
+.inputClock{
+    position:relative;
+    padding:0;
+    margin:0;
+}
+
+.timepicker { 
+    height:20px;
+    margin:0;
+    padding-left:30px;
+}
+
+#input_img {
+    position:absolute;
+    bottom:8px;
+    left:10px;
+    width:100px;
+    height:100px;
 }
