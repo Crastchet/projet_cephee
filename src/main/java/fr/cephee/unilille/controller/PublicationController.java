@@ -167,8 +167,7 @@ public class PublicationController {
 	public String createEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm, BindingResult result, Model model,
 			HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Evenement");
-		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
-		
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
 		if (result.hasErrors())
 		{
 			for (ObjectError obj : result.getAllErrors())
@@ -187,11 +186,10 @@ public class PublicationController {
 			publication.setAuthor((Member) session.getAttribute("member"));
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setLocation(publicationForm.getLocation());	
-			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd hh:mm");
+			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
 			Date startd = sdf.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
-			Date endd = sdf.parse(publicationForm.getEndevent() + " " + publicationForm.getHourendevent());
+			log.info(startd.toString());
 			publication.setStartevent(startd);
-			publication.setEndevent(endd);
 			datamem.save(publication);
 			model.addAttribute("publication", publication);
 		} catch (Exception ex) {

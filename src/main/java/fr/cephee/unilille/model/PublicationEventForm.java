@@ -17,13 +17,8 @@ public class PublicationEventForm extends PublicationForm {
 	private String startevent;
 	
 	@NotNull
-	private String endevent;
-	
-	@NotNull
 	private String hourstartevent;
-	
-	@NotNull
-	private String hourendevent;
+
 	
 	@NotEmpty
 	private String location;
@@ -46,14 +41,6 @@ public class PublicationEventForm extends PublicationForm {
 		this.startevent = startevent;
 	}
 
-	public String getEndevent() {
-		return endevent;
-	}
-
-	public void setEndevent(String endevent) {
-		this.endevent = endevent;
-	}
-
 	public String getLocation() {
 		return location;
 	}
@@ -68,14 +55,6 @@ public class PublicationEventForm extends PublicationForm {
 
 	public void setHourstartevent(String hourstartevent) {
 		this.hourstartevent = hourstartevent;
-	}
-
-	public String getHourendevent() {
-		return hourendevent;
-	}
-
-	public void setHourendevent(String hourendevent) {
-		this.hourendevent = hourendevent;
 	}
 	
 	

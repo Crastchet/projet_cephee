@@ -34,3 +34,8 @@ select.options {
   color: #46a;
   font-weight: bold;
 }
+
+#myselect 
+{
+	display : block !important;
+}

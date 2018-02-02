@@ -1,4 +1,3 @@
-
 function maxToday() {
 	var today = new Date();
 	var dd = today.getDate();
@@ -14,10 +13,27 @@ function maxToday() {
 	today = yyyy + '-' + mm + '-' + dd;
 
 	document.getElementById("dateStart").setAttribute("min", today);
-	document.getElementById("dateEnd").setAttribute("min", today);
 }
 
 function checkEverything() {
+
+	var heureStart = document.getElementById("timeStart");
+	var dateStart = document.getElementById("dateStart");
+	var titre = document.getElementById("titre");
+	var content = document.getElementById("content");
+	var location = document.getElementById("location");
+
+	if (titre.value.length != 0 && content.value.length != 0
+			&& location.value.length != 0 && dateStart.value.length != 0 && heureStart.value.length != 0)
+	{
+		document.getElementById("boutonCreation").disabled = false;
+	} else
+		{
+		document.getElementById("boutonCreation").disabled = true;
+		}
+}
+
+/*function checkEverything() {
 
 	var heureStart = document.getElementById("timeStart");
 	var heureEnd = document.getElementById("timeEnd");
@@ -48,4 +64,4 @@ function checkEverything() {
 		document.getElementById("boutonCreation").disabled = false;
 	} else
 		document.getElementById("boutonCreation").disabled = true;
-}
+}*/

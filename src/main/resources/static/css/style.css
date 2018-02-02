@@ -9,6 +9,10 @@ goodvibes {
   font-size: 100px;
 }
 
+#myselect 
+{
+	display : block !important;
+}
 buttonprofile {
 	height:200px;
 	width:200px
