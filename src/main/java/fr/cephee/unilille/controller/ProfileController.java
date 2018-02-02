@@ -1,5 +1,8 @@
 package fr.cephee.unilille.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,13 +10,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
+import fr.cephee.unilille.exceptions.DateFormatException;
+import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.ProfileForm;
 import fr.cephee.unilille.model.Publication;
+import fr.cephee.unilille.utils.Controls;
 
 @Controller
 public class ProfileController {
@@ -72,6 +81,50 @@ public class ProfileController {
 	private void addProfilePublications(Member member, Model model) {
 		List<Publication> publications = datapub.findByAuthor(member);
 		model.addAttribute("publications", publications);
+	}
+	
+	
+	@RequestMapping(value = "/editprofile", method = RequestMethod.POST)
+	public String editProfile(
+			@RequestParam(value="login", required=false) String login,
+			@ModelAttribute("profileForm") ProfileForm profileForm,
+			Model model,
+			HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		//If no login is specified, recall for session profile
+		if(login == null)
+			return this.profile(
+					member.getLogin(), 
+					model, 
+					session);
+
+		//If I try to edit my profile
+		if(member.getLogin().equals(login)) {
+			try {
+				Controls.checkEmail(profileForm.getEmail());
+				member.setEmail(profileForm.getEmail());
+				Controls.checkDate(profileForm.getBirth());
+				member.setBirth(new SimpleDateFormat("yy-mm-dd").parse(profileForm.getBirth()));
+			} catch (EmailFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DateFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		//If I try to edit another profile than mine, I must be ADMIN
+		if(member.getIsAdmin()) {
+			
+		}
+		
+		return "";
 	}
 	
 }
