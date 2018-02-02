@@ -16,14 +16,18 @@ public abstract class Controls {
 			throw new EmailFormatException("Email non conforme");
 	}
 	
-	public static void checkDate(String date) throws DateFormatException { //un peu useless au final
-		SimpleDateFormat sdf = new SimpleDateFormat("yy-mm-dd");
+	public static void checkDate(String dateString) throws DateFormatException { //un peu useless au final
+		Date date;
 		try {
-			sdf.parse(date);
-			if(sdf.)//antérieur ou pas à date aujourd'hui (mettre easter egg)
+			date = new SimpleDateFormat("yy-mm-dd").parse(dateString);
+			//If date is posterior to today
+			if(date.after(new Date()))
+				throw new DateFormatException("Date de naissance ne peut pas être futuriste");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			throw new DateFormatException(e.getMessage());
 		}
+		
+		
 	}
 }

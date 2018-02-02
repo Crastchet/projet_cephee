@@ -12,6 +12,9 @@ public class ProfileForm {
 	private String birth;
 	@NotEmpty
 	private String email;
+	
+	private String description;
+	
 	private List<Competence> skills = new ArrayList<Competence>();
 	
 	public String getBirth() {
@@ -31,6 +34,12 @@ public class ProfileForm {
 	}
 	public void setSkills(List<Competence> skills) {
 		this.skills = skills;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

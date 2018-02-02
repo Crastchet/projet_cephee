@@ -1,0 +1,46 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Editer mon profil</title>
+<head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+   	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+   	<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+   	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+</head>
+
+
+<body background="img/spiration-light.png">
+	
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	
+	<div style="float: left; margin-left: 30px;">
+		<blockquote>
+			<goodvibes th:text="'Votre profil'"></goodvibes>
+		</blockquote>
+	</div>
+	
+	<div th:replace="profileHeader">&nbsp;</div>
+	
+	
+	<form action="#" th:action="@{/registerprofileedition}"	th:object="${profileForm}" method="post">
+		<p>
+			E-mail : <input id="email" type="email" th:field="*{email}" />
+		</p>
+		
+		<p>
+			Date de naissance : <input id="birth" type="date" name="birth" th:field="*{birth}" />
+		</p>
+		
+		<p>
+			Ma description : <input id="description" type="text" th:field="*{description}" />
+		</p>
+		
+		<p>
+			<input type="submit" value="Valider" id="editProfileButton" />
+			<input type="reset" value="Reset" />
+		</p>
+	</form>
+
+</body>
+
+</html>

@@ -21,6 +21,7 @@ public class Member {
 	private String lastname;
 	private Date birth; //utiliser type Date de SQL ou java.util ?
 	private String email;
+	private String description;
 	private boolean activated;		//profile activated or not
 	private boolean isAdmin;
 	@OneToMany(mappedBy="author")
@@ -96,6 +97,12 @@ public class Member {
 	}
 	public void setisAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
