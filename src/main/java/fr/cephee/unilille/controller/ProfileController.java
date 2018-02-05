@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.exceptions.DateFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
+import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.ProfileForm;
+import fr.cephee.unilille.model.ProfileSkillForm;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.utils.Controls;
@@ -33,6 +36,9 @@ public class ProfileController {
 	
 	@Autowired
 	private PublicationPersistence datapub;
+	
+	@Autowired
+	private CompetencePersistence dataski;
 	
 	
 	/**
@@ -70,6 +76,7 @@ public class ProfileController {
 			//If it is activated - we don't suggest to activate
 			else {
 				this.addProfilePublications(member, model);
+				this.addProfileSkills(member, model);
 				return "profilePersonnal";
 			}
 		}
@@ -80,9 +87,53 @@ public class ProfileController {
 	
 	
 	private void addProfilePublications(Member member, Model model) {
-		List<Publication> publications = datapub.findByAuthor(member);
-		model.addAttribute("publications", publications);
+//		model.addAttribute("publications", datapub.findByAuthor(member); //en parler à Sofian
+		model.addAttribute("publications", member.getListpublication());
 	}
+	
+	private void addProfileSkills(Member member, Model model) {
+		model.addAttribute("skills", member.getSkills());
+		
+		model.addAttribute("allSkills", dataski.findAll());
+		model.addAttribute("profileSkillForm", new ProfileSkillForm()); //let us add skills on the same page
+	}
+	
+	
+	@RequestMapping(value = "/skillprofileregister", method = RequestMethod.POST)
+	public String registerProfileSkill(
+			@RequestParam(value="login", required=false) String login,
+			@ModelAttribute("profileSkillForm") ProfileSkillForm profileSkillForm,
+			Model model,
+			HttpSession session) {
+		
+		//If no login is specified, recall for session profile (need to do that because we handle admin situation)
+		if(login == null)
+			return this.registerProfileSkill(
+					((Member)session.getAttribute("member")).getLogin(),
+					profileSkillForm,
+					model, 
+					session);
+				
+		Member member = datamem.findByLogin(login);
+		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
+		
+
+		//If try to edit own profile OR If I am an admin
+		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+			Competence skill = new Competence();
+			skill.setTitle(profileSkillForm.getTitle());
+			skill.setLevel(profileSkillForm.getLevel());
+			dataski.save(skill);
+			List<Competence> tmp = member.getSkills();
+			tmp.add(skill);
+			member.setSkills(tmp);
+			datamem.save(member);
+		}
+		
+		//We return member profile
+		return this.profile(login, model, session);
+	}
+	
 	
 	@RequestMapping(value = "/editprofile", method = RequestMethod.GET)
 	public String editProfile(
@@ -94,7 +145,7 @@ public class ProfileController {
 		return "profileEdit";
 	}
 	
-	@RequestMapping(value = "/registerprofileedition", method = RequestMethod.POST)
+	@RequestMapping(value = "/editprofileregister", method = RequestMethod.POST)
 	public String registerProfileEdition(
 			@RequestParam(value="login", required=false) String login,
 			@ModelAttribute("profileForm") ProfileForm profileForm,
@@ -102,12 +153,12 @@ public class ProfileController {
 			HttpSession session) {
 		
 		//If no login is specified, recall for session profile
-				if(login == null)
-					return this.registerProfileEdition(
-							((Member)session.getAttribute("member")).getLogin(),
-							profileForm,
-							model, 
-							session);
+		if(login == null)
+			return this.registerProfileEdition(
+					((Member)session.getAttribute("member")).getLogin(),
+					profileForm,
+					model, 
+					session);
 		
 		Member member = datamem.findByLogin(login);
 		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?

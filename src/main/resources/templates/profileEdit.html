@@ -22,7 +22,7 @@
 	<div th:replace="profileHeader">&nbsp;</div>
 	
 	
-	<form action="#" th:action="@{/registerprofileedition}"	th:object="${profileForm}" method="post">
+	<form action="#" th:action="@{/editprofileregister}"	th:object="${profileForm}" method="post">
 		<p>
 			E-mail : <input id="email" type="email" th:field="*{email}" />
 		</p>

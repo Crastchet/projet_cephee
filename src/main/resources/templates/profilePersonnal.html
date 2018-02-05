@@ -22,37 +22,34 @@
 
 
     <div id="divcompetences" style="float:left;margin-right:550px;display:none">
-		<h4> Vos compétences </h4>
-		<ul class="row" th:each="skill : *{skills}">
-			<li class="collection-item" th:text="${skill.name}">
-			<span th:text="${skill.level}"></span>
+		<h4>Mes compétences</h4>
+		
+		<h6>Mes compétences :</h6>
+		<ul id="mySkills" class="collection row" th:each="skill : *{skills}">
+			<li class="collection-item" th:text="${skill.title}">
+				<span th:text="${skill.level}"></span>
 			</li>
 		</ul>
 		
-		<ul id="dropdown2" class="dropdown-content">
-		    <li><a href="#!">Ici les catégories qui exsitent en base hein</a></li>
-		    <li><a href="#!">Cuisine</a></li>
-		    <li><a href="#!">Musique</a></li>
+		<h6>Les compétences qui existent :</h6>
+		<ul id="allSkills">
+		    <li th:each="skill : *{allSkills}"><p th:text="${skill.title}"><a href="#!"></a></p></li>
 		</ul>
 		
-		<ul class="collection">
-			<li class="collection-item">Sport</li>
-			<li class="collection-item">Musique</li>
-		</ul>
-		 <ul id="dropdown2" class="dropdown-content">
-		    <li><a href="#!">Sport</a></li>
-		    <li><a href="#!">Cuisine</a></li>
-		    <li><a href="#!">Musique</a></li>
-		</ul>
-		<a class="btn dropdown-button" href="#!" data-activates="dropdown2">Ajouter une compétence<i class="material-icons right">arrow_drop_down</i></a>
         <div class="row">
-       		<form class="col s12">
+       		<form class="col s12" action="#" th:action="@{/skillprofileregister}" th:object="${profileSkillForm}" method="post">
          		<div class="row">
            			<div class="input-field col s12">
-            			<textarea id="textarea1" class="materialize-textarea"></textarea>
-            			<label for="textarea1">Décrivez plus en détail votre compétence</label>
+            			<p>
+							Nom : <input id="skillName" type="text" name="skillName" th:field="*{title}" />
+						</p>
+						
+						<p>
+							Niveau : <input id="skillLevel" type="text" name="skillLevel" th:field="*{level}" />
+						</p>
    					</div>
            		</div>
+				<input type="submit" value="Ajouter" id="buttonAddSkill"/>
            </form>
   		</div>
    	</div>

@@ -28,13 +28,19 @@ public class Member {
 	private boolean activated;		//profile activated or not
 	private boolean isAdmin;
 	@OneToMany(mappedBy="author")
-	List<Publication> listpublication = new ArrayList<Publication>();
+	private List<Publication> listpublication = new ArrayList<Publication>();
+	
+	@OneToMany(mappedBy="member")
+	private List<Competence> skills = new ArrayList<Competence>();
 	
 	
 	public Member()
 	{
 		this.activated = false;
 		this.isAdmin = false;
+		Competence c = new Competence();
+		c.setTitle("Le Golf");
+		this.skills.add(c);
 	}
 	
 	public Member(int id)
@@ -107,5 +113,12 @@ public class Member {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public List<Competence> getSkills() {
+		return skills;
+	}
+	public void setSkills(List<Competence> skills) {
+		this.skills = skills;
+	}
+
 
 }

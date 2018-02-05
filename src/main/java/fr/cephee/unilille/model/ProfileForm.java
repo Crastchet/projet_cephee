@@ -15,6 +15,12 @@ public class ProfileForm {
 	
 	private String description;
 	
+	
+	public ProfileForm() {
+		
+	}
+	
+	
 	private List<Competence> skills = new ArrayList<Competence>();
 	
 	public String getBirth() {
