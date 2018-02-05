@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>CrÃ©er votre evenement</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/materialize.css" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/materialize.min.css" />
+<link type="text/css" rel="stylesheet" href="css/style.css"
+	media="screen,projection" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/selectorPublication.css" />
+</head>
+<body background="img/spiration-light.png">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
+	<goodvibes>Modifier votre projet</goodvibes>
+	<form action="#" th:action="@{/updateannonce}"
+		th:object="${publicationForm}" method="post">
+		<p>
+			Titre : <input type="text" th:field="*{title}" id="titre"
+				onchange="checkForm()" th:value="*{title}" />
+		</p>
+
+		<p>
+			Description : <input type="text" th:field="*{content}" id="content"
+				onchange="checkForm()" th:value="*{content}" />
+		</p>
+
+		<p>
+			<input type="submit" value="Fin de la modification" id="boutonModifier"
+				disabled="disabled" />
+		</p>
+	</form>
+	<script>checkFormUpdate()</script>
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+	<a th:href="@{/home}">Retour Ã  l'accueil </a>
+</body>
+</html>

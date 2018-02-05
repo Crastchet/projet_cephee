@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Créer votre evenement</title>
+<title>CrÃ©er votre evenement</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -19,7 +19,7 @@
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
 	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
 	<goodvibes>Modifier votre projet</goodvibes>
-	<form action="#" th:action="@{/Finishedupdating}"
+	<form action="#" th:action="@{/updateevent}"
 		th:object="${publicationForm}" method="post">
 		<p>
 			Titre : <input type="text" th:field="*{title}" id="titre"
@@ -36,7 +36,8 @@
 		<br />
 
 		<h3>Choisissez une ou plusieurs categories</h3>
-		<div class="categoryClass">
+		
+		<!--  <div class="categoryClass">
 			<ul id="categoryOption" class="options">
 				<th:block>
 					<li id="itemList" th:each="item : *{listCategory}" th:text="${item.title}"></li>
@@ -49,22 +50,7 @@
 				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 					th:text="${catego.title}"></option>
 			</select>
-		</div>
-
-		<h3>Choisissez une ou plusieurs competences</h3>
-		<div class="competenceClass">
-			<ul id="competenceOption" class="options">
-				<th:block>
-					<li id="itemList" th:each="item : *{listCompetence}" th:text="${item.title}"></li>
-				</th:block>
-			</ul>
-			<select style="display: block;" onchange="selectIngredient(this);"
-				th:field="*{listCompetence}">
-				<option th:value="null"></option>
-				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
-					th:text="${comp.title}"></option>
-			</select>
-		</div>
+		</div> -->
 
 		<p>
 			<input type="submit" value="Fin Creation Projet" id="boutonModifier"
@@ -73,6 +59,6 @@
 	</form>
 	<script>checkFormUpdate()</script>
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
-	<a th:href="@{/home}">Retour à l'accueil </a>
+	<a th:href="@{/home}">Retour Ã  l'accueil </a>
 </body>
 </html>

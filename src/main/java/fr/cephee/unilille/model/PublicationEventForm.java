@@ -21,9 +21,7 @@ public class PublicationEventForm extends PublicationForm {
 
 	
 	@NotEmpty
-	private String location;
-
-	
+	private String location;	
 
 	public List<Category> getListCategory() {
 		return listCategory;

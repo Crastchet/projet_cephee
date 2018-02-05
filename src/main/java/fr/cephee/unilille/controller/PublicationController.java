@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 
@@ -229,41 +231,65 @@ public class PublicationController {
 	// return "The Publication id is: " + publiId;
 	// }
 
-	@RequestMapping("/updatepublication")
-	public String updatePublication(@ModelAttribute("publi") Publication publication, Model model,
-			HttpSession session) {
-		
-		List<Category> listcategory = dataCate.findAll();
-		List<Competence> listcompetence = dataComp.findAll();
-		
-		model.addAttribute("categoryList", listcategory);
-		model.addAttribute("competenceList", listcompetence);
-		PublicationForm publiForm = new PublicationForm();
-		publiForm.setTitle(publication.getTitle());
-		publiForm.setAuthorised(publication.isAuthorised());
-		publiForm.setContent(publication.getContent());
-		publiForm.setAuthor(publication.getAuthor());		
-		publiForm.setListCategory(publication.getCategory());
-		
+	@RequestMapping("/finishedupdating")
+	public String finishedUpdating(@ModelAttribute("publi") Publication publication, Model model,
+			HttpSession session)
+	{
+		model.addAttribute("publi", publication);
 		model.addAttribute("member", session.getAttribute("member"));
-		model.addAttribute("publicationForm", publiForm);
 		
 		if (publication instanceof PublicationProject) {
-			//publiForm.setListCompetence(((PublicationProject) publication).getListcompetence());
-			return "updateProject";
+			return "detailsProject";
 		} else if (publication instanceof PublicationAnnonce) {
-			return "updateExchange";
+			return "detailsAnnonce";
 		} else if (publication instanceof PublicationEvent) {
-			return "updateEvent";
+			return "detailsEvent";
 		} else
 			return "errorPage";
 	}
 
 	@RequestMapping("/updateproject")
-	public String updateProject(@ModelAttribute("publicationForm") PublicationForm publicationForm, Model model, HttpSession session) {
+	public String updateProject(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
+		List<Category> listcategory = dataCate.findAll();
+		List<Competence> listcompetence = dataComp.findAll();
+		
+		model.addAttribute("categoryList", listcategory);
+		model.addAttribute("competenceList", listcompetence);
+		
 		model.addAttribute("member", session.getAttribute("member"));
 		
-		return "detailsProject";
+		PublicationForm publiForm = new PublicationForm();
+		publiForm.setTitle(publication.getTitle());
+		publiForm.setAuthorised(publication.isAuthorised());
+		publiForm.setContent(publication.getContent());
+		publiForm.setAuthor(publication.getAuthor());	
+		publiForm.setListCategory(publication.getCategory());
+		publiForm.setListCompetence(((PublicationProject) publication).getListcompetence());
+		
+		for (Category c : publiForm.getListCategory())			
+			log.info("category : " + c.getTitle());
+		
+		model.addAttribute("publicationForm", publiForm);
+		for (Competence c : publiForm.getListCompetence())			
+		log.info("competence : " + c.getTitle());
+		return "updateProject";
+	}
+	
+	@RequestMapping("/updateevent")
+	public String updateEvent(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
+		List<Category> listcategory = dataCate.findAll();
+		
+		model.addAttribute("categoryList", listcategory);
+		model.addAttribute("member", session.getAttribute("member"));
+		
+		return "detailsEvent";
+	}
+	
+	@RequestMapping("/updateannonce")
+	public String updateAnnonce(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
+		model.addAttribute("member", session.getAttribute("member"));
+		
+		return "detailsAnnonce";
 	}
 	
 	@RequestMapping("/seedetailspublication")
@@ -276,7 +302,7 @@ public class PublicationController {
 		if (publi instanceof PublicationProject) {
 			return "detailsProject";
 		} else if (publi instanceof PublicationAnnonce) {
-			return "detailsExchange";
+			return "detailsAnnonce";
 		} else /* if (publi instanceof PublicationEvent) */ {
 			return "detailsEvent";
 		}
