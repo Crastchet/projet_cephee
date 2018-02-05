@@ -4,10 +4,10 @@
 <title>Créer votre evenement</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" media="all"
+<!-- 	<link rel="stylesheet" type="text/css" media="all"
 	href="/css/materialize.css" />
-<link rel="stylesheet" type="text/css" media="all"
-	href="/css/materialize.min.css" />
+ <link rel="stylesheet" type="text/css" media="all"
+	href="/css/materialize.min.css" /> -->
 	<link type="text/css" rel="stylesheet" href="css/style.css"
 	media="screen,projection" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -61,7 +61,20 @@
 		</script>
 
 		<h3>Choisissez une ou plusieurs categories pour votre evenement</h3>
-		<div class="categoryClass">
+		
+				<p th:each="catego : ${categoryList}">
+			<input  type="checkbox" id="myCheckbox" class="filled-in" th:field="*{listCategory}" th:value="${catego.id}" />
+			<label for="myCheckbox" th:text="${catego.title}"> </label>
+		</p>
+
+		<h3>Choisissez une ou plusieurs competences</h3>
+		
+		<p th:each="comp : ${competenceList}">
+			<input  type="checkbox" id="myCheckbox" class="filled-in" th:field="*{listCompetence}" th:value="${comp.id}" />
+			<label for="myCheckbox" th:text="${comp.title}"> </label>
+		</p>
+		
+<!--  		<div class="categoryClass">
 			<ul class="options">
 			</ul>
 			<select id="myselect" style="display: block;"
@@ -70,7 +83,7 @@
 				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 					th:text="${catego.title}"></option>
 			</select>
-		</div>
+		</div> -->
 
 		<p>
 			<input id="boutonCreation" type="submit"

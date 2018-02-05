@@ -14,7 +14,7 @@ public class Competence implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private int level;
-	private String name;
+	private String title;
 	
 	public Competence()
 	{
@@ -27,11 +27,11 @@ public class Competence implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDescription() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
-	public void setDescription(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public int getLevel() {
 		return level;
