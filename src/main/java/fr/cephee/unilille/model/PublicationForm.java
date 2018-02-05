@@ -1,7 +1,6 @@
 package fr.cephee.unilille.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,6 +16,8 @@ public class PublicationForm {
 	@NotEmpty
 	private String typePublication;
 	
+	private boolean authorised;
+
 	private List<Category> listCategory = new ArrayList<Category>();
 	
 	private List<Competence> listCompetence = new ArrayList<Competence>();
@@ -81,4 +82,13 @@ public class PublicationForm {
 	}
 	
 	
+	public boolean isAuthorised() {
+		return authorised;
+	}
+
+
+	public void setAuthorised(boolean authorised) {
+		this.authorised = authorised;
+	}
+
 }

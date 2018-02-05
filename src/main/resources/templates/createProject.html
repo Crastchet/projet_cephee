@@ -5,21 +5,28 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css"
-	media="screen,projection" />
-<link type="text/css" rel="stylesheet" href="css/style.css"
-	media="screen,projection" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	media="screen,projection" /> 
+<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
 <link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/css/selectorPublication.css}"
-	href="/css/selectorPublication.css" />
+	href="/css/selectorPublication.css" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body background="img/spiration-light.png">
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
-	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
-	<script>checkForm()</script>
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}">
+		
+	</script>
+	<script>
+		checkForm()
+	</script>
 	<goodvibes>Créer votre projet</goodvibes>
+  
 	<form action="#" th:action="@{/registerproject}"
 		th:object="${publicationForm}" method="post">
 		<p>
@@ -37,16 +44,24 @@
 		<br />
 
 		<h3>Choisissez une ou plusieurs categories</h3>
-		<div class="categoryClass">
+
+		<p th:each="catego : ${categoryList}">
+			<input  type="checkbox" id="myCheckbox" class="filled-in" th:field="*{listCategory}" th:value="${catego.id}" />
+			<label for="myCheckbox" th:text="${catego.title}"> </label>
+		</p>
+
+		<!--  <div class="categoryClass">
 			<ul class="options">
 			</ul>
-			<select style="display: block;" onchange="selectIngredient(this);" th:field="*{listCategory}">
+
+			<select style="display: block;" th:field="*{listCategory}"
+				onchange="selectIngredient(this);" multiple="multiple">
 				<option th:value="null"></option>
-				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+				<option th:each="catego : ${categoryList}" th:value="${{catego}}"
 					th:text="${catego.title}"></option>
 			</select>
 		</div>
-
+ -->
 		<h3>Choisissez une ou plusieurs competences</h3>
 		<div class="competenceClass">
 			<ul class="options">
@@ -55,7 +70,7 @@
 				th:field="*{listCompetence}">
 				<option th:value="null"></option>
 				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
-					th:text="${comp.description}" th:field="*{listCompetence}"></option>
+					th:text="${comp.description}"></option>
 			</select>
 		</div>
 

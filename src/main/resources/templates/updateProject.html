@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Créer votre evenement</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/materialize.css" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/materialize.min.css" />
+<link type="text/css" rel="stylesheet" href="css/style.css"
+	media="screen,projection" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/selectorPublication.css" />
+</head>
+<body background="img/spiration-light.png">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
+	<goodvibes>Modifier votre projet</goodvibes>
+	<form action="#" th:action="@{/updateproject}"
+		th:object="${publicationForm}" method="post">
+		<p>
+			Titre : <input type="text" th:field="*{title}" id="titre"
+				onchange="checkForm()" th:value="*{title}" />
+		</p>
+
+		<p>
+			Description : <input type="text" th:field="*{content}" id="content"
+				onchange="checkForm()" th:value="*{content}" />
+		</p>
+
+		<!--  <form th:object="${user}" action="index.html" th:action="@{/save}" method="post">
+			<input type="hidden" th:field="*{id}" />-->
+		<br />
+
+		<h3>Choisissez une ou plusieurs categories</h3>
+		<div class="categoryClass">
+			<ul id="categoryOption" class="options">
+				<th:block>
+					<li id="itemList" th:each="item : *{listCategory}" th:text="${item.title}"></li>
+				</th:block>
+			</ul>
+			<script>addingInput()</script>
+			<select id="selectCategory" style="display: block;" onshow="selectIngredientChecking(this)"
+				onchange="selectIngredient(this);" th:field="*{listCategory}">
+				<option th:value="null"></option>
+				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+					th:text="${catego.title}"></option>
+			</select>
+		</div>
+
+		<h3>Choisissez une ou plusieurs competences</h3>
+		<div class="competenceClass">
+			<ul class="options">
+			</ul>
+			<select style="display: block;" onchange="selectIngredient(this);"
+				th:field="*{listCompetence}">
+				<option th:value="null"></option>
+				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
+					th:text="${comp.description}"></option>
+			</select>
+		</div>
+
+		<p>
+			<input type="submit" value="Fin Creation Projet" id="boutonModifier"
+				disabled="disabled" />
+		</p>
+	</form>
+	<script>checkFormUpdate()</script>
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+	<a th:href="@{/home}">Retour à l'accueil </a>
+</body>
+</html>

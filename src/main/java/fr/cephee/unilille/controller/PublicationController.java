@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
@@ -36,13 +38,14 @@ import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.TypePublicationWrapper;
 
 @Controller
+@SessionAttributes({ "publi" })
 public class PublicationController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	Validator validator;
-	
+
 	@Autowired
 	private PublicationPersistence datapub;
 
@@ -55,10 +58,10 @@ public class PublicationController {
 	@RequestMapping(value = "/formtypepublication")
 	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, HttpSession session) {
 		PublicationForm publicationForm = new PublicationForm();
-		
+
 		model.addAttribute("publicationForm", publicationForm);
 		model.addAttribute("member", session.getAttribute("member"));
-		
+
 		form.getPublicationList().add("Projet");
 		form.getPublicationList().add("Echange");
 		form.getPublicationList().add("Evenement");
@@ -73,43 +76,37 @@ public class PublicationController {
 		return "publication";
 	}
 
-	
 	@RequestMapping(value = "/checktypepublication", method = RequestMethod.GET)
-	public String checkTypePublication(@RequestParam(value="publicationType", required=true) String publicationType, Model model,HttpSession session) {
+	public String checkTypePublication(@RequestParam(value = "publicationType", required = true) String publicationType,
+			Model model, HttpSession session) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
 		model.addAttribute("member", session.getAttribute("member"));
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
-		
+
 		if (publicationType.equals("project")) {
 			model.addAttribute("publicationForm", new PublicationForm());
 			return "createProject";
-		}
-		else if (publicationType.equals("event"))
-		{
+		} else if (publicationType.equals("event")) {
 			PublicationEventForm publicationEventForm = new PublicationEventForm();
 			model.addAttribute("publicationForm", publicationEventForm);
 			return "createEvent";
-		}
-		else if (publicationType.equals("exchange"))
-		{
+		} else if (publicationType.equals("exchange")) {
 			model.addAttribute("publicationForm", new PublicationForm());
 			return "createAnnonce";
-		}
-		else
+		} else
 			return "errorPage";
 	}
 
 	@RequestMapping(value = "/registerannonce", method = RequestMethod.POST)
-	public String createAnnonce(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
-			HttpSession session, Errors errors) {
+	public String createAnnonce(@ModelAttribute("publicationForm") PublicationForm publicationForm,
+			BindingResult result, Model model, HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Echange");
 		model.addAttribute("member", session.getAttribute("member"));
-		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
-		
-		if (result.hasErrors())
-		{
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
+
+		if (result.hasErrors()) {
 			for (ObjectError obj : result.getAllErrors())
 				log.info(obj.toString());
 			return "createAnnonce";
@@ -132,16 +129,15 @@ public class PublicationController {
 		}
 		return "publication";
 	}
-	
+
 	@RequestMapping(value = "/registerproject", method = RequestMethod.POST)
-	public String createProject(@ModelAttribute("publicationForm") PublicationForm publicationForm, BindingResult result, Model model,
-			HttpSession session, Errors errors) {
+	public String createProject(@ModelAttribute("publicationForm") PublicationForm publicationForm,
+			BindingResult result, Model model, HttpSession session, Errors errors) {
 		model.addAttribute("member", session.getAttribute("member"));
 		publicationForm.setTypePublication("Projet");
-		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);		
-		
-		if (result.hasErrors())
-		{
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
+
+		if (result.hasErrors()) {
 			for (ObjectError obj : result.getAllErrors())
 				log.info(obj.toString());
 			return "createProject";
@@ -155,6 +151,10 @@ public class PublicationController {
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
 			publication.setAuthor((Member) session.getAttribute("member"));
+			for (Category cat : publicationForm.getListCategory())
+			{
+				log.info("category added : " + cat.getTitle());
+			}
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setListcompetence(publicationForm.getListCompetence());
 			datapub.save(publication);
@@ -167,13 +167,12 @@ public class PublicationController {
 	}
 
 	@RequestMapping(value = "/registerevent", method = RequestMethod.POST)
-	public String createEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm, BindingResult result, Model model,
-			HttpSession session, Errors errors) {
+	public String createEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm,
+			BindingResult result, Model model, HttpSession session, Errors errors) {
 		publicationForm.setTypePublication("Evenement");
 		model.addAttribute("member", session.getAttribute("member"));
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
-		if (result.hasErrors())
-		{
+		if (result.hasErrors()) {
 			for (ObjectError obj : result.getAllErrors())
 				log.info(obj.toString());
 			return "createEvent";
@@ -189,7 +188,7 @@ public class PublicationController {
 			publication.setDateCreation(date);
 			publication.setAuthor((Member) session.getAttribute("member"));
 			publication.setCategory(publicationForm.getListCategory());
-			publication.setLocation(publicationForm.getLocation());	
+			publication.setLocation(publicationForm.getLocation());
 			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
 			Date startd = sdf.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
 			log.info(startd.toString());
@@ -203,58 +202,82 @@ public class PublicationController {
 		}
 		return "publication";
 	}
-	
+
 	@RequestMapping("/deletepublication")
-	public String delete(int id) {
+	@ResponseBody
+	public String delete(@ModelAttribute("publi") Publication publication, Model model) {
+		log.info("publication is => " + publication.getId() + publication.getTitle() + " " + publication.getContent());
 		try {
-			Publication publication = new Publication(id);
-			datapub.delete(publication);
+			Publication publi = datapub.findById(publication.getId());
+			log.info("INFO = " + publi.getId() + "  " + publi.getTitle() + " " + publi.getContent());
+			datapub.delete(publi);
 		} catch (Exception ex) {
 			return "Error deleting the publication:" + ex.toString();
 		}
 		return "publication succesfully deleted!";
 	}
 
-//	@RequestMapping("/get-by-AuthorPublication")
-//	public String getByLogin(Member author) {
-//		String publiId = "";
-//		try {
-//			Publication publi = datamem.findByAuthor(author);
-//			publiId = String.valueOf(publi.getId());
-//		} catch (Exception ex) {
-//			return "Publication not found";
-//		}
-//		return "The Publication id is: " + publiId;
-//	}
+	// @RequestMapping("/get-by-AuthorPublication")
+	// public String getByLogin(Member author) {
+	// String publiId = "";
+	// try {
+	// Publication publi = datamem.findByAuthor(author);
+	// publiId = String.valueOf(publi.getId());
+	// } catch (Exception ex) {
+	// return "Publication not found";
+	// }
+	// return "The Publication id is: " + publiId;
+	// }
 
 	@RequestMapping("/updatepublication")
-	public String updatePublication(int id, String title, String content, List<Category> listCategory) {
-		try {
-			Publication publi = datapub.findById(id);
-			publi.setTitle(title);
-			publi.setContent(content);
-			publi.setCategory(listCategory);
-			datapub.save(publi);	
-		} catch (Exception ex) {
-			return "Error updating the Publication: " + ex.toString();
-		}
-		return "Publication succesfully updated!";
+	public String updatePublication(@ModelAttribute("publi") Publication publication, Model model,
+			HttpSession session) {
+		
+		List<Category> listcategory = dataCate.findAll();
+		List<Competence> listcompetence = dataComp.findAll();
+		
+		model.addAttribute("categoryList", listcategory);
+		model.addAttribute("competenceList", listcompetence);
+		PublicationForm publiForm = new PublicationForm();
+		publiForm.setTitle(publication.getTitle());
+		publiForm.setAuthorised(publication.isAuthorised());
+		publiForm.setContent(publication.getContent());
+		publiForm.setAuthor(publication.getAuthor());		
+		publiForm.setListCategory(publication.getCategory());
+		
+		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("publicationForm", publiForm);
+		
+		if (publication instanceof PublicationProject) {
+			//publiForm.setListCompetence(((PublicationProject) publication).getListcompetence());
+			return "updateProject";
+		} else if (publication instanceof PublicationAnnonce) {
+			return "updateExchange";
+		} else if (publication instanceof PublicationEvent) {
+			return "updateEvent";
+		} else
+			return "errorPage";
+	}
+
+	@RequestMapping("/updateproject")
+	public String updateProject(@ModelAttribute("publicationForm") PublicationForm publicationForm, Model model, HttpSession session) {
+		model.addAttribute("member", session.getAttribute("member"));
+		
+		return "detailsProject";
 	}
 	
 	@RequestMapping("/seedetailspublication")
-	public String seeDetailsPublication(@RequestParam(value="id", required=true) int id,
-			Model model,
+	public String seeDetailsPublication(@RequestParam(value = "id", required = true) Integer id, Model model,
 			HttpSession session) {
 		Publication publi = datapub.findById(id);
 		model.addAttribute("publi", publi);
-		
 		model.addAttribute("member", session.getAttribute("member"));
-		
+
 		if (publi instanceof PublicationProject) {
 			return "detailsProject";
 		} else if (publi instanceof PublicationAnnonce) {
 			return "detailsExchange";
-		} else /*if (publi instanceof PublicationEvent)*/ {
+		} else /* if (publi instanceof PublicationEvent) */ {
 			return "detailsEvent";
 		}
 	}
