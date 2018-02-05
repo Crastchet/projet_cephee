@@ -14,11 +14,9 @@ public class Competence implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	private int level;
 	private String title;
-	
-	@ManyToOne
-	private Member member;
 	
 	
 	public Competence()
@@ -44,6 +42,5 @@ public class Competence implements Serializable {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
 	 
 }

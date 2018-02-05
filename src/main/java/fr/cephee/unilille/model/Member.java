@@ -27,10 +27,11 @@ public class Member {
 	private String description;
 	private boolean activated;		//profile activated or not
 	private boolean isAdmin;
+	
 	@OneToMany(mappedBy="author")
 	private List<Publication> listpublication = new ArrayList<Publication>();
 	
-	@OneToMany(mappedBy="member")
+	@OneToMany
 	private List<Competence> skills = new ArrayList<Competence>();
 	
 	

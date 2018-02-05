@@ -97,6 +97,8 @@ public class LoginController {
 			member.setLogin(login);
 			member.setFirstname("test1");
 			member.setLastname("test2");
+			member.setListpublication(null);
+			member.setSkills(null);
 			datamem.save(member);
 		}
 		catch (Exception ex) {

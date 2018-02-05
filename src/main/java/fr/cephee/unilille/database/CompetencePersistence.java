@@ -9,5 +9,4 @@ import fr.cephee.unilille.model.Member;
 
 public interface CompetencePersistence  extends CrudRepository<Competence, Integer>{
 	public List<Competence> findAll();
-	public List<Competence> findByMember(Member member);
 }
