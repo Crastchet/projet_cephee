@@ -1,41 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Détails Echange</title>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+<title>Détails Echange</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+	media="screen,projection" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8" />
 </head>
 <body background="img/background.jpg">
 
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-		
-		<h1>Détails Echange</h1>
 
-		<div class="row">
+	<h1>Détails Echange</h1>
+
+	<div class="row">
 		<div class="col s12 m8 offset-m2">
 			<div class="card teal lighten-3">
 				<div class="card-content white-text">
-				<h3 th:text="${publi.title}"></h3>
-				<span style="font-size: 20px;" th:text="'Auteur: ' + ${publi.author.login}"></span>
-				<span style="font-size: 20px;float: right;" th:text="'créé le: ' + ${publi.dateCreation}"></span>
+					<h3 th:text="${publi.title}"></h3>
+					<form action="#" th:action="@{/deletepublication}"
+						th:object="${publi}" method="post">
+						<input type="submit" value="Supprimer cette publication"
+							id="boutonSuppression" />
+					</form>
+					<form action="#" th:action="@{/updatepublication}"
+						th:object="${publi}" method="post">
+						<input type="submit" value="Modifier cette publication"
+							id="boutonModifier" />
+					</form>
+					<span style="font-size: 20px;"
+						th:text="'Auteur: ' + ${publi.author.login}"></span> <span
+						style="font-size: 20px; float: right;"
+						th:text="'créé le: ' + ${publi.dateCreation}"></span>
 				</div>
 				<div class="card white">
-					
+
 					<div class="card-content black-text">
-						
-						
-						
+
+
+
 						<h5>Description:</h5>
-			        	<p th:text="${publi.content}"></p>
-			      	</div>
-		      	</div>
-	      	</div>
-      	</div>
+						<p th:text="${publi.content}"></p>
+					</div>
+				</div>
+			</div>
 		</div>
-		
-		
-		
+	</div>
+
+
+
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
 </html>
