@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class PublicationEventForm extends PublicationForm {
 	
 
-	private List<Category> listCategory = new ArrayList<Category>();
+
 	
 	@NotNull
 	private String startevent;
@@ -23,13 +23,6 @@ public class PublicationEventForm extends PublicationForm {
 	@NotEmpty
 	private String location;	
 
-	public List<Category> getListCategory() {
-		return listCategory;
-	}
-
-	public void setListCategory(List<Category> listCategory) {
-		this.listCategory = listCategory;
-	}
 
 	public String getStartevent() {
 		return startevent;
