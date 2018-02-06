@@ -4,36 +4,53 @@
 <title>Créer votre annonce</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" media="all"
-	href="/css/materialize.css" />
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+	media="screen,projection" /> 
+<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
 <link rel="stylesheet" type="text/css" media="all"
-	href="/css/materialize.min.css" />
-	<link type="text/css" rel="stylesheet" href="css/style.css"
-	media="screen,projection" />
-<link rel="stylesheet" type="text/css" media="all"
-	href="/css/selectorPublication.css" />
+	th:href="@{/css/selectorPublication.css}"
+	href="/css/selectorPublication.css" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body background="img/spiration-light.png">
-<div th:replace="fragments/header :: header">&nbsp;</div>
-	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
-	<script>checkForm()</script>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"></script>
+	<script>
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+	</script>
+	<script>
+		checkForm()
+	</script>
 	<form action="#" th:action="@{/registerannonce}"
 		th:object="${publicationForm}" method="post">
 		<p>
-			Titre : <input type="text" th:field="*{title}"  id="titre" onchange="checkForm()" />
+			Titre : <input type="text" th:field="*{title}" id="titre"
+				onchange="checkForm()" />
 		</p>
 
 		<p>
-			Description : <input type="text" th:field="*{content}" onchange="checkForm()" id="content"/>
+			Description : <input type="text" th:field="*{content}"
+				onchange="checkForm()" id="content" />
 		</p>
-		
-		<p>
-			<input type="submit" value="Fin de creation d annonce" id="boutonCreation" disabled="disabled"/> <input
-				type="reset" value="Reset" />
-		</p>
-		
+
+		<div class="input-field col s12">
+			<select multiple="multiple" th:field="*{listCategory}">
+				<option value="" disabled="disabled" selected="selected">Choisissez vos catégories de publication</option>
+				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+					th:text="${catego.title}"></option>
+			</select> 
+		</div>
+
+		<button class="btn waves-effect waves-light" id="boutonCreation"
+			type="submit" name="action" disabled="disabled">
+			Fin Creation Annonce <i class="material-icons right">send</i>
+		</button>
 	</form>
-	<a th:href="@{/home}">Retour à l'accueil </a>
 </body>
 </html>

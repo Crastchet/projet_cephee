@@ -4,9 +4,9 @@
 <title>Créer votre projet</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
-<!--  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
 	media="screen,projection" /> 
-<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>-->
+<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
 <link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/css/selectorPublication.css}"
 	href="/css/selectorPublication.css" /> 
@@ -19,12 +19,12 @@
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
-	<script type="text/javascript" th:src="@{/js/publicationFunc.js}">
-		
-	</script>
-	<script>
-		checkForm()
-	</script>
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"></script>
+	<script>checkForm()</script>
+	<script> $(document).ready(function() {
+	    $('select').material_select();
+	  });</script>
+	  
 	<goodvibes>Créer votre projet</goodvibes>
   
 	<form action="#" th:action="@{/registerproject}"
@@ -39,54 +39,26 @@
 				onchange="checkForm()" />
 		</p>
 
-		<!--  <form th:object="${user}" action="index.html" th:action="@{/save}" method="post">
-			<input type="hidden" th:field="*{id}" />-->
-		<br />
-
-		<h3>Choisissez une ou plusieurs categories</h3>
-
-		<p th:each="catego : ${categoryList}">
-			<input  type="checkbox" id="myCheckbox" class="filled-in" th:field="*{listCategory}" th:value="${catego.id}" />
-			<label for="myCheckbox" th:text="${catego.title}"> </label>
-		</p>
-
-		<h3>Choisissez une ou plusieurs competences</h3>
-		
-		<p th:each="comp : ${competenceList}">
-			<input  type="checkbox" id="myCheckbox" class="filled-in" th:field="*{listCompetence}" th:value="${comp.id}" />
-			<label for="myCheckbox" th:text="${comp.title}"> </label>
-		</p>
-		
-		<!--  <div class="categoryClass">
-			<ul class="options">
-			</ul>
-
-			<select style="display: block;" th:field="*{listCategory}"
-				onchange="selectIngredient(this);" multiple="multiple">
-				<option th:value="null"></option>
-				<option th:each="catego : ${categoryList}" th:value="${{catego}}"
+		<div class="input-field col s12">
+			<select multiple="multiple" th:field="*{listCategory}">
+				<option value="" disabled="disabled" selected="selected">Choisissez vos catégories de publication</option>
+				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 					th:text="${catego.title}"></option>
-			</select>
+			</select> 
 		</div>
-
-		<h3>Choisissez une ou plusieurs competences</h3>
-		<div class="competenceClass">
-			<ul class="options">
-			</ul>
-			<select style="display: block;" onchange="selectIngredient(this);"
-				th:field="*{listCompetence}">
-				<option th:value="null"></option>
-				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
-					th:text="${comp.description}"></option>
-			</select>
-		</div> -->
-
-		<p>
-			<input type="submit" value="Fin Creation Projet" id="boutonCreation"
-				disabled="disabled" /> <input type="reset" value="Reset" />
-		</p>
+		
+		<div class="input-field col s12">
+			<select multiple="multiple" th:field="*{listCompetence}">
+				<option value="" disabled="disabled" selected="selected">Choisissez vos compétences pour la publication</option>
+				<option th:each="competence : ${competenceList}" th:value="${{competence.id}}"
+					th:text="${competence.title}"></option>
+			</select> 
+		</div>		
+		<button class="btn waves-effect waves-light" id="boutonCreation"
+			type="submit" name="action" disabled="disabled">
+			Fin Creation Projet <i class="material-icons right">send</i>
+		</button>
 	</form>
-	<a th:href="@{/home}">Retour à l'accueil </a>
 
 </body>
 
