@@ -15,10 +15,6 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class PublicationProject extends Publication {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany(cascade=CascadeType.ALL) 
@@ -28,15 +24,7 @@ public class PublicationProject extends Publication {
 	{
 		
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	public List<Competence> getListcompetence() {
 		return listcompetence;
 	}

@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 @Entity
 public class PublicationEvent extends Publication {
 
-	private int idpubli;
 	private int nbparticipant;
 	private Date startevent;
 	private String location;
@@ -17,14 +16,7 @@ public class PublicationEvent extends Publication {
 
 	}
 
-	public int getIdpubli() {
-		return idpubli;
-	}
-
-	public void setIdpubli(int idpubli) {
-		this.idpubli = idpubli;
-	}
-
+	
 	public int getNbparticipant() {
 		return nbparticipant;
 	}

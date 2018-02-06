@@ -1,17 +1,10 @@
 package fr.cephee.unilille.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class PublicationEventForm extends PublicationForm {
-	
-
-
 	
 	@NotNull
 	private String startevent;
@@ -23,7 +16,11 @@ public class PublicationEventForm extends PublicationForm {
 	@NotEmpty
 	private String location;	
 
-
+	public PublicationEventForm()
+	{
+		
+	}
+	
 	public String getStartevent() {
 		return startevent;
 	}

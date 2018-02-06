@@ -7,14 +7,11 @@ import javax.persistence.Id;
 
 @Entity
 public class PublicationAnnonce extends Publication {
-
-	/*@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;*/
 	
 	
 	public PublicationAnnonce()
 	{
 		
 	}
+	
 }

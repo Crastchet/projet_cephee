@@ -1,25 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Créer votre evenement</title>
+<title>Créer votre projet</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+	media="screen,projection" /> 
+<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
 <link rel="stylesheet" type="text/css" media="all"
-	href="/css/materialize.css" />
-<link rel="stylesheet" type="text/css" media="all"
-	href="/css/materialize.min.css" />
-<link type="text/css" rel="stylesheet" href="css/style.css"
-	media="screen,projection" />
-<link rel="stylesheet" type="text/css" media="all"
-	href="/css/selectorPublication.css" />
+	th:href="@{/css/selectorPublication.css}"
+	href="/css/selectorPublication.css" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+
 <body background="img/spiration-light.png">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-
-	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
-	<goodvibes>Modifier votre projet</goodvibes>
-	<form action="#" th:action="@{/Finishedupdating}"
+		<script> $(document).ready(function() {
+	    $('select').material_select();
+	  });</script>
+	<goodvibes>Modifier votre Evenement</goodvibes>
+	<form action="#" th:action="@{/finishedupdating}"
 		th:object="${publicationForm}" method="post">
 		<p>
 			Titre : <input type="text" th:field="*{title}" id="titre"
@@ -35,44 +39,27 @@
 			<input type="hidden" th:field="*{id}" />-->
 		<br />
 
-		<h3>Choisissez une ou plusieurs categories</h3>
-		<div class="categoryClass">
-			<ul id="categoryOption" class="options">
-				<th:block>
-					<li id="itemList" th:each="item : *{listCategory}" th:text="${item.title}"></li>
-				</th:block>
-			</ul>
-			<script>addingInput()</script>
-			<select id="selectCategory" style="display: block;" onshow="selectIngredientChecking(this)"
-				onchange="selectIngredient(this);" th:field="*{listCategory}">
-				<option th:value="null"></option>
+		<div class="input-field col s12">
+			<select multiple="multiple" th:field="*{listCategory}">
+				<option value="" disabled="disabled" selected="selected">Choisissez vos catégories de publication</option>
 				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 					th:text="${catego.title}"></option>
-			</select>
+			</select> 
 		</div>
-
-		<h3>Choisissez une ou plusieurs competences</h3>
-		<div class="competenceClass">
-			<ul id="competenceOption" class="options">
-				<th:block>
-					<li id="itemList" th:each="item : *{listCompetence}" th:text="${item.title}"></li>
-				</th:block>
-			</ul>
-			<select style="display: block;" onchange="selectIngredient(this);"
-				th:field="*{listCompetence}">
-				<option th:value="null"></option>
-				<option th:each="comp : ${competenceList}" th:value="${{comp.id}}"
-					th:text="${comp.title}"></option>
-			</select>
-		</div>
-
-		<p>
-			<input type="submit" value="Fin Creation Projet" id="boutonModifier"
-				disabled="disabled" />
-		</p>
+		
+		<div class="input-field col s12">
+			<select multiple="multiple" th:field="*{listCompetence}">
+				<option value="" disabled="disabled" selected="selected">Choisissez vos compétences pour la publication</option>
+				<option th:each="competence : ${competenceList}" th:value="${{competence.id}}"
+					th:text="${competence.title}"></option>
+			</select> 
+		</div>	
+		<button class="btn waves-effect waves-light" id="boutonModifier"
+			type="submit" name="action" disabled="disabled">
+			Fin Creation Projet <i class="material-icons right">send</i>
+		</button>
 	</form>
 	<script>checkFormUpdate()</script>
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
-	<a th:href="@{/home}">Retour à l'accueil </a>
 </body>
 </html>

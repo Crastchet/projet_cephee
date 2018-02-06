@@ -1,11 +1,10 @@
 package fr.cephee.unilille.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 
@@ -153,10 +152,6 @@ public class PublicationController {
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
 			publication.setAuthor((Member) session.getAttribute("member"));
-			for (Category cat : publicationForm.getListCategory())
-			{
-				log.info("category added : " + cat.getTitle());
-			}
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setListcompetence(publicationForm.getListCompetence());
 			datapub.save(publication);
@@ -211,7 +206,6 @@ public class PublicationController {
 		log.info("publication is => " + publication.getId() + publication.getTitle() + " " + publication.getContent());
 		try {
 			Publication publi = datapub.findById(publication.getId());
-			log.info("INFO = " + publi.getId() + "  " + publi.getTitle() + " " + publi.getContent());
 			datapub.delete(publi);
 		} catch (Exception ex) {
 			return "Error deleting the publication:" + ex.toString();
@@ -219,91 +213,202 @@ public class PublicationController {
 		return "publication succesfully deleted!";
 	}
 
-	// @RequestMapping("/get-by-AuthorPublication")
-	// public String getByLogin(Member author) {
-	// String publiId = "";
-	// try {
-	// Publication publi = datamem.findByAuthor(author);
-	// publiId = String.valueOf(publi.getId());
-	// } catch (Exception ex) {
-	// return "Publication not found";
-	// }
-	// return "The Publication id is: " + publiId;
-	// }
-
 	@RequestMapping("/finishedupdating")
-	public String finishedUpdating(@ModelAttribute("publi") Publication publication, Model model,
-			HttpSession session)
-	{
-		model.addAttribute("publi", publication);
+	public String finishedUpdating(@ModelAttribute("publicationForm") PublicationForm publicationForm,
+			@ModelAttribute("publi") Publication publication, BindingResult result, Model model, HttpSession session) {
 		model.addAttribute("member", session.getAttribute("member"));
-		
+		if (result.hasErrors()) {
+			for (ObjectError obj : result.getAllErrors())
+				log.info(obj.toString());
+		}
 		if (publication instanceof PublicationProject) {
+			Publication newpublication = updateProj(publicationForm, publication);
+			model.addAttribute("publi", newpublication);
+			datapub.save(newpublication);
 			return "detailsProject";
 		} else if (publication instanceof PublicationAnnonce) {
+			Publication newpublication = updateAnnon(publicationForm, publication);
+			model.addAttribute("publi", newpublication);
+			datapub.save(newpublication);
 			return "detailsAnnonce";
-		} else if (publication instanceof PublicationEvent) {
-			return "detailsEvent";
-		} else
+		} 
+		else
 			return "errorPage";
 	}
 
+	@RequestMapping("/finishedupdatingevent")
+	public String finishedUpdatingEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm,
+			@ModelAttribute("publi") Publication publication, BindingResult result, Model model, HttpSession session)
+	{
+		Publication newpublication = updateEv(publicationForm, publication);
+		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("publi", newpublication);
+		datapub.save(newpublication);
+		return "detailsEvent";
+	}
+	
 	@RequestMapping("/updateproject")
-	public String updateProject(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
+	public String updateProject(@ModelAttribute("publi") PublicationProject publication, Model model, HttpSession session) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
-		
+
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
-		
 		model.addAttribute("member", session.getAttribute("member"));
-		
+
 		PublicationForm publiForm = new PublicationForm();
 		publiForm.setTitle(publication.getTitle());
 		publiForm.setAuthorised(publication.isAuthorised());
 		publiForm.setContent(publication.getContent());
-		publiForm.setAuthor(publication.getAuthor());	
+		publiForm.setAuthor(publication.getAuthor());
 		publiForm.setListCategory(publication.getCategory());
-		publiForm.setListCompetence(((PublicationProject) publication).getListcompetence());
-		
-		for (Category c : publiForm.getListCategory())			
-			log.info("category : " + c.getTitle());
-		
+		publiForm.setListCompetence(publication.getListcompetence());
+
+		model.addAttribute("publi", publication);
 		model.addAttribute("publicationForm", publiForm);
-		for (Competence c : publiForm.getListCompetence())			
-		log.info("competence : " + c.getTitle());
 		return "updateProject";
 	}
-	
+
+	public Publication updateProj(PublicationForm publicationForm, Publication publi) {
+		Date dateModification = new Date();
+		try {
+			PublicationProject publication = new PublicationProject();
+			publication.setId(publi.getId());
+			publication.setTitle(publicationForm.getTitle());
+			publication.setAuthor(publi.getAuthor());
+			publication.setAuthorised(true);
+			publication.setContent(publicationForm.getContent());
+			publication.setDateCreation(publi.getDateCreation());
+			publication.setDateModification(dateModification);
+			publication.setCategory(publicationForm.getListCategory());
+			publication.setListcompetence(publicationForm.getListCompetence());
+			return publication;
+		} catch (Exception ex) {
+			log.info(ex.toString());
+		}
+		return null;
+	}
+
 	@RequestMapping("/updateevent")
-	public String updateEvent(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
+	public String updateEvent(@ModelAttribute("publi") PublicationEvent publication, Model model, HttpSession session) {
 		List<Category> listcategory = dataCate.findAll();
-		
+
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("member", session.getAttribute("member"));
-		
-		return "detailsEvent";
+
+		PublicationEventForm publiForm = new PublicationEventForm();
+		publiForm.setTitle(publication.getTitle());
+		publiForm.setAuthorised(publication.isAuthorised());
+		publiForm.setContent(publication.getContent());
+		publiForm.setAuthor(publication.getAuthor());
+		publiForm.setListCategory(publication.getCategory());
+		publiForm.setLocation(publication.getLocation());
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		calendar.setTime(publication.getStartevent());
+		String formatted = format1.format(calendar.getTime());
+		int hours = calendar.get(Calendar.HOUR_OF_DAY);
+		int minutes = calendar.get(Calendar.MINUTE);
+
+		String hh = "";
+		String mm = "";
+		if (hours < 10)
+			hh = "0";
+		if (minutes < 10)
+			mm = "0";
+		hh += String.valueOf(hours);
+		mm += String.valueOf(hours);
+		publiForm.setStartevent(formatted);
+		publiForm.setHourstartevent(hh + ":" + mm);
+		log.info(publiForm.getHourstartevent());
+		PublicationEvent publi =  publication;
+		model.addAttribute("publi", publi);
+		model.addAttribute("publicationForm", publiForm);
+		return "updateEvent";
 	}
-	
+
+	public Publication updateEv(PublicationEventForm publicationForm, Publication publi) {
+		Date dateModification = new Date();
+		try {
+			PublicationEvent publication = new PublicationEvent();
+			publication.setId(publi.getId());
+			publication.setTitle(publicationForm.getTitle());
+			publication.setAuthor(publi.getAuthor());
+			publication.setAuthorised(true);
+			publication.setLocation(publicationForm.getLocation());
+			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
+			Date startd = sdf.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
+			publication.setStartevent(startd);
+			publication.setContent(publicationForm.getContent());
+			publication.setDateCreation(publi.getDateCreation());
+			publication.setDateModification(dateModification);
+			publication.setCategory(publicationForm.getListCategory());
+			return publication;
+		} catch (Exception ex) {
+			log.info("Error update EVENT : " + ex.toString());
+		}
+		return null;
+	}
+
 	@RequestMapping("/updateannonce")
 	public String updateAnnonce(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
 		model.addAttribute("member", session.getAttribute("member"));
-		
-		return "detailsAnnonce";
+		List<Category> listcategory = dataCate.findAll();
+
+		model.addAttribute("categoryList", listcategory);
+		model.addAttribute("member", session.getAttribute("member"));
+
+		PublicationForm publiForm = new PublicationForm();
+		publiForm.setTitle(publication.getTitle());
+		publiForm.setAuthorised(publication.isAuthorised());
+		publiForm.setContent(publication.getContent());
+		publiForm.setAuthor(publication.getAuthor());
+		publiForm.setListCategory(publication.getCategory());
+
+		PublicationAnnonce publi = (PublicationAnnonce) publication;
+		model.addAttribute("publicationForm", publiForm);
+		model.addAttribute("publi", publi);
+		return "updateAnnonce";
 	}
-	
+
+	public Publication updateAnnon(PublicationForm publicationForm, Publication publi) {
+		Date dateModification = new Date();
+		try {
+			PublicationAnnonce publication = new PublicationAnnonce();
+			publication.setId(publi.getId());
+			publication.setTitle(publicationForm.getTitle());
+			publication.setAuthor(publi.getAuthor());
+			publication.setAuthorised(true);
+			publication.setContent(publicationForm.getContent());
+			publication.setDateCreation(publi.getDateCreation());
+			publication.setDateModification(dateModification);
+			publication.setCategory(publicationForm.getListCategory());
+			return publication;
+		} catch (Exception ex) {
+			log.info(ex.toString());
+		}
+		return null;
+	}
+
 	@RequestMapping("/seedetailspublication")
 	public String seeDetailsPublication(@RequestParam(value = "id", required = true) Integer id, Model model,
 			HttpSession session) {
 		Publication publi = datapub.findById(id);
-		model.addAttribute("publi", publi);
 		model.addAttribute("member", session.getAttribute("member"));
 
 		if (publi instanceof PublicationProject) {
+			{
+				publi = (PublicationProject) publi;
+				model.addAttribute("publi", publi);
+			}
 			return "detailsProject";
 		} else if (publi instanceof PublicationAnnonce) {
+			publi = (PublicationAnnonce) publi;
+			model.addAttribute("publi", publi);
 			return "detailsAnnonce";
-		} else /* if (publi instanceof PublicationEvent) */ {
+		} else  {
+			publi = (PublicationEvent) publi;
+			model.addAttribute("publi", publi);
 			return "detailsEvent";
 		}
 	}

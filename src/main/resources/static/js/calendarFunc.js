@@ -31,37 +31,13 @@ function checkEverything() {
 		{
 		document.getElementById("boutonCreation").disabled = true;
 		}
-}
-
-/*function checkEverything() {
-
-	var heureStart = document.getElementById("timeStart");
-	var heureEnd = document.getElementById("timeEnd");
-	var dateStart = document.getElementById("dateStart");
-	var dateEnd = document.getElementById("dateEnd");
-	var titre = document.getElementById("titre");
-	var content = document.getElementById("content");
-	var location = document.getElementById("location");
-
-
-	if (dateEnd.value.length != 0 && dateStart.value.length != 0
-			&& heureEnd.value.length != 0 && heureStart.value.length != 0) {
-		if ((dateStart.value + heureStart.value) > (dateEnd.value + heureEnd.value)){
-				document.getElementById("warningDate").style.visibility = "visible";
-				//document.getElementById("boutonCreation").disabled = true;
-				alert("WRONG");
-			} else {
-				document.getElementById("warningDate").style.visibility = "hidden";
-				alert("RTIGHT");
-			}
-	}
-
+	
 	if (titre.value.length != 0 && content.value.length != 0
-			&& location.value.length != 0 && dateEnd.value.length != 0
-			&& dateStart.value.length != 0 && heureEnd.value.length != 0
-			&& heureStart.value.length != 0) 
-		if ((dateStart.value + heureStart.value) < (dateEnd.value + heureEnd.value)){
-		document.getElementById("boutonCreation").disabled = false;
+			&& location.value.length != 0 && dateStart.value.length != 0 && heureStart.value.length != 0)
+	{
+		document.getElementById("boutonModifier").disabled = false;
 	} else
-		document.getElementById("boutonCreation").disabled = true;
-}*/
+		{
+		document.getElementById("boutonModifier").disabled = true;
+		}
+}
