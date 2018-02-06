@@ -15,13 +15,13 @@ public class ProfileForm {
 	
 	private String description;
 	
+	private List<Skill> skills = new ArrayList<Skill>();
+	
 	
 	public ProfileForm() {
 		
 	}
 	
-	
-	private List<Competence> skills = new ArrayList<Competence>();
 	
 	public String getBirth() {
 		return this.birth;
@@ -35,10 +35,10 @@ public class ProfileForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public List<Competence> getSkills() {
+	public List<Skill> getSkills() {
 		return skills;
 	}
-	public void setSkills(List<Competence> skills) {
+	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
 	public String getDescription() {

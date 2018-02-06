@@ -8,21 +8,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * Just a competence seen as a general thing (maybe add category or smthg else) 
+ * @author thibault
+ *
+ */
 @Entity
-public class Competence implements Serializable {
-
+public class Competence {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	private int level;
 	private String title;
 	
 	
-	public Competence()
-	{
+	public Competence()	{
 		
 	}
+	
 	
 	public int getId() {
 		return id;
@@ -35,12 +38,6 @@ public class Competence implements Serializable {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public int getLevel() {
-		return level;
-	}
-	public void setLevel(int level) {
-		this.level = level;
 	}
 	 
 }

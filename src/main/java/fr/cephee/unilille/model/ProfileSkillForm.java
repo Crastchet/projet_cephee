@@ -2,10 +2,15 @@ package fr.cephee.unilille.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * Form about skills in part "vos compétences" on profile page
+ * @author coilliaux
+ *
+ */
 public class ProfileSkillForm {
 
 	@NotEmpty
-	private String title;
+	private String competenceTitle;
 	@NotEmpty
 	private int level;
 	
@@ -15,11 +20,11 @@ public class ProfileSkillForm {
 	}
 	
 	
-	public String getTitle() {
-		return title;
+	public String getCompetenceTitle() {
+		return competenceTitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setCompetenceTitle(String competenceTitle) {
+		this.competenceTitle = competenceTitle;
 	}
 	public int getLevel() {
 		return level;
