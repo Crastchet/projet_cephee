@@ -2,7 +2,6 @@ package fr.cephee.unilille.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,13 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
-import fr.cephee.unilille.database.PublicationPersistence;
+import fr.cephee.unilille.database.SkillPersistence;
 import fr.cephee.unilille.exceptions.DateFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.ProfileForm;
 import fr.cephee.unilille.model.ProfileSkillForm;
+import fr.cephee.unilille.model.Skill;
 import fr.cephee.unilille.utils.Controls;
 
 @Controller
@@ -36,10 +36,10 @@ public class ProfileController {
 	private MemberPersistence datamem;
 	
 	@Autowired
-	private PublicationPersistence datapub;
+	private SkillPersistence dataski;
 	
 	@Autowired
-	private CompetencePersistence dataski;
+	private CompetencePersistence datacom;
 	
 	
 	/**
@@ -95,7 +95,7 @@ public class ProfileController {
 	private void addProfileSkills(Member member, Model model) {
 		model.addAttribute("skills", member.getSkills());
 		
-		model.addAttribute("allSkills", dataski.findAll());
+		model.addAttribute("competences", datacom.findAll());
 		model.addAttribute("profileSkillForm", new ProfileSkillForm()); //let us add skills on the same page
 	}
 	
@@ -121,13 +121,16 @@ public class ProfileController {
 
 		//If try to edit own profile OR If I am an admin
 		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
-			Competence skill = new Competence();
-			skill.setTitle(profileSkillForm.getTitle());
+			Competence competence = new Competence();
+			competence.setTitle(profileSkillForm.getCompetenceTitle());
+			datacom.save(competence);
+			Skill skill = new Skill();
+			skill.setCompetence(competence);
 			skill.setLevel(profileSkillForm.getLevel());
+			skill.setMember(member);
 			dataski.save(skill);
-			List<Competence> tmp = member.getSkills();
-			tmp.add(skill);
-			member.setSkills(tmp);
+			//obligé de faire les add et save dans les 2 sens Soso ???
+			member.addSkill(skill);
 			datamem.save(member);
 		}
 		

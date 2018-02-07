@@ -24,24 +24,30 @@
     <div id="divcompetences" style="float:left;margin-right:550px;display:none">
 		<h4>Mes compétences</h4>
 		
-		<h6>Mes compétences :</h6>
-		<ul id="mySkills" class="collection row" th:each="skill : *{skills}">
-			<li class="collection-item" th:text="${skill.title}">
-				<span th:text="${skill.level}"></span>
+		<h6>Les compétences à moi :</h6>
+		<ul id="mySkills" >
+			<li th:each="skill : *{skills}">
+				<p th:text="${skill.competence.title}">
+					<span th:text="${skill.level}"></span>
+				</p>
 			</li>
 		</ul>
 		
+		<!-- PROPOSITION DE CHOISIR UNE COMPETENCE PARMI CELLES EXISTANTES EN BASE -->
 		<h6>Les compétences qui existent :</h6>
-		<ul id="allSkills">
-		    <li th:each="skill : *{allSkills}"><p th:text="${skill.title}"><a href="#!"></a></p></li>
+		<ul id="allCompetences">
+		    <li th:each="competence : *{competences}">
+		    	<p th:text="${competence.title}"></p>
+		    </li>
 		</ul>
 		
+		<!-- AJOUT D'UNE COMPÉTENCE QUI N'EXISTE PAS ENCORE EN BASE -->
         <div class="row">
        		<form class="col s12" action="#" th:action="@{/skillprofileregister}" th:object="${profileSkillForm}" method="post">
          		<div class="row">
            			<div class="input-field col s12">
             			<p>
-							Nom : <input id="skillName" type="text" name="skillName" th:field="*{title}" />
+							Nom : <input id="skillName" type="text" name="skillName" th:field="*{competenceTitle}" />
 						</p>
 						
 						<p>
@@ -50,7 +56,7 @@
    					</div>
            		</div>
 				<input type="submit" value="Ajouter" id="buttonAddSkill"/>
-           </form>
+			</form>
   		</div>
    	</div>
 

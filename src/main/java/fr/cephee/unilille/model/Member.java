@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Member {
-
 	@Id
 	@Column(unique=true)
 	@GeneratedValue(strategy = GenerationType.AUTO)	
@@ -31,17 +30,14 @@ public class Member {
 	@OneToMany(mappedBy="author")
 	private List<Publication> listpublication = new ArrayList<Publication>();
 	
-	@OneToMany
-	private List<Competence> skills = new ArrayList<Competence>();
+	@OneToMany(mappedBy="member")
+	private List<Skill> skills = new ArrayList<Skill>();
 	
 	
 	public Member()
 	{
 		this.activated = false;
 		this.isAdmin = false;
-		Competence c = new Competence();
-		c.setTitle("Le Golf");
-		this.skills.add(c);
 	}
 	
 	public Member(int id)
@@ -51,15 +47,16 @@ public class Member {
 	}
 	
 	
+	public void addSkill(Skill skill) {
+		this.skills.add(skill);
+	}
 	
 	public List<Publication> getListpublication() {
 		return listpublication;
 	}
-
 	public void setListpublication(List<Publication> listpublication) {
 		this.listpublication = listpublication;
 	}
-
 	public int getId() {
 		return id;
 	}
@@ -114,10 +111,10 @@ public class Member {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<Competence> getSkills() {
+	public List<Skill> getSkills() {
 		return skills;
 	}
-	public void setSkills(List<Competence> skills) {
+	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
 
