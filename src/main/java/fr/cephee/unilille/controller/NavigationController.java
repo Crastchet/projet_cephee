@@ -1,5 +1,7 @@
 package fr.cephee.unilille.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Publication;
 
 @Controller
 public class NavigationController {
@@ -18,11 +22,15 @@ public class NavigationController {
 	@Autowired
 	private MemberPersistence datamem;
 	
+	@Autowired
+	private PublicationPersistence datapub;
+	
 	@RequestMapping(value = "/lastPubli")
 	public String goToLastPublication(Model model,
 			HttpSession session) {
 		model.addAttribute("member", session.getAttribute("member"));
-		
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDesc();
+		model.addAttribute("listlasttenpub", tenLastPub);
 		
 		return "lastPublication";
 	}
