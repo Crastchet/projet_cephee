@@ -27,9 +27,7 @@
 		<h6>Les compétences à moi :</h6>
 		<ul id="mySkills" >
 			<li th:each="skill : *{skills}">
-				<p th:text="${skill.competence.title}">
-					<span th:text="${skill.level}"></span>
-				</p>
+				<p th:text="${skill.competence.title} + ' [Niv:' + ${skill.level} + ']'"></p>
 			</li>
 		</ul>
 		
@@ -60,12 +58,12 @@
   		</div>
    	</div>
 
-    <div id="divpubli" style="float:right;margin-right:600px;display:none">
+    <div id="divpubli" style="display:none">
 		<h4>Vos publications</h4>
 		<ul class="row" th:each="item : *{publications}">
 			<li>
-				<div class="col s12 m6">
-					<div class="card blue-grey darken-1">
+				<div th:switch="${item.authorised}" class="col s12 m12 l8">
+					<div th:case="true" class="card blue-grey darken-1">
 						<div class="card-content white-text">
 							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
 							<p th:text="${item.content}"></p>
@@ -73,8 +71,18 @@
 							<p th:text="${item.id}"></p>
 						</div>
 						<div class="card-action">
-							<a th:href="@{/seedetailspublication(id=${item.id})}">voir
-								détails</a>
+							<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
+						</div>
+					</div>
+					<div th:case="false" class="card blue-grey darken-4">
+						<div class="card-content white-text">
+							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+							<p th:text="${item.content}"></p>
+							<p th:text="${item.dateCreation}"></p>
+							<p th:text="${item.id}"></p>
+						</div>
+						<div class="card-action">
+							<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
 						</div>
 					</div>
 				</div>
