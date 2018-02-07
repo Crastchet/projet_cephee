@@ -22,13 +22,23 @@
 					<h3 th:text="${publi.title}"></h3>
 					<form action="#" th:action="@{/deletepublication}"
 						th:object="${publi}" method="post">
-						<input type="submit" value="Supprimer cette publication"
-							id="boutonSuppression" />
+						<input style="color: black" type="submit"
+							value="Supprimer cette publication" id="boutonSuppression" />
 					</form>
-					<form action="#" th:action="@{/updateannonce}"
-						th:object="${publi}" method="post">
-						<input type="submit" value="Modifier cette publication"
-							id="boutonModifier" />
+					<form action="#" th:action="@{/updateannonce}" th:object="${publi}"
+						method="post">
+						<input style="color: black" type="submit"
+							value="Modifier cette publication" id="boutonModifier" />
+					</form>
+					<form action="#" th:action="@{/notpublish}" th:object="${publi}"
+						method="post">
+						<input style="color: black" type="submit"
+							value="Masquer cette publication" id="boutonModifier" />
+					</form>
+					<form action="#" th:action="@{/publish}" th:object="${publi}"
+						method="post">
+						<input style="color: black" type="submit"
+							value="Faire apparaître cette publication" id="boutonModifier" />
 					</form>
 					<span style="font-size: 20px;"
 						th:text="'Auteur: ' + ${publi.author.login}"></span> <span

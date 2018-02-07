@@ -390,6 +390,54 @@ public class PublicationController {
 		return null;
 	}
 
+	@RequestMapping("/publish")
+	public String publish(@ModelAttribute("publi") Publication publi, Model model, HttpSession session)
+	{
+		model.addAttribute("member", session.getAttribute("member"));
+		publi.setAuthorised(true);
+		datapub.save(publi);
+		if (publi instanceof PublicationProject) {
+			{
+				publi = (PublicationProject) publi;
+				model.addAttribute("publi", publi);
+			}
+			return "detailsProject";
+		} else if (publi instanceof PublicationAnnonce) {
+			publi = (PublicationAnnonce) publi;
+			model.addAttribute("publi", publi);
+			return "detailsAnnonce";
+		} else  {
+			publi = (PublicationEvent) publi;
+			model.addAttribute("publi", publi);
+			return "detailsEvent";
+		}
+		
+	}
+	
+	@RequestMapping("/notpublish")
+	public String notPublish(@ModelAttribute("publi") Publication publi, Model model, HttpSession session)
+	{
+		model.addAttribute("member", session.getAttribute("member"));
+		publi.setAuthorised(false);
+		datapub.save(publi);
+		if (publi instanceof PublicationProject) {
+			{
+				publi = (PublicationProject) publi;
+				model.addAttribute("publi", publi);
+			}
+			return "detailsProject";
+		} else if (publi instanceof PublicationAnnonce) {
+			publi = (PublicationAnnonce) publi;
+			model.addAttribute("publi", publi);
+			return "detailsAnnonce";
+		} else  {
+			publi = (PublicationEvent) publi;
+			model.addAttribute("publi", publi);
+			return "detailsEvent";
+		}
+		
+	}
+	
 	@RequestMapping("/seedetailspublication")
 	public String seeDetailsPublication(@RequestParam(value = "id", required = true) Integer id, Model model,
 			HttpSession session) {
