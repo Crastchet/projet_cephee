@@ -29,7 +29,7 @@ public class NavigationController {
 	public String goToLastPublication(Model model,
 			HttpSession session) {
 		model.addAttribute("member", session.getAttribute("member"));
-		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDesc();
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue();
 		model.addAttribute("listlasttenpub", tenLastPub);
 		
 		return "lastPublication";
