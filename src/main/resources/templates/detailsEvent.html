@@ -15,38 +15,54 @@
 
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
-	<h1>Détails Evenement</h1>
-
+	<goodvibes style="font-size: 60px">Détails Evenement</goodvibes>
 
 	<div class="row">
 		<div class="col s12 m8 offset-m2">
 			<div class="card teal lighten-3">
 				<div class="card-content white-text">
 					<h3 th:text="${publi.title}"></h3>
-					<form action="#" th:action="@{/deletepublication}"
-						th:object="${publi}" method="post">
-						<input style="color: black" type="submit"
-							value="Supprimer cette publication" id="boutonSuppression" />
-					</form>
-					<form action="#" th:action="@{/updateevent}" th:object="${publi}"
-						method="post">
-						<input style="color: black" type="submit"
-							value="Modifier cette publication" id="boutonModifier" />
-					</form>
-					<form action="#" th:action="@{/notpublish}" th:object="${publi}"
-						method="post">
-						<input style="color: black" type="submit"
-							value="Masquer cette publication" id="boutonModifier" />
-					</form>
-					<form action="#" th:action="@{/publish}" th:object="${publi}"
-						method="post">
-						<input style="color: black" type="submit"
-							value="Faire apparaître cette publication" id="boutonModifier" />
-					</form>
-					<span style="font-size: 20px;"
-						th:text="'Auteur: ' + ${publi.author.login}"></span> <span
-						style="font-size: 20px; float: right;"
-						th:text="'créé le: ' + ${publi.dateCreation}"></span>
+					<div class="fixed-action-btn horizontal" style="position:absolute; ; right:20px; top:20px">
+					    <a class="btn-floating btn-large red">
+					      <i class="large material-icons">mode_edit</i> 
+					    </a>
+					    <ul>
+					      <li>					      
+					   	   <form action="#" th:action="@{/deletepublication}" th:object="${publi}" method="post">													
+								<button class="btn-floating red" id="boutonSuppression"	type="submit" name="action" title="Supprimer cette publication">
+									<i class="material-icons right">delete_forever</i>
+								</button>							
+							</form>							
+					      </li>
+					      
+					      <li>					      					      
+					      <form action="#" th:action="@{/updateproject}" th:object="${publi}" method="post">
+								<button class="btn-floating green" id="boutonModifier" type="submit" name="action" title="Modifier cette publication"> 
+									<i class="material-icons right">loop</i>
+								</button>
+						  </form>					      
+					      </li>
+					      
+					      <li>				      	
+					     	 <form action="#" th:action="@{/notpublish}" th:object="${publi}" method="post">				
+							  <button class="btn-floating blue" id="boutonMasquer" type="submit" name="action" title="Masquer cette publication">
+								<i class="material-icons right">lock_outline</i>
+							  </button>
+					      	</form>				      
+					      </li>
+					      
+					     <li>  					      
+					      <form action="#" th:action="@{/publish}" th:object="${publi}" method="post">
+					    	<button class="btn-floating yellow" id="boutonApparition" type="submit" name="action" title="Faire apparaître cette publication">
+								<i class="material-icons right">lock_open</i>
+						  </button>
+							</form>
+					      </li>
+					    </ul>
+					  </div>
+					  
+					<p><span style="font-size: 20px;" th:text="'Auteur: ' + ${publi.author.login}"></span></p>
+					<p><span style="font-size: 20px;" th:text="'créé le: ' + ${publi.dateCreation}"></span></p>
 				</div>
 				<div class="card white">
 
