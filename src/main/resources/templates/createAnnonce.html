@@ -27,30 +27,43 @@
 	<script>
 		checkForm()
 	</script>
-	<form action="#" th:action="@{/registerannonce}"
-		th:object="${publicationForm}" method="post">
-		<p>
-			Titre : <input type="text" th:field="*{title}" id="titre"
-				onchange="checkForm()" />
-		</p>
-
-		<p>
-			Description : <input type="text" th:field="*{content}"
-				onchange="checkForm()" id="content" />
-		</p>
-
-		<div class="input-field col s12">
-			<select multiple="multiple" th:field="*{listCategory}">
-				<option value="" disabled="disabled" selected="selected">Choisissez vos catégories de publication</option>
-				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
-					th:text="${catego.title}"></option>
-			</select> 
-		</div>
-
-		<button class="btn waves-effect waves-light" id="boutonCreation"
-			type="submit" name="action" disabled="disabled">
-			Fin Creation Annonce <i class="material-icons right">send</i>
-		</button>
-	</form>
+	
+	<div class = "row" style="padding-top: 50px">
+		<form class = "col s6 offset-s3" style="background-color: white" action="#" th:action="@{/registerannonce}"
+			th:object="${publicationForm}" method="post">
+			<goodvibes style="font-size: 20px">Créer votre Annonce</goodvibes>
+			
+			<!-- Titre -->
+			<div class="row">
+       			<div class="input-field col s12">
+       				<i class="material-icons prefix">title</i>
+          			<input id="titre" type="text" class="validate" th:field="*{title}" onchange="checkForm()"/>
+         			<label for="titre">Titre de l'Annonce</label>
+        		</div>
+      		</div>
+			
+			<!-- Content -->
+			<div class="row">
+       			<div class="input-field col s12">
+          			<i class="material-icons prefix">description</i>
+          			<textarea id="content" class="materialize-textarea" data-length="120" th:field="*{content}" onchange="checkForm()"></textarea>
+         			<label for="content">Description</label>
+        		</div>
+      		</div>
+	
+			<div class="input-field col s12">
+				<select multiple="multiple" th:field="*{listCategory}">
+					<option value="" disabled="disabled" selected="selected">Choisissez vos catégories de publication</option>
+					<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+						th:text="${catego.title}"></option>
+				</select> 
+			</div>
+	
+			<button class="btn waves-effect waves-light" id="boutonCreation"
+				type="submit" name="action" disabled="disabled">
+				Fin Creation Annonce <i class="material-icons right">send</i>
+			</button>
+		</form>
+	</div>
 </body>
 </html>
