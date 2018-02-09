@@ -13,7 +13,7 @@
 
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
-	<goodvibes>Accueil</goodvibes>
+	
 	    	
 	<!--<div>
 		 <ul>
@@ -30,14 +30,14 @@
 		<a th:href="@{/seeDetailsPublication}">voir détails de la publication</a>
 		
 	</div>-->
-	
+	<goodvibes style = "margin-left: 300px;">Accueil</goodvibes>
 	<div class="row" th:each="item : *{listlasttenpub}">
 		<div class="col s12 m4 offset-m2">
 			<div class="card teal lighten-3">
 				<div class="card-content white-text">
 				<h3 th:text="${item.title}"></h3>
-				<span style="font-size: 20px;" th:text="'CrÃ©Ã© par: ' + ${item.author.login}"></span>
-				<span style="font-size: 20px;float: right;" th:text="'crÃ©Ã© le: ' + ${item.dateCreation}"></span>
+				<span style="font-size: 20px;" th:text="'Cree par: ' + ${item.author.login}"></span>
+				<span style="font-size: 20px;float: right;" th:text="'Cree le: ' + ${item.dateCreation}"></span>
 				</div>
 				<div style="background-color: white;">
 					
@@ -50,7 +50,7 @@
 						<span th:text="'Date et Heure Fin: ' + ${publi.endevent}"></span>
 						<br></br>-->
 						<i class="material-icons">location_on</i>
-						<span th:text="'Lieu Ã©vÃ©nement: ' + ${item.location}"></span>
+						<span th:text="'Lieu evenement ' + ${item.location}"></span>
 						<br></br>
 						<i class="material-icons">people</i>
 						<span th:text="'Nombre de participants: ' + ${item.nbparticipant}"> </span>
@@ -63,7 +63,7 @@
 			      	<div class="card-content black-text" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
 						
 						<i class="material-icons">school</i>
-						<span th:text="'CompÃ©tences requises: '"></span>
+						<span th:text="'Competences requises: '"></span>
 						<br></br>
 						<br></br>
 						
@@ -85,7 +85,7 @@
 		      	
 		      	<div class="card-action" style="background-color: white;">
 					<a th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}" th:text="'Je participe'"></a>
-              		<a th:href="@{/seedetailspublication(id=${item.id})}">voir dÃ©tails</a>
+              		<a th:href="@{/seedetailspublication(id=${item.id})}">voir details</a>
               		<a >Signaler</a>
             	</div>
 	      	</div>
