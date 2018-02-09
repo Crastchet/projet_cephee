@@ -11,19 +11,31 @@
 	
 	<div style="float: left; margin-left: 30px;">
 		<blockquote>
-			<h3 th:text="'Votre profil [Non activé]'"></h3>
+			<h3 th:text="'Vous n\'avez pas encore créé votre profil Unilille'"></h3>
 		</blockquote>
 	</div>
 	
 	<div th:replace="profileHeader">&nbsp;</div>
+  	 
+  	<a class="waves-effect red darken-4 btn" onclick="afficher_div('activation')" style="position: absolute;; left: 475px; top: 300px">Activation du profil</a>
+  	 
+	<div id="activation" class="ui-content row" style="display: none; position: absolute; left: 350px; top: 400px;">
+      <form class="col s6 offset-s2" method="post">
+        <div>
+          <h5>Pour activer votre profil, veuillez entrer vos informations</h5>
+          <label for="usrnm" class="ui-hidden-accessible">Description:</label>
+          <input type="text" name="user" id="usrnm" placeholder="Decrivez-vous"></input>
+         <label for="usrnm" class="ui-hidden-accessible">adresse mail:</label>
+          <input type="text" class="materialize-textarea" name="user" id="usrnm" placeholder="Adresse mail perso"></input>
+         	<button class="btn waves-effect waves-light" id="boutonActivation" type="submit" name="action" style="margin-left: 30px;"> Activer votre profil <i class="material-icons right">send</i>
+			</button>
+        </div>
+      </form>
+    </div> 
+ 
 
-	<button class="btn waves-effect waves-light" type="submit" name="action">Activer votre profil
-    	<i class="material-icons right">send</i>
-  	</button>
-	<p>ICI FAIRE UNE POP-UP POUR "ACTIVER PROFIL" en proposant les champs requis (mail, et les autres je sais pas)" / OU JUSTE FAIRE UN BOUTON "ACTIVER" QUI RENVOIE VERS UNE AUTRE PAGE SI VOUS Y ARRIVEZ PAS</p> 
 
-	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 
 </body>
-  </html>
+</html>
