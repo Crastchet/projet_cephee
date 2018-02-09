@@ -2,7 +2,7 @@ package fr.cephee.unilille.database;
 
 import java.util.List;
 
-import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,5 +13,7 @@ import fr.cephee.unilille.model.Publication;
 public interface PublicationPersistence extends CrudRepository<Publication, Integer> {
 	public Publication findById(int id);
 	public List<Publication> findByAuthor(Member author);
-	public List<Publication> findTop10ByOrderByDateCreationDesc();
+	//public List<Publication> findTop10ByOrderByDateCreationDesc();
+	@Query("select u from Publication u where u.authorised = true order by date_creation DESC")
+	public List<Publication> findTop10ByOrderByDateCreationDescByAuthorisedTrue();
 }

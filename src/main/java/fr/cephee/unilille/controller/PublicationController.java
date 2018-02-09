@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
+import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
@@ -45,7 +46,10 @@ public class PublicationController {
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	Validator validator;
+	private Validator validator;
+	
+	@Autowired
+	private MemberPersistence datamem;
 
 	@Autowired
 	private PublicationPersistence datapub;
@@ -436,6 +440,23 @@ public class PublicationController {
 			return "detailsEvent";
 		}
 		
+	}
+	
+	@RequestMapping("/participate")
+	public String participateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
+			HttpSession session) {
+		log.info("entered participate");
+		publi.setNbparticipant(publi.getNbparticipant() + 1);
+
+		Member mem = (Member) session.getAttribute("member");
+		publi.getParticipant().add(mem);
+		mem.getListEvent().add(publi);
+		
+		datamem.save(mem);
+		datapub.save(publi);
+		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("publi", publi);
+		return "detailsEvent";
 	}
 	
 	@RequestMapping("/seedetailspublication")
