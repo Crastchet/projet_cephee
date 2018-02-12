@@ -12,7 +12,7 @@ public class ProfileForm {
 	private String birth;
 	@NotEmpty
 	private String email;
-	
+	@NotEmpty
 	private String description;
 	
 	private List<Skill> skills = new ArrayList<Skill>();

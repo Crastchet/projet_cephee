@@ -125,22 +125,11 @@ public class Member {
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
-
 	public List<Publication> getListEvent() {
 		return listEvent;
 	}
-
 	public void setListEvent(List<Publication> listEvent) {
 		this.listEvent = listEvent;
 	}
-
-	public void setActivated(boolean activated) {
-		this.activated = activated;
-	}
-
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
 
 }

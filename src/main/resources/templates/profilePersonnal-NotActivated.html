@@ -20,13 +20,13 @@
   	<a class="waves-effect red darken-4 btn" onclick="afficher_div('activation')" style="position: absolute;; left: 475px; top: 300px">Activation du profil</a>
   	 
 	<div id="activation" class="ui-content row" style="display: none; position: absolute; left: 350px; top: 400px;">
-      <form class="col s6 offset-s2" method="post">
+      <form class="col s6 offset-s2" acion="#" th:action="@{activateprofileregister}" th:object="${profileActivationForm}" method="post">
         <div>
           <h5>Pour activer votre profil, veuillez entrer vos informations</h5>
           <label for="usrnm" class="ui-hidden-accessible">Description:</label>
-          <input type="text" name="user" id="usrnm" placeholder="Decrivez-vous"></input>
+          <input type="text" name="user" id="usrnm" placeholder="Decrivez-vous" th:field="*{description}"></input>
          <label for="usrnm" class="ui-hidden-accessible">adresse mail:</label>
-          <input type="text" class="materialize-textarea" name="user" id="usrnm" placeholder="Adresse mail perso"></input>
+          <input type="text" class="materialize-textarea" name="user" id="usrnm" placeholder="Adresse mail perso" th:field="*{email}"></input>
          	<button class="btn waves-effect waves-light" id="boutonActivation" type="submit" name="action" style="margin-left: 30px;"> Activer votre profil <i class="material-icons right">send</i>
 			</button>
         </div>

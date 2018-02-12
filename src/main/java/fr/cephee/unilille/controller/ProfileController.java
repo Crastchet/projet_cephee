@@ -22,6 +22,7 @@ import fr.cephee.unilille.exceptions.DateFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.ProfileActivationForm;
 import fr.cephee.unilille.model.ProfileForm;
 import fr.cephee.unilille.model.ProfileSkillForm;
 import fr.cephee.unilille.model.Skill;
@@ -72,8 +73,10 @@ public class ProfileController {
 		//If it is my Profile
 		if( itIsMemberSession ) {
 			//If profile is not activated - we suggest to activate
-			if( member.getActivated() == false )
-				return "profilePersonnal-NotActivated";				    //parler de cette convention de nommage
+			if( member.getActivated() == false ) {
+				model.addAttribute("profileActivationForm", new ProfileActivationForm());
+				return "profilePersonnal-NotActivated";
+			}
 			//If it is activated - we don't suggest to activate
 			else {
 				this.addProfilePublications(member, model);
@@ -195,4 +198,30 @@ public class ProfileController {
 		return this.profile(login, model, session);
 	}
 	
+	
+	
+	@RequestMapping(value = "/activateprofileregister", method = RequestMethod.POST)
+	public String registerActivateProfile (
+			@ModelAttribute("profileActivationForm") ProfileActivationForm profileActivationForm,
+			Model model,
+			HttpSession session) {
+		
+		Member member = ((Member)session.getAttribute("member"));
+		
+		//If is not activated - process
+		if(!member.getActivated()) {
+			try {
+				Controls.checkEmail(profileActivationForm.getEmail());
+				member.setEmail(profileActivationForm.getEmail());
+				member.setDescription(profileActivationForm.getDescription());
+				member.setActived(true);
+				datamem.save(member);
+			} catch (EmailFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return this.profile(member.getLogin(), model, session);
+	}
 }
