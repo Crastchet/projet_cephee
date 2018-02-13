@@ -31,7 +31,7 @@ public class Publication implements Serializable {
 	@ManyToOne
 	private Member author;
 
-	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER) 
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Category> category = new ArrayList<Category>();	
 
 	private boolean authorised = true;

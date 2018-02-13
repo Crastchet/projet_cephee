@@ -21,7 +21,7 @@ public class Member {
 	@Id
 	@Column(unique=true)
 	@GeneratedValue(strategy = GenerationType.AUTO)	
-	private int id;
+	private Integer id;
 
 	private String login;
 	private String firstname;
@@ -39,7 +39,7 @@ public class Member {
 	private List<Skill> skills = new ArrayList<Skill>();
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="author") 
+	@ManyToMany(mappedBy="author") 
 	private List<Publication> listEvent = new ArrayList<Publication>();
 	
 	public Member()
@@ -48,7 +48,7 @@ public class Member {
 		this.isAdmin = false;
 	}
 	
-	public Member(int id)
+	public Member(Integer id)
 	{
 		this();
 		this.id = id;
@@ -68,7 +68,7 @@ public class Member {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getLogin() {
@@ -131,5 +131,5 @@ public class Member {
 	public void setListEvent(List<Publication> listEvent) {
 		this.listEvent = listEvent;
 	}
-
+		
 }
