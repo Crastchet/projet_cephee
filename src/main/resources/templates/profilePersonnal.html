@@ -19,28 +19,29 @@
 	</div>
 	
 	<div th:replace="profileHeader">&nbsp;</div>
-
-    <div id="divcompetences" style="float:left;margin-right:550px;display:none">
-    	<a class="waves-effect green darken-1 btn" th:href="@{/editprofile}" style="position: absolute; right: 10px; top: 300px">Editer profil</a>
+	
+	<a class="waves-effect green darken-1 btn" th:href="@{/editprofile}" style="position: absolute; position: absolute; left: 1550px; top: 280px">Editer profil</a>
+	
+    <div id="divcompetences" style=" position: absolute; left: 410px; top: 380px;display:none">
     	
-		<h4>Mes compétences</h4>
+		<goodvibes style="font-size: 25px">Mes compétences</goodvibes>
 		
-		<h6>Les compétences à moi :</h6>
 		<ul id="mySkills" >
 			<li th:each="skill : *{skills}">
 				<p th:text="${skill.competence.title} + ' [Niv:' + ${skill.level} + ']'"></p>
 			</li>
 		</ul>
 		
-		<!-- PROPOSITION DE CHOISIR UNE COMPETENCE PARMI CELLES EXISTANTES EN BASE -->
+		<!-- PROPOSITION DE CHOISIR UNE COMPETENCE PARMI CELLES EXISTANTES EN BASE 
 		<h6>Les compétences qui existent :</h6>
 		<ul id="allCompetences">
 		    <li th:each="competence : *{competences}">
 		    	<p th:text="${competence.title}"></p>
 		    </li>
 		</ul>
-		
+		-->
 		<!-- AJOUT D'UNE COMPÉTENCE QUI N'EXISTE PAS ENCORE EN BASE -->
+		<goodvibes style="font-size: 15px">Créer une nouvelle compétence :</goodvibes>
         <div class="row">
        		<form class="col s12" action="#" th:action="@{/skillprofileregister}" th:object="${profileSkillForm}" method="post">
          		<div class="row">
@@ -54,13 +55,15 @@
 						</p>
    					</div>
            		</div>
-				<input type="submit" value="Ajouter" id="buttonAddSkill"/>
+				 <button class="btn waves-effect waves-light" value="Ajouter" type="submit" name="action" id="buttonAddSkill">Submit
+   					 <i class="material-icons right">send</i>
+  				</button>
 			</form>
   		</div>
    	</div>
 
     <div id="divpubli" style="display:none">
-		<h4>Vos publications</h4>
+		<goodvibes style="margin-left: 40px;font-size: 35px">Vos publications</goodvibes>
 		<ul class="row" th:each="item : *{publications}">
 			<li>
 				<div th:switch="${item.authorised}" class="col s12 m12 l8">
@@ -91,12 +94,12 @@
 		</ul>
 	</div>
 
-    <div id="divrecherche" style="float:right;margin-right:550px;display:none">
-         <h4>Ce que vous recherchez</h4>
+    <div id="divrecherche" style="position:absolute; left:410px; top:380px; display:none;">
+         <goodvibes style="font-size: 35px">Ce que vous recherchez</goodvibes>
     </div>
 
-    <div id="divnotif" style="float:right;margin-right:600px;display:none">
-          <h4> Vos notifications </h4>
+    <div id="divnotif" style="position:absolute; left:410px; top:380px; display:none;">
+          <goodvibes style="font-size: 35px"> Vos notifications </goodvibes>
     </div>
 
 	

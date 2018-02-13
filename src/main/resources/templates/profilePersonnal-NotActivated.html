@@ -17,10 +17,10 @@
 	
 	<div th:replace="profileHeader">&nbsp;</div>
   	 
-  	<a class="waves-effect red darken-4 btn" onclick="afficher_div('activation')" style="position: absolute;; left: 475px; top: 300px">Activation du profil</a>
+  	<a class="waves-effect red darken-4 btn" onclick="afficher_div('activation')" style="position: absolute; left: 475px; top: 300px">Activation du profil</a>
   	 
 	<div id="activation" class="ui-content row" style="display: none; position: absolute; left: 350px; top: 400px;">
-      <form class="col s6 offset-s2" acion="#" th:action="@{activateprofileregister}" th:object="${profileActivationForm}" method="post">
+      <form class="col s6 offset-s2" action="#" th:action="@{activateprofileregister}" th:object="${profileActivationForm}" method="post">
         <div>
           <h5>Pour activer votre profil, veuillez entrer vos informations</h5>
           <label for="usrnm" class="ui-hidden-accessible">Description:</label>
