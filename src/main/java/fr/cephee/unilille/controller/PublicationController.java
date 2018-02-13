@@ -459,6 +459,25 @@ public class PublicationController {
 		return "detailsEvent";
 	}
 	
+	@RequestMapping("/stopparticipate")
+	public String stopParticipateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
+			HttpSession session) {
+		
+		log.info("entered Stop participate");
+		publi.setNbparticipant(publi.getNbparticipant() - 1);
+		
+		Member mem = (Member) session.getAttribute("member");
+		publi.getParticipant().remove(mem);
+		mem.getListEvent().add(publi);
+		
+		datamem.save(mem);
+		datapub.save(publi);
+		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("publi", publi);
+		
+		return "detailsEvent";
+	}
+	
 	@RequestMapping("/seedetailspublication")
 	public String seeDetailsPublication(@RequestParam(value = "id", required = true) Integer id, Model model,
 			HttpSession session) {

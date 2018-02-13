@@ -70,14 +70,14 @@
 								</form>
 							</li>
 						</ul>
-						<form action="#" th:action="@{/participate}" th:object="${publi}"
+						<!-- <form action="#" th:action="@{/participate}" th:object="${publi}"
 							method="post">
 							<button class="btn-floating yellow" id="boutonParticiper"
 								type="submit" name="action"
 								title="Participer à cet évènement">
 								<i class="material-icons right">lock_open</i>
 							</button>
-						</form>
+						</form> -->
 					</div>
 
 
@@ -89,6 +89,12 @@
 						<span style="font-size: 20px;"
 							th:text="'créé le: ' + ${publi.dateCreation}"></span>
 					</p>
+					
+					<form action="#" th:action="@{/participate}" th:object="${publi}" method="post">
+						<button class="btn waves-effect waves-light" id="boutonCreation" type="submit" name="action">
+						Je participe <i class="material-icons right">send</i>
+						</button>
+					</form>
 				</div>
 				<div class="card white">
 

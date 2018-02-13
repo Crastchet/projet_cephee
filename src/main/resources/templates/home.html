@@ -35,7 +35,12 @@
 		<div class="col s12 m4 offset-m2">
 			<div class="card teal lighten-3">
 				<div class="card-content white-text">
+				<span style="font-size: 20px;float: right;" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+				<span style="font-size: 20px;float: right;" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+				<span style="font-size: 20px;float: right;" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
 				<h3 th:text="${item.title}"></h3>
+				
+				
 				<span style="font-size: 20px;" th:text="'Cree par: ' + ${item.author.login}"></span>
 				<span style="font-size: 20px;float: right;" th:text="'Cree le: ' + ${item.dateCreation}"></span>
 				</div>
