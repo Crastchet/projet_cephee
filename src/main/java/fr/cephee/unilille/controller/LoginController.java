@@ -46,8 +46,8 @@ public class LoginController {
 	{		
 		model.addAttribute("member", session.getAttribute("member"));
 		Member memb = (Member) session.getAttribute("member");
-		log.info("INFO => " + memb.getId());
-		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDesc();
+		//log.info("INFO => " + memb.getId());
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(memb.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
 		return "home";
 	}

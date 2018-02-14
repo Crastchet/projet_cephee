@@ -47,20 +47,32 @@
 				id="location" onchange="checkEverything()" />
 		</p>
 
-
+<!--  
 		<div id="datedebut">
 			<label> Date de début de l'evenement</label> <input id="dateStart"
 				type="date" value="date de debut de l'evenement"
 				th:field="*{startevent}" onchange="checkEverything()" />
-		</div>
+		</div> -->
+		
+			<div class="row">
+       			<div class="input-field col s12">
+	       				<i class="material-icons prefix">date_range</i>
+	          			<input id="dateStart" type="date" class="datepicker" th:field="*{startevent}" onchange="checkEverything()"/>
+	         			<label for="dateStart">Date de début de l'evenement</label>
+        		</div>
+      		</div>
 
-
-		<label> Heure de début de l'evenement</label>
-		<div class="inputClock">
-			<input value="Choisissez votre heure" id="timeStart"
-				class="timepicker" type="time" onchange="checkEverything()"
-				th:field="*{hourstartevent}" />
-		</div>
+			<div class="row">
+       			<div class="input-field col s12">
+					<div class="inputClock">
+						<i class="material-icons prefix">access_time</i>
+						<input value="Choisissez votre heure" id="timeStart"
+							class="timepicker" type="text" onchange="checkEverything()"
+							th:field="*{hourstartevent}" />
+						<label for="timeStart">Heure de début de l'evenement</label>
+					</div>
+				</div>
+			</div>
 		
 		<div class="input-field col s12">
 			<select multiple="multiple" th:field="*{listCategory}">
@@ -77,12 +89,23 @@
 	</form>
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
-	  <script>
+	  	<script>
 			$('.timepicker').pickatime({
 		    default: 'now',
 		    twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
 		  autoclose: true
 		});
+	 	</script>
+		<script>
+			$('.datepicker').pickadate({
+			    selectMonths: true, // Creates a dropdown to control month
+			    selectYears: 15, // Creates a dropdown of 15 years to control year,
+			    today: 'Today',
+			    clear: 'Clear',
+			    close: 'Ok',
+			    format: 'dd-mm-yyyy',
+			    closeOnSelect: false // Close upon selecting a date,
+			  });
 		</script>
 		<script>
 			maxToday()

@@ -127,12 +127,12 @@ public class PublicationController {
 			publication.setAuthor((Member) session.getAttribute("member"));
 			publication.setCategory(publicationForm.getListCategory());
 			datapub.save(publication);
-			model.addAttribute("publication", publication);
+			model.addAttribute("publi", publication);
 		} catch (Exception ex) {
 			log.info(ex.toString());
 			return "errorPage";
 		}
-		return "publication";
+		return "detailsAnnonce";
 	}
 
 	@RequestMapping(value = "/registerproject", method = RequestMethod.POST)
@@ -159,12 +159,12 @@ public class PublicationController {
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setListcompetence(publicationForm.getListCompetence());
 			datapub.save(publication);
-			model.addAttribute("publication", publication);
+			model.addAttribute("publi", publication);
 		} catch (Exception ex) {
 			log.info(ex.toString());
 			return "errorPage";
 		}
-		return "publication";
+		return "detailsProject";
 	}
 
 	@RequestMapping(value = "/registerevent", method = RequestMethod.POST)
@@ -179,7 +179,7 @@ public class PublicationController {
 			return "createEvent";
 		}
 		Date date = new Date();
-
+		log.info(publicationForm.getStartevent());
 		try {
 			PublicationEvent publication = new PublicationEvent();
 			log.info(publicationForm.getHourstartevent());
@@ -190,31 +190,31 @@ public class PublicationController {
 			publication.setAuthor((Member) session.getAttribute("member"));
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setLocation(publicationForm.getLocation());
-			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 			Date startd = sdf.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
 			log.info(startd.toString());
 			publication.setStartevent(startd);
 
 			datapub.save(publication);
-			model.addAttribute("publication", publication);
+			model.addAttribute("publi", publication);
 		} catch (Exception ex) {
 			log.info(ex.toString());
 			return "errorPage";
 		}
-		return "publication";
+		return "detailsEvent";
 	}
 
 	@RequestMapping("/deletepublication")
-	@ResponseBody
-	public String delete(@ModelAttribute("publi") Publication publication, Model model) {
-		log.info("publication is => " + publication.getId() + publication.getTitle() + " " + publication.getContent());
+	public String delete(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
+		//log.info("publication is => " + publication.getId() + publication.getTitle() + " " + publication.getContent());
 		try {
 			Publication publi = datapub.findById(publication.getId());
 			datapub.delete(publi);
+			model.addAttribute("member", session.getAttribute("member"));
 		} catch (Exception ex) {
-			return "Error deleting the publication:" + ex.toString();
+			return "errorPage";
 		}
-		return "publication succesfully deleted!";
+		return "redirect:/home";
 	}
 
 	@RequestMapping("/finishedupdating")
@@ -308,7 +308,7 @@ public class PublicationController {
 		publiForm.setListCategory(publication.getCategory());
 		publiForm.setLocation(publication.getLocation());
 		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
 		calendar.setTime(publication.getStartevent());
 		String formatted = format1.format(calendar.getTime());
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
@@ -324,7 +324,7 @@ public class PublicationController {
 		mm += String.valueOf(hours);
 		publiForm.setStartevent(formatted);
 		publiForm.setHourstartevent(hh + ":" + mm);
-		log.info(publiForm.getHourstartevent());
+		//log.info(publiForm.getHourstartevent());
 		PublicationEvent publi =  publication;
 		model.addAttribute("publi", publi);
 		model.addAttribute("publicationForm", publiForm);
@@ -340,8 +340,8 @@ public class PublicationController {
 			publication.setAuthor(publi.getAuthor());
 			publication.setAuthorised(true);
 			publication.setLocation(publicationForm.getLocation());
-			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm");
-			Date startd = sdf.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
+			SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			Date startd = format1.parse(publicationForm.getStartevent() + " " + publicationForm.getHourstartevent());
 			publication.setStartevent(startd);
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(publi.getDateCreation());
@@ -445,7 +445,7 @@ public class PublicationController {
 	@RequestMapping("/participate")
 	public String participateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
 			HttpSession session) {
-		log.info("entered participate");
+		//log.info("entered participate");
 		publi.setNbparticipant(publi.getNbparticipant() + 1);
 
 		Member mem = (Member) session.getAttribute("member");
@@ -463,7 +463,7 @@ public class PublicationController {
 	public String stopParticipateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
 			HttpSession session) {
 		
-		log.info("entered Stop participate");
+		//log.info("entered Stop participate");
 		publi.setNbparticipant(publi.getNbparticipant() - 1);
 		
 		Member mem = (Member) session.getAttribute("member");
