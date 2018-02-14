@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.PublicationEventPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
@@ -53,6 +54,9 @@ public class PublicationController {
 
 	@Autowired
 	private PublicationPersistence datapub;
+	
+	@Autowired
+	private PublicationEventPersistence datapubevent;
 
 	@Autowired
 	private CategoryPersistence dataCate;
@@ -456,6 +460,7 @@ public class PublicationController {
 		datapub.save(publi);
 		model.addAttribute("member", session.getAttribute("member"));
 		model.addAttribute("publi", publi);
+		model.addAttribute("participeDeja", true);
 		return "detailsEvent";
 	}
 	
@@ -474,6 +479,7 @@ public class PublicationController {
 		datapub.save(publi);
 		model.addAttribute("member", session.getAttribute("member"));
 		model.addAttribute("publi", publi);
+		model.addAttribute("participeDeja", false);
 		
 		return "detailsEvent";
 	}
@@ -482,6 +488,7 @@ public class PublicationController {
 	public String seeDetailsPublication(@RequestParam(value = "id", required = true) Integer id, Model model,
 			HttpSession session) {
 		Publication publi = datapub.findById(id);
+		Member mem = (Member) session.getAttribute("member");
 		model.addAttribute("member", session.getAttribute("member"));
 
 		if (publi instanceof PublicationProject) {
@@ -495,6 +502,16 @@ public class PublicationController {
 			model.addAttribute("publi", publi);
 			return "detailsAnnonce";
 		} else  {
+			
+			List<Publication> lesEvents = datapubevent.findAllByParticipants(mem);
+			boolean trouve = false;
+			for (Publication pub : lesEvents) {
+				if (id == pub.getId()) {
+					trouve = true;
+				}
+				model.addAttribute("participeDeja", trouve);
+			}
+			
 			publi = (PublicationEvent) publi;
 			model.addAttribute("publi", publi);
 			return "detailsEvent";

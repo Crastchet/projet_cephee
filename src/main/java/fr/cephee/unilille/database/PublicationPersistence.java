@@ -17,4 +17,5 @@ public interface PublicationPersistence extends CrudRepository<Publication, Inte
 	public List<Publication> findTop10ByOrderByDateCreationDesc();
 	@Query("from Publication u where u.authorised = true and u.author.id != :idmember order by date_creation DESC")
 	public List<Publication> findTop10ByOrderByDateCreationDescByAuthorisedTrue(@Param("idmember") int id);
+	
 }

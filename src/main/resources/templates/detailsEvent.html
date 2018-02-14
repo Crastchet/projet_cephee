@@ -91,9 +91,14 @@
 							th:text="'créé le: ' + ${publi.dateCreation}"></span>
 					</p>
 					
-					<form action="#" th:action="@{/participate}" th:object="${publi}" method="post">
+					<form action="#" th:if="${participeDeja} == false" th:action="@{/participate}" th:object="${publi}" method="post">
 						<button class="btn waves-effect waves-light" id="boutonCreation" type="submit" name="action">
 						Je participe <i class="material-icons right">send</i>
+						</button>
+					</form>
+					<form action="#" th:if="${participeDeja} == true" th:action="@{/stopparticipate}" th:object="${publi}" method="post">
+						<button class="btn waves-effect waves-light" id="boutonCreation" type="submit" name="action">
+						Je ne participe plus <i class="material-icons right">send</i>
 						</button>
 					</form>
 				</div>
