@@ -36,6 +36,7 @@ public class Publication implements Serializable {
 
 	private boolean authorised = true;
 	
+	
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
@@ -108,6 +109,6 @@ public class Publication implements Serializable {
 
 	public void setDateModification(Date dateModification) {
 		this.dateModification = dateModification;
-	}
+	}	
 	
 }

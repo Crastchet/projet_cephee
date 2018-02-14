@@ -449,10 +449,10 @@ public class PublicationController {
 		publi.setNbparticipant(publi.getNbparticipant() + 1);
 
 		Member mem = (Member) session.getAttribute("member");
-		publi.getParticipant().add(mem);
-		mem.getListEvent().add(publi);
+		publi.getParticipants().add(mem);
+		//mem.getListEvent().add(publi);
 		
-		datamem.save(mem);
+		//datamem.save(mem);
 		datapub.save(publi);
 		model.addAttribute("member", session.getAttribute("member"));
 		model.addAttribute("publi", publi);
@@ -467,10 +467,10 @@ public class PublicationController {
 		publi.setNbparticipant(publi.getNbparticipant() - 1);
 		
 		Member mem = (Member) session.getAttribute("member");
-		publi.getParticipant().remove(mem);
-		mem.getListEvent().add(publi);
+		publi.getParticipants().remove(mem);
+		//mem.getListEvent().add(publi);
 		
-		datamem.save(mem);
+		//datamem.save(mem);
 		datapub.save(publi);
 		model.addAttribute("member", session.getAttribute("member"));
 		model.addAttribute("publi", publi);

@@ -1,12 +1,13 @@
 package fr.cephee.unilille.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -19,8 +20,8 @@ public class PublicationEvent extends Publication {
 	private String location;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany
-	List<Member> participant = new ArrayList<Member>();
+	@ManyToMany
+	Set<Member> participants = new HashSet();
 	
 	public PublicationEvent()
 	{
@@ -53,13 +54,13 @@ public class PublicationEvent extends Publication {
 	}
 
 
-	public List<Member> getParticipant() {
-		return participant;
+	public Set<Member> getParticipants() {
+		return participants;
 	}
 
 
-	public void setParticipant(List<Member> participant) {
-		this.participant = participant;
+	public void setParticipants(Set<Member> participants) {
+		this.participants = participants;
 	}
 
 

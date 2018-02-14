@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -38,9 +39,9 @@ public class Member {
 	@OneToMany(mappedBy="member")
 	private List<Skill> skills = new ArrayList<Skill>();
 	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(mappedBy="author") 
-	private List<Publication> listEvent = new ArrayList<Publication>();
+	/*@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany
+	private Set<PublicationEvent> listEvent = new HashSet<PublicationEvent>();*/
 	
 	public Member()
 	{
@@ -65,7 +66,7 @@ public class Member {
 	public void setListpublication(List<Publication> listpublication) {
 		this.listpublication = listpublication;
 	}
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
@@ -125,11 +126,11 @@ public class Member {
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
-	public List<Publication> getListEvent() {
+	/*public List<PublicationEvent> getListEvent() {
 		return listEvent;
 	}
-	public void setListEvent(List<Publication> listEvent) {
+	public void setListEvent(List<PublicationEvent> listEvent) {
 		this.listEvent = listEvent;
-	}
+	}*/
 		
 }
