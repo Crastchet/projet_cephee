@@ -299,7 +299,7 @@ public class PublicationController {
 
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("member", session.getAttribute("member"));
-
+		log.info("First info time =)> " + publication.getStartevent());
 		PublicationEventForm publiForm = new PublicationEventForm();
 		publiForm.setTitle(publication.getTitle());
 		publiForm.setAuthorised(publication.isAuthorised());
@@ -313,15 +313,15 @@ public class PublicationController {
 		String formatted = format1.format(calendar.getTime());
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
 		int minutes = calendar.get(Calendar.MINUTE);
-
+		log.info("hours => " + hours + " minutes => " + minutes);
 		String hh = "";
 		String mm = "";
 		if (hours < 10)
 			hh = "0";
 		if (minutes < 10)
-			mm = "0";
+			mm = "0";	
 		hh += String.valueOf(hours);
-		mm += String.valueOf(hours);
+		mm += String.valueOf(minutes);
 		publiForm.setStartevent(formatted);
 		publiForm.setHourstartevent(hh + ":" + mm);
 		//log.info(publiForm.getHourstartevent());
