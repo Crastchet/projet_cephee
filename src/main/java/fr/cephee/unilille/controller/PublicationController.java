@@ -509,9 +509,9 @@ public class PublicationController {
 				if (id == pub.getId()) {
 					trouve = true;
 				}
-				model.addAttribute("participeDeja", trouve);
+				
 			}
-			
+			model.addAttribute("participeDeja", trouve);
 			publi = (PublicationEvent) publi;
 			model.addAttribute("publi", publi);
 			return "detailsEvent";
