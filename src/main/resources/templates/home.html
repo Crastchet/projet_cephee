@@ -42,7 +42,7 @@
 				
 				
 				<span style="font-size: 20px;" th:text="'Cree par: ' + ${item.author.login}"></span>
-				<span style="font-size: 20px;float: right;" th:text="'Cree le: ' + ${item.dateCreation}"></span>
+				<span style="font-size: 20px;float: right;" th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span>
 				</div>
 				<div style="background-color: white;">
 					
