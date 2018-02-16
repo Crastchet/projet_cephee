@@ -88,7 +88,7 @@
 					</p>
 					<p>
 						<span style="font-size: 20px;"
-							th:text="'créé le: ' + ${publi.dateCreation}"></span>
+							th:text="'créé le: ' + ${#dates.format(publi.dateCreation, 'dd-MM-yyyy')}"></span>
 					</p>
 					
 					<form action="#" th:if="${participeDeja} == false" th:action="@{/participate}" th:object="${publi}" method="post">
