@@ -22,7 +22,19 @@
 	
 	<a class="waves-effect green darken-1 btn" th:href="@{/editprofile}" style="position: absolute; position: absolute; left: 1550px; top: 280px">Editer profil</a>
 	
-    <div id="divcompetences" style=" position: absolute; left: 410px; top: 380px;display:none">
+	<div id="divmesinformations" style=" position: absolute; left: 810px; top: 380px;display:none">
+	
+			<p><goodvibes style="font-size: 25px">Mes informations</goodvibes></p>
+			
+			<goodvibes style="font-size: 15px">Ma description</goodvibes>
+			
+			
+			
+			<goodvibes style="font-size: 15px">Mon mail</goodvibes>
+		
+		</div>
+	
+    <div id="divmescompetences" style=" position: absolute; left: 410px; top: 380px;display:none">
     	
 		<goodvibes style="font-size: 25px">Mes compétences</goodvibes>
 		
@@ -31,17 +43,16 @@
 				<p th:text="${skill.competence.title} + ' [Niv:' + ${skill.level} + ']'"></p>
 			</li>
 		</ul>
+	</div>	
+	
+	    
 		
-		<!-- PROPOSITION DE CHOISIR UNE COMPETENCE PARMI CELLES EXISTANTES EN BASE 
-		<h6>Les compétences qui existent :</h6>
+		<!--  
 		<ul id="allCompetences">
 		    <li th:each="competence : *{competences}">
 		    	<p th:text="${competence.title}"></p>
 		    </li>
 		</ul>
-		-->
-		<!-- AJOUT D'UNE COMPÉTENCE QUI N'EXISTE PAS ENCORE EN BASE -->
-		<goodvibes style="font-size: 15px">Créer une nouvelle compétence :</goodvibes>
         <div class="row">
        		<form class="col s12" action="#" th:action="@{/skillprofileregister}" th:object="${profileSkillForm}" method="post">
          		<div class="row">
@@ -59,10 +70,11 @@
    					 <i class="material-icons right">send</i>
   				</button>
 			</form>
-  		</div>
-   	</div>
-
-    <div id="divpubli" style="display:none">
+			  		</div>
+			
+			-->
+   
+    <div id="divpubli" style="position:absolute; left:410px; top:380px; display:none;">
 		<goodvibes style="margin-left: 40px;font-size: 35px">Vos publications</goodvibes>
 		<ul class="row" th:each="item : *{publications}">
 			<li>
