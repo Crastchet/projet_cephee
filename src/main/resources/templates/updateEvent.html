@@ -14,18 +14,19 @@
 </head>
 <body background="img/spiration-light.png">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/calendarFunc.js}"></script>
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
 	<script type="text/javascript" th:src="@{js/materialize.min.js}"></script>
 	<script>
-	checkEverything();
-	checkUpdate();
+		checkEverything();
+		checkUpdate();
 	</script>
-		<script> $(document).ready(function() {
-	    $('select').material_select();
-	  });</script>
+	<script> 
+		$(document).ready(function() {
+	   		$('select').material_select();
+		});
+	</script>
 		
 	<goodvibes style="margin-left: 40px;font-size: 55px">Modifier votre évenement</goodvibes>
 	

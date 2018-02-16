@@ -9,20 +9,20 @@
 <body background="img/spiration-light.png">
   	<div th:replace="fragments/header :: header">&nbsp;</div>
 	
-	<div style="float: left; margin-left: 30px;">
-		<blockquote>
-			<goodvibes style="margin-left: 40px;font-size: 35px" > Vous n'avez pas encore créé votre profil Unilille</goodvibes>
-		</blockquote>
-	</div>
+	
 	
 	<div th:replace="profileHeader">&nbsp;</div>
-  	 
-  	<a class="waves-effect red darken-4 btn" onclick="afficher_div('activation')" style="position: absolute; left: 475px; top: 300px">Activation du profil</a>
-  	 
-	<div id="activation" class="ui-content row" style="display: none; position: absolute; left: 350px; top: 400px;">
+	
+  	 <div style="position: absolute; left: 475px; top: 350px">
+		<blockquote>
+			<goodvibes style="font-size: 20px"> Vous n'avez pas encore créé votre profil Unilille. Pour activer votre profil, veuillez entrer vos informations en cliquant sur le bouton</goodvibes>
+		</blockquote>
+		 <a class="waves-effect red darken-4 btn" onclick="afficher_div('activation')" >Activation du profil</a>	
+	</div>     
+	     	 
+	<div id="activation" class="ui-content row" style="display: none; position: absolute; left: 350px; top: 500px;">
       <form class="col s6 offset-s2" action="#" th:action="@{activateprofileregister}" th:object="${profileActivationForm}" method="post">
         <div>
-          <goodvibes style="font-size: 30px" >Pour activer votre profil, veuillez entrer vos informations</goodvibes>
           <label for="usrnm" class="ui-hidden-accessible">Description:</label>
           <input type="text" name="user" id="usrnm" placeholder="Decrivez-vous" th:field="*{description}"></input>
          <label for="usrnm" class="ui-hidden-accessible">adresse mail:</label>
