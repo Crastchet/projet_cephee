@@ -5,7 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.PreRemove;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Validator;
 
 import org.slf4j.Logger;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import fr.cephee.unilille.database.CategoryPersistence;
@@ -45,7 +46,7 @@ import fr.cephee.unilille.model.TypePublicationWrapper;
 public class PublicationController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-
+	
 	@Autowired
 	private Validator validator;
 	
@@ -446,38 +447,47 @@ public class PublicationController {
 		
 	}
 	
+
+	@Transactional
 	@RequestMapping("/participate")
 	public String participateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
 			HttpSession session) {
-		//log.info("entered participate");
 		publi.setNbparticipant(publi.getNbparticipant() + 1);
 
 		Member mem = (Member) session.getAttribute("member");
+
 		publi.getParticipants().add(mem);
-		//mem.getListEvent().add(publi);
+		mem.getLevent().add(publi);
 		
-		//datamem.save(mem);
-		datapub.save(publi);
-		model.addAttribute("member", session.getAttribute("member"));
+		datamem.save(mem);
+		datapubevent.save(publi);
+
+		session.setAttribute("member", mem);
+		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);
 		model.addAttribute("participeDeja", true);
 		return "detailsEvent";
+	}
+	
+	@PreRemove
+	private void removeGroupsFromUsers(PublicationEvent p, Member m) {
+		p.getParticipants().remove(m);
 	}
 	
 	@RequestMapping("/stopparticipate")
 	public String stopParticipateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
 			HttpSession session) {
 		
-		//log.info("entered Stop participate");
 		publi.setNbparticipant(publi.getNbparticipant() - 1);
 		
 		Member mem = (Member) session.getAttribute("member");
-		publi.getParticipants().remove(mem);
-		//mem.getListEvent().add(publi);
-		
-		//datamem.save(mem);
-		datapub.save(publi);
-		model.addAttribute("member", session.getAttribute("member"));
+		removeGroupsFromUsers(publi, mem);
+		mem.getLevent().remove(publi);
+		datapubevent.deleteById(publi.getId());
+		datamem.save(mem);
+		datapubevent.save(publi);
+		session.setAttribute("member", mem);
+		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);
 		model.addAttribute("participeDeja", false);
 		

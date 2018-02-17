@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,16 +20,27 @@ public class PublicationEvent extends Publication {
 	private Date startevent;
 	private String location;
 
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany
-	Set<Member> participants = new HashSet();
+//	@JoinTable(name = "member_publication",
+	//joinColumns = @JoinColumn(name = "publi_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "mem_id", referencedColumnName = "id", updatable = true))
+//	@LazyCollection(LazyCollectionOption.FALSE)
+	//@ManyToMany
 	
-	public PublicationEvent()
-	{
+	//private List<Member> participants = new ArrayList<Member>();
+	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+		      name="event_participate",
+		      joinColumns=@JoinColumn(name="event_id", referencedColumnName="id"),
+		      inverseJoinColumns=@JoinColumn(name="mem_id", referencedColumnName="id")
+            )
+	private Set<Member> participants = new HashSet<Member>();
+	
+
+	public PublicationEvent() {
 
 	}
 
-	
 	public int getNbparticipant() {
 		return nbparticipant;
 	}
@@ -53,15 +65,21 @@ public class PublicationEvent extends Publication {
 		this.location = location;
 	}
 
-
 	public Set<Member> getParticipants() {
 		return participants;
 	}
-
 
 	public void setParticipants(Set<Member> participants) {
 		this.participants = participants;
 	}
 
+	/*public List<Member> getParticipants() {
+		return participants;
+	}
 
+	public void setParticipants(List<Member> participants) {
+		this.participants = participants;
+	}*/
+
+	
 }

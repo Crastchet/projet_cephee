@@ -2,15 +2,15 @@ package fr.cephee.unilille.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -39,9 +39,9 @@ public class Member {
 	@OneToMany(mappedBy="member")
 	private List<Skill> skills = new ArrayList<Skill>();
 	
-	/*@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany
-	private Set<PublicationEvent> listEvent = new HashSet<PublicationEvent>();*/
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(mappedBy = "participants")
+    private Set<PublicationEvent> levent = new HashSet<>();
 	
 	public Member()
 	{
@@ -126,11 +126,14 @@ public class Member {
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
-	/*public List<PublicationEvent> getListEvent() {
-		return listEvent;
+
+	public Set<PublicationEvent> getLevent() {
+		return levent;
 	}
-	public void setListEvent(List<PublicationEvent> listEvent) {
-		this.listEvent = listEvent;
-	}*/
-		
+
+	public void setLevent(Set<PublicationEvent> levent) {
+		this.levent = levent;
+	}
+	
+	
 }
