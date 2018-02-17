@@ -12,7 +12,7 @@ import fr.cephee.unilille.model.PublicationEvent;
 @Transactional
 public interface PublicationEventPersistence extends CrudRepository<PublicationEvent, Integer> {
 
-	public List<Publication> findAllByParticipants(Member member);
+	//public List<Publication> findAllByParticipants(Member member);
 	public Publication findById(int id);
 	public void deleteById(int id);
 }

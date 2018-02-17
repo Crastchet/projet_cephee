@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,10 +39,6 @@ public class Member {
 	
 	@OneToMany(mappedBy="member")
 	private List<Skill> skills = new ArrayList<Skill>();
-	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(mappedBy = "participants")
-    private Set<PublicationEvent> levent = new HashSet<>();
 	
 	public Member()
 	{
@@ -126,14 +123,5 @@ public class Member {
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
-
-	public Set<PublicationEvent> getLevent() {
-		return levent;
-	}
-
-	public void setLevent(Set<PublicationEvent> levent) {
-		this.levent = levent;
-	}
-	
 	
 }

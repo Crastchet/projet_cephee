@@ -30,9 +30,11 @@ import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationEventPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
+import fr.cephee.unilille.database.dataParticipantPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Participantdata;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationAnnonce;
 import fr.cephee.unilille.model.PublicationEvent;
@@ -64,6 +66,9 @@ public class PublicationController {
 
 	@Autowired
 	private CompetencePersistence dataComp;
+	
+	@Autowired
+	private dataParticipantPersistence dataparticipate;
 
 	@RequestMapping(value = "/formtypepublication")
 	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, HttpSession session) {
@@ -456,12 +461,11 @@ public class PublicationController {
 
 		Member mem = (Member) session.getAttribute("member");
 
-		publi.getParticipants().add(mem);
-		mem.getLevent().add(publi);
-		
-		datamem.save(mem);
-		datapubevent.save(publi);
-
+		Participantdata data = new Participantdata();
+		data.setMem(mem.getId());
+		data.setPubli(publi.getId());
+		dataparticipate.save(data);	
+		datapub.save(publi);
 		session.setAttribute("member", mem);
 		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);
@@ -471,7 +475,7 @@ public class PublicationController {
 	
 	@PreRemove
 	private void removeGroupsFromUsers(PublicationEvent p, Member m) {
-		p.getParticipants().remove(m);
+		//p.getParticipants().remove(m);
 	}
 	
 	@RequestMapping("/stopparticipate")
@@ -481,11 +485,12 @@ public class PublicationController {
 		publi.setNbparticipant(publi.getNbparticipant() - 1);
 		
 		Member mem = (Member) session.getAttribute("member");
-		removeGroupsFromUsers(publi, mem);
-		mem.getLevent().remove(publi);
-		datapubevent.deleteById(publi.getId());
-		datamem.save(mem);
-		datapubevent.save(publi);
+		
+		Participantdata data = dataparticipate.findByMemByPubli(mem.getId(), publi.getId());
+		data.setMem(mem.getId());
+		data.setPubli(publi.getId());
+		dataparticipate.delete(data);
+		datapub.save(publi);
 		session.setAttribute("member", mem);
 		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);
@@ -511,16 +516,11 @@ public class PublicationController {
 			publi = (PublicationAnnonce) publi;
 			model.addAttribute("publi", publi);
 			return "detailsAnnonce";
-		} else  {
-			
-			List<Publication> lesEvents = datapubevent.findAllByParticipants(mem);
+		} else  {		
+			Participantdata event = dataparticipate.findByMemByPubli(mem.getId(), publi.getId());
 			boolean trouve = false;
-			for (Publication pub : lesEvents) {
-				if (id == pub.getId()) {
-					trouve = true;
-				}
-				
-			}
+			if (event != null)
+				trouve = true;
 			model.addAttribute("participeDeja", trouve);
 			publi = (PublicationEvent) publi;
 			model.addAttribute("publi", publi);
