@@ -80,32 +80,28 @@ public class NavigationController {
 		
 		List<Publication> titleSearched = new ArrayList<Publication>();
 		List<Publication> finalResult = new ArrayList<Publication>();
+		List<Publication> authorSearched = new ArrayList<Publication>();
 		List<Publication> categorySearched = new ArrayList<Publication>();
 		List<PublicationProject> competenceSearched = new ArrayList<PublicationProject>();
 		
 		if (!publicationForm.getTitle().isEmpty())
 			titleSearched = datapub.findByTitleContaining(publicationForm.getTitle());		
-
+		
+		if (!publicationForm.getAuthor().getLogin().isEmpty())
+		{
+			Member m = datamem.findByLogin(publicationForm.getAuthor().getLogin());
+			authorSearched = datapub.findByAuthor(m);
+		}
 		if (!publicationForm.getListCategory().isEmpty())
 			categorySearched = datapub.findByCategoryIn(publicationForm.getListCategory());
 		
 		if (!publicationForm.getListCompetence().isEmpty())
-			competenceSearched = datapubProj.findBylistcompetenceIn(publicationForm.getListCompetence());
-		
-		for (Publication p : titleSearched)
-		{
-			log.info("Publication title search : " + p.getId() + p.getTitle());
-		}
-		for (Publication pc : categorySearched)
-		{
-			log.info("Publication category search : " + pc.getId() + pc.getTitle());
-			for (Category c : pc.getCategory())
-			log.info("Category : " + c.getTitle());
-			
-		}
+			competenceSearched = datapubProj.findBylistcompetenceIn(publicationForm.getListCompetence());		
 
 		finalResult.addAll(titleSearched);
-		
+		for (Publication p : authorSearched)
+			if (!finalResult.contains(p))
+				finalResult.add(p);
 		for (Publication p : categorySearched)
 			if (!finalResult.contains(p))
 				finalResult.add(p);

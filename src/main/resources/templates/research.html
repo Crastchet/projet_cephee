@@ -35,6 +35,13 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">title</i> <input id="author"
+					type="text" class="validate" th:field="*{author.login}"/> <label for="Auteur">Rechercher par auteur</label>
+			</div>
+		</div>
+		
 		<div class="input-field col s12">
 			<select multiple="multiple" th:field="*{listCategory}">
 				<option value="" disabled="disabled" selected="selected">Rechercher par catégorie</option>
