@@ -17,11 +17,13 @@ import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
+import fr.cephee.unilille.database.PublicationProjectPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationForm;
+import fr.cephee.unilille.model.PublicationProject;
 
 @Controller
 public class NavigationController {
@@ -39,6 +41,9 @@ public class NavigationController {
 	
 	@Autowired
 	private PublicationPersistence datapub;
+	
+	@Autowired
+	private PublicationProjectPersistence datapubProj;
 	
 	@RequestMapping(value = "/lastPubli")
 	public String goToLastPublication(Model model,
@@ -76,6 +81,7 @@ public class NavigationController {
 		List<Publication> titleSearched = new ArrayList<Publication>();
 		List<Publication> finalResult = new ArrayList<Publication>();
 		List<Publication> categorySearched = new ArrayList<Publication>();
+		List<PublicationProject> competenceSearched = new ArrayList<PublicationProject>();
 		
 		if (!publicationForm.getTitle().isEmpty())
 			titleSearched = datapub.findByTitleContaining(publicationForm.getTitle());		
@@ -83,6 +89,8 @@ public class NavigationController {
 		if (!publicationForm.getListCategory().isEmpty())
 			categorySearched = datapub.findByCategoryIn(publicationForm.getListCategory());
 		
+		if (!publicationForm.getListCompetence().isEmpty())
+			competenceSearched = datapubProj.findBylistcompetenceIn(publicationForm.getListCompetence());
 		
 		for (Publication p : titleSearched)
 		{
@@ -97,7 +105,11 @@ public class NavigationController {
 		}
 
 		finalResult.addAll(titleSearched);
+		
 		for (Publication p : categorySearched)
+			if (!finalResult.contains(p))
+				finalResult.add(p);
+		for (Publication p : competenceSearched)
 			if (!finalResult.contains(p))
 				finalResult.add(p);
 		model.addAttribute("listSearched", finalResult);

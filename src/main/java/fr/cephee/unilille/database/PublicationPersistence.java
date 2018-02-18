@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.cephee.unilille.model.Category;
+import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
 
