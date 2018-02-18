@@ -8,4 +8,5 @@ import fr.cephee.unilille.model.Category;
 
 public interface CategoryPersistence extends CrudRepository<Category, Integer> {
 	public List<Category> findAll();
+	public Category findByTitle(String title);
 }
