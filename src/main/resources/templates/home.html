@@ -51,7 +51,15 @@
 					<span style="font-size: 20px;"
 						th:text="'Cree par: ' + ${item.author.login}"></span> <span
 						style="font-size: 20px; float: right;"
-						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span>
+						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
 				</div>
 				<div style="background-color: white;">
 

@@ -86,6 +86,14 @@
 						<span style="font-size: 20px;"
 							th:text="'créé le: ' + ${#dates.format(publi.dateCreation, 'dd-MM-yyyy')}"></span>
 					</p>
+					
+									<i class="material-icons">school</i> <span th:text="'Catégories : '"></span>
+				<ul>
+					<th:block th:object="${publi}" th:each="it : ${publi.category}">
+						<li th:text="${it.title}"></li>
+					</th:block>
+				</ul>
+				
 				</div>
 				<div class="card white">
 
