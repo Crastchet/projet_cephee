@@ -2,6 +2,7 @@ package fr.cephee.unilille.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
+import fr.cephee.unilille.database.MemberInterestPersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.database.PublicationProjectPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.MemberInterest;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.PublicationProject;
@@ -45,6 +48,9 @@ public class NavigationController {
 	@Autowired
 	private PublicationProjectPersistence datapubProj;
 	
+	@Autowired
+	private MemberInterestPersistence datainterest;
+	
 	@RequestMapping(value = "/lastPubli")
 	public String goToLastPublication(Model model,
 			HttpSession session) {
@@ -64,8 +70,6 @@ public class NavigationController {
 		model.addAttribute("member", session.getAttribute("member"));
 		PublicationForm publicationForm = new PublicationForm();
 
-	//	publicationForm.setListCategory(listcategory);
-//		publicationForm.setListCompetence(listcompetence);
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
 		model.addAttribute("publicationForm", publicationForm);
@@ -93,8 +97,13 @@ public class NavigationController {
 			authorSearched = datapub.findByAuthor(m);
 		}
 		if (!publicationForm.getListCategory().isEmpty())
+		{
 			categorySearched = datapub.findByCategoryIn(publicationForm.getListCategory());
-		
+			MemberInterest interest = datainterest.findByMember((Member)session.getAttribute("member"));
+			for (Category c : publicationForm.getListCategory())
+				interest.addInterest(c);
+			datainterest.save(interest);
+		}		
 		if (!publicationForm.getListCompetence().isEmpty())
 			competenceSearched = datapubProj.findBylistcompetenceIn(publicationForm.getListCompetence());		
 
@@ -108,6 +117,8 @@ public class NavigationController {
 		for (Publication p : competenceSearched)
 			if (!finalResult.contains(p))
 				finalResult.add(p);
+			
+		//datainterest.save();
 		model.addAttribute("listSearched", finalResult);
 		return "researchResult";
 	}

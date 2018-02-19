@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import fr.cephee.unilille.database.CategoryPersistence;
+import fr.cephee.unilille.database.MemberInterestPersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
+import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.MemberForm;
+import fr.cephee.unilille.model.MemberInterest;
 import fr.cephee.unilille.model.Publication;
 
 
@@ -31,7 +35,12 @@ public class LoginController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired
+	private MemberInterestPersistence datainterest;
 
+	@Autowired
+	private CategoryPersistence datacat;
+	
 	@Autowired
 	private MemberPersistence datamem;
 
@@ -134,6 +143,13 @@ public class LoginController {
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, memberForm, errors);		
 		if (result.hasErrors())	{
 			return "login";
+		}
+		if (datainterest.findByMember(member) == null)
+		{
+			log.info("ENTENRED INTEREST SAVE");
+			List<Category> cat = datacat.findAll();
+			MemberInterest meminterest = new MemberInterest(cat, member);
+			datainterest.save(meminterest);
 		}
 		model.addAttribute("member", member);
 		session.setAttribute("member", member);
