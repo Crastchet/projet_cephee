@@ -20,21 +20,21 @@
 	</div>
 	
 	
-	<form action="#" th:action="@{/editprofileregister}"	th:object="${profileForm}" method="post" style="clear:both">
-		<p>
-			E-mail : <input id="email" type="email" th:field="*{email}" th:value="*{email}" />
-		</p>
+	<form action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="clear:both">
+		<label for="userEmail">Adresse email :</label>
+		<input id="userEmail" name="email" type="email" th:field="*{email}" th:value="${member.email}" onchange="checkEditProfileForm()"></input>
 		
-		<p>
-			Ma description : <input id="description" type="text" th:field="*{description}" th:value="*{description}" />
-		</p>
+		<label for="userDescription" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
+		<textarea id="userDescription" name="description" th:field="*{description}" th:value="${member.description}" onchange="checkEditProfileForm()"></textarea>
 		
-		<p>
-			<input type="submit" value="Valider" id="editProfileButton" />
-			<input type="reset" value="Reset" />
-		</p>
+		<button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">Éditer votre profil <i class="material-icons right">send</i></button>
+		<input type="reset" value="Reset" />
 	</form>
-
+	
+	
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+	<script type="text/javascript" th:src="@{/js/profileControls.js}"></script>
+	
 </body>
 
 </html>

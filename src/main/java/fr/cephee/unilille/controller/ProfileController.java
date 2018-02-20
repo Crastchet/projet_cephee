@@ -1,8 +1,5 @@
 package fr.cephee.unilille.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
-import fr.cephee.unilille.exceptions.DateFormatException;
 import fr.cephee.unilille.exceptions.DescriptionException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
@@ -76,6 +72,8 @@ public class ProfileController {
 			//If profile is not activated - we suggest to activate
 			if( member.getActivated() == false ) {
 				model.addAttribute("profileActivationForm", new ProfileActivationForm());
+				model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
+				model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
 				return "profilePersonnal-NotActivated";
 			}
 			//If it is activated - we don't suggest to activate
@@ -153,6 +151,8 @@ public class ProfileController {
 		profileForm.setDescription(member.getDescription());
 		profileForm.setEmail(member.getEmail());
 		model.addAttribute("profileForm", profileForm);
+		model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
+		model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
 		return "profileEdit";
 	}
 	
