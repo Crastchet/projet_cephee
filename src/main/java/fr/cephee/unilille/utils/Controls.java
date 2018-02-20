@@ -6,11 +6,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.cephee.unilille.exceptions.DateFormatException;
+import fr.cephee.unilille.exceptions.DescriptionException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 
 public abstract class Controls {
+	
+	public static final int DESCRIPTION_SIZE_MAX = 500;
+	public static final int DESCRIPTION_SIZE_MIN = 50;
 
 	public static void checkEmail(String email) throws EmailFormatException {
+		if(email.isEmpty())
+			throw new EmailFormatException("Email vide");
+		
 		String part2 = email.split("@")[1];
 		if(part2.split("\\.").length != 2)
 			throw new EmailFormatException("Email non conforme");
@@ -27,7 +34,13 @@ public abstract class Controls {
 			// TODO Auto-generated catch block
 			throw new DateFormatException(e.getMessage());
 		}
-		
+	}
+	
+	public static void checkDescription(String description) throws DescriptionException {
+		if(description.length() > DESCRIPTION_SIZE_MAX)
+			throw new DescriptionException("Description ne peut pas être plus grande que " + DESCRIPTION_SIZE_MAX + " caractères");
+		if(description.length() < DESCRIPTION_SIZE_MIN)
+			throw new DescriptionException("Description ne peut pas être plus petite que " + DESCRIPTION_SIZE_MIN + " caractères");
 		
 	}
 }

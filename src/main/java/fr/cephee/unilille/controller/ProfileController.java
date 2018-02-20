@@ -19,6 +19,7 @@ import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
 import fr.cephee.unilille.exceptions.DateFormatException;
+import fr.cephee.unilille.exceptions.DescriptionException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
@@ -148,7 +149,10 @@ public class ProfileController {
 			HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
 		model.addAttribute("member", member);
-		model.addAttribute("profileForm", new ProfileForm());
+		ProfileForm profileForm = new ProfileForm();
+		profileForm.setDescription(member.getDescription());
+		profileForm.setEmail(member.getEmail());
+		model.addAttribute("profileForm", profileForm);
 		return "profileEdit";
 	}
 	
@@ -176,20 +180,15 @@ public class ProfileController {
 			try {
 				Controls.checkEmail(profileForm.getEmail());
 				member.setEmail(profileForm.getEmail());
-				Controls.checkDate(profileForm.getBirth());
-				member.setBirth(new SimpleDateFormat("yy-mm-dd").parse(profileForm.getBirth()));
-				//peut être contrôler également la description ??
+				Controls.checkDescription(profileForm.getDescription());
 				member.setDescription(profileForm.getDescription());
 				
 				datamem.save(member);
 			} catch (EmailFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (DateFormatException e) {
+			} catch (DescriptionException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block (j'aimerais l'enlever mais bon..)
 				e.printStackTrace();
 			}
 		}

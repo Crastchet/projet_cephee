@@ -22,15 +22,11 @@
 	
 	<form action="#" th:action="@{/editprofileregister}"	th:object="${profileForm}" method="post" style="clear:both">
 		<p>
-			E-mail : <input id="email" type="email" th:field="*{email}" />
+			E-mail : <input id="email" type="email" th:field="*{email}" th:value="*{email}" />
 		</p>
 		
 		<p>
-			Date de naissance : <input id="birth" type="date" name="birth" th:field="*{birth}" />
-		</p>
-		
-		<p>
-			Ma description : <input id="description" type="text" th:field="*{description}" />
+			Ma description : <input id="description" type="text" th:field="*{description}" th:value="*{description}" />
 		</p>
 		
 		<p>

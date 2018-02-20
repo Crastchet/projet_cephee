@@ -15,11 +15,10 @@
 
 <body background="img/spiration-light.png">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/publicationFunc.js}"> </script>
-		<script> $(document).ready(function() {
+	<script> $(document).ready(function() {
 	    $('select').material_select();
 	  });</script>
 	<goodvibes style="margin-left: 40px;font-size: 55px">Modifier votre projet</goodvibes>
