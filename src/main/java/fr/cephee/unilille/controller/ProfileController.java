@@ -212,10 +212,14 @@ public class ProfileController {
 			try {
 				Controls.checkEmail(profileActivationForm.getEmail());
 				member.setEmail(profileActivationForm.getEmail());
+				Controls.checkDescription(profileActivationForm.getDescription());
 				member.setDescription(profileActivationForm.getDescription());
 				member.setActived(true);
 				datamem.save(member);
 			} catch (EmailFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DescriptionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

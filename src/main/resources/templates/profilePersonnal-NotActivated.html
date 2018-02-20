@@ -26,15 +26,13 @@
           <label for="usrnm" class="ui-hidden-accessible">Description:</label>
           <input type="text" name="user" id="usrnm" placeholder="Decrivez-vous" th:field="*{description}"></input>
          <label for="usrnm" class="ui-hidden-accessible">adresse mail:</label>
-          <input type="text" class="materialize-textarea" name="user" id="usrnm" placeholder="Adresse mail perso" th:field="*{email}"></input>
+          <input type="email" class="materialize-textarea" name="user" id="usrnm" placeholder="Adresse email perso" th:field="*{email}"></input>
          	<button class="btn waves-effect waves-light" id="boutonActivation" type="submit" name="action" style="margin-left: 30px;"> Activer votre profil <i class="material-icons right">send</i>
 			</button>
         </div>
       </form>
     </div> 
  
-
-
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 
 </body>
