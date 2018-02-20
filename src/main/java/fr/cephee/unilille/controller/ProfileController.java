@@ -146,10 +146,10 @@ public class ProfileController {
 			Model model,
 			HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
-		model.addAttribute("member", member);
 		ProfileForm profileForm = new ProfileForm();
 		profileForm.setDescription(member.getDescription());
 		profileForm.setEmail(member.getEmail());
+		model.addAttribute("member", member);
 		model.addAttribute("profileForm", profileForm);
 		model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
 		model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
@@ -192,7 +192,8 @@ public class ProfileController {
 				e.printStackTrace();
 			}
 		}
-		
+		session.setAttribute("member", member);
+		model.addAttribute("member", member);
 		//We return member profile
 		return this.profile(login, model, session);
 	}
