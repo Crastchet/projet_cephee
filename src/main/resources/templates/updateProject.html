@@ -21,43 +21,56 @@
 	<script> $(document).ready(function() {
 	    $('select').material_select();
 	  });</script>
-	<goodvibes style="margin-left: 40px;font-size: 55px">Modifier votre projet</goodvibes>
-	<form action="#" th:action="@{/finishedupdating}"
-		th:object="${publicationForm}" method="post">
-		<p>
-			Titre : <input type="text" th:field="*{title}" id="titre"
-				onchange="checkForm()" th:value="*{title}" />
-		</p>
+	  
+	<div class = "row" style="padding-top: 50px">
+	
+		<form class = "col s6 offset-s3" style="background-color: white" action="#" th:action="@{/finishedupdating}"
+			th:object="${publicationForm}" method="post">
+			<goodvibes style="margin-left: 40px;font-size: 55px">Modifier votre projet</goodvibes>
 
-		<p>
-			Description : <input type="text" th:field="*{content}" id="content"
-				onchange="checkForm()" th:value="*{content}" />
-		</p>
-
-		<!--  <form th:object="${user}" action="index.html" th:action="@{/save}" method="post">
-			<input type="hidden" th:field="*{id}" />-->
-		<br />
-
-		<div class="input-field col s12">
-			<select multiple="multiple" th:field="*{listCategory}">
-				<option value="" disabled="disabled" selected="selected">Choisissez vos catégories de publication</option>
-				<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
-					th:text="${catego.title}"></option>
-			</select> 
-		</div>
-		
-		<div class="input-field col s12">
-			<select multiple="multiple" th:field="*{listCompetence}">
-				<option value="" disabled="disabled" selected="selected">Choisissez vos compétences pour la publication</option>
-				<option th:each="competence : ${competenceList}" th:value="${{competence.id}}"
-					th:text="${competence.title}"></option>
-			</select> 
-		</div>	
-		<button class="btn waves-effect waves-light" id="boutonModifier"
-			type="submit" name="action" disabled="disabled">
-			Fin Creation Projet <i class="material-icons right">send</i>
-		</button>
-	</form>
+			<!-- Titre -->
+			<div class="row">
+       			<div class="input-field col s12">
+       				<i class="material-icons prefix">title</i>
+          			<input id="titre" type="text" class="validate" th:field="*{title}" onchange="checkForm()"/>
+         			<label for="titre">Titre de l'Annonce</label>
+        		</div>
+      		</div>
+      		
+			<!-- Content -->
+			<div class="row">
+       			<div class="input-field col s12">
+          			<i class="material-icons prefix">description</i>
+          			<textarea id="content" class="materialize-textarea" data-length="120" th:field="*{content}" onchange="checkForm()"></textarea>
+         			<label for="content">Description</label>
+        		</div>
+      		</div>
+	
+			<!--  <form th:object="${user}" action="index.html" th:action="@{/save}" method="post">
+				<input type="hidden" th:field="*{id}" />-->
+			<br />
+	
+			<div class="input-field col s12">
+				<select multiple="multiple" th:field="*{listCategory}">
+					<option value="" disabled="disabled" selected="selected">Choisissez vos catégories de publication</option>
+					<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+						th:text="${catego.title}"></option>
+				</select> 
+			</div>
+			
+			<div class="input-field col s12">
+				<select multiple="multiple" th:field="*{listCompetence}">
+					<option value="" disabled="disabled" selected="selected">Choisissez vos compétences pour la publication</option>
+					<option th:each="competence : ${competenceList}" th:value="${{competence.id}}"
+						th:text="${competence.title}"></option>
+				</select> 
+			</div>	
+			<button class="btn waves-effect waves-light" id="boutonModifier"
+				type="submit" name="action" disabled="disabled">
+				Fin Creation Projet <i class="material-icons right">send</i>
+			</button>
+		</form>
+	</div>
 	<script>checkFormUpdate()</script>
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
