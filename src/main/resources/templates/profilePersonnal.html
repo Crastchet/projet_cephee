@@ -12,17 +12,31 @@
 	
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	
-	<div style="float: left; margin-left: 30px;">
+	<!-- <div style="float: left; margin-left: 30px;">
 		<blockquote>
 			<p><goodvibes th:text="'Votre profil'"></goodvibes></p>
 		</blockquote>
-	</div>
+	</div> -->
 	
+
+	<nav>
+	    <div class="nav-wrapper">
+	      <a href="#" class="brand-logo center"><goodvibes style="font-size: 40px">Votre Profil</goodvibes></a>
+	      <ul id="nav-mobile" class="left hide-on-med-and-down">
+	        <li><a class="waves-effect green darken-1 btn" th:href="@{/editprofile}" style="height:40px; width:200px;">Editer</a></li>
+	      </ul>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">			
+	      	<li style = "margin-right: 10px;font-size: 20px; color: white;" th:text=" ${member.login}">
+				<i style ="color: white;" class="material-icons" >face</i>
+			</li>
+	      </ul>
+	    </div>
+  </nav>
+  
 	<div th:replace="profileHeader">&nbsp;</div>
 	
-	<a class="waves-effect green darken-1 btn" th:href="@{/editprofile}" style="position: absolute; position: absolute; right: 10%; top: 280px">Editer profil</a>
 	
-	<div id="divmesinformations" style=" position: absolute; left: 810px; top: 380px;display:none">
+	<div id="divmesinformations" style=" position: absolute; left: 810px; top: 300px;display:none">
 	
 			<p><goodvibes style="font-size: 25px">Mes informations</goodvibes></p>
 			
@@ -33,7 +47,7 @@
 			<p th:text="${member.email}"></p>
 		</div>
 	
-    <div id="divmescompetences" style=" position: absolute; left: 410px; top: 380px;display:none">
+    <div id="divmescompetences" style=" position: absolute; left: 410px; top: 300px;display:none">
     	
 		<goodvibes style="font-size: 25px">Mes compétences</goodvibes>
 		
@@ -73,7 +87,7 @@
 			
 			-->
    
-    <div id="divpubli" style="position:absolute; left:410px; top:380px; display:none;">
+    <div id="divpubli" style="position:absolute; left:410px; top:300px; display:none;">
 		<goodvibes style="margin-left: 40px;font-size: 35px">Vos publications</goodvibes>
 		<ul class="row" th:each="item : *{publications}">
 			<li>
@@ -105,11 +119,11 @@
 		</ul>
 	</div>
 
-    <div id="divrecherche" style="position:absolute; left:410px; top:380px; display:none;">
+    <div id="divrecherche" style="position:absolute; left:410px; top:300px; display:none;">
          <goodvibes style="font-size: 35px">Ce que vous recherchez</goodvibes>
     </div>
 
-    <div id="divnotif" style="position:absolute; left:410px; top:380px; display:none;">
+    <div id="divnotif" style="position:absolute; left:410px; top:300px; display:none;">
           <goodvibes style="font-size: 35px"> Vos notifications </goodvibes>
     </div>
 

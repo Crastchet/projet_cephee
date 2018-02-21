@@ -15,26 +15,107 @@
 	
 	<div style="float: left; margin-left: 30px;">
 		<blockquote>
-			<goodvibes th:text="'Votre profil'"></goodvibes>
+			<goodvibes  style="font-size: 70px" th:text="'Votre profil'"></goodvibes>
 		</blockquote>
 	</div>
 	
-	
-	<form action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="clear:both">
-		<label for="userEmail">Adresse email :</label>
-		<input id="userEmail" name="email" type="email" th:field="*{email}" th:value="${member.email}" onchange="checkEditProfileForm()"></input>
+	<div class="row">
+		<form class = "col s6 offset-s3" action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="background-color: white;clear:both">
+			<p><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></p>
 		
-		<label for="userDescription" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
-		<textarea id="userDescription" name="description" th:field="*{description}" th:value="${member.description}" onchange="checkEditProfileForm()"></textarea>
+			<label for="userEmail">Adresse email :</label>
+			<input id="userEmail" name="email" type="email" th:field="*{email}" th:value="${member.email}" onchange="checkEditProfileForm()"></input>
+			
+			<label for="userDescription" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
+			<textarea id="userDescription" name="description" th:field="*{description}" th:value="${member.description}" onchange="checkEditProfileForm()"></textarea>
+			
+			<button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">Éditer votre profil <i class="material-icons right">send</i></button>
 		
-		<button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">Éditer votre profil <i class="material-icons right">send</i></button>
-		<input type="reset" value="Reset" />
-	</form>
+		</form>
+	</div>
 	
+	<div class="row">
+		<form class = "col s6 offset-s3" action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="background-color: white;clear:both">
+			<p><goodvibes style="font-size: 30px">Ajouter des compétences existantes</goodvibes></p>
+			
+			 <div class="input-field col s12">
+				<select th:field="*{listCompetence}">
+					<option value="" disabled="disabled" selected="selected">Choisissez la compétence</option>
+					<option th:each="competence : ${competenceList}" th:value="${{competence.id}}"
+						th:text="${competence.title}"></option>
+				</select> 
+				<label>Nom de la compétence</label>
+			</div>		
+		 	 
+		 	 <div class="input-field col s12">
+			   	 <select>
+			      <option value="" disabled="disabled" selected="selected">Niveau estimé</option>
+				      <option value="1">Niveau 1/5</option>
+				      <option value="2">Niveau 2/5</option>
+				      <option value="3">Niveau 3/5</option>
+				      <option value="2">Niveau 4/5</option>
+				      <option value="3">Niveau 5/5</option>
+			    </select>
+			    <label>Niveau de la compétence</label>
+		 	 </div>
+		 	 
+		 	 <button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">Ajouter la compétence <i class="material-icons right">send</i></button>
+		 	 
+	 	 </form>
+	</div>
+	
+	<div class="row">
+		<form class = "col s6 offset-s3" action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="background-color: white;clear:both">
+			<p><goodvibes style="font-size: 30px">Ajouter des nouvelles compétences</goodvibes></p>
+			
+			<div class="input-field col s12">
+				<label for="skillName">Nom de la compétence :</label>
+				<input id="skillName" name="skillName" type="text" th:field="*{competenceTitle}" ></input>
+		 	 </div>
+		 	 
+		 	 <div class="input-field col s12">
+			   	 <select>
+			      <option value="" disabled="disabled" selected="selected">Niveau estimé</option>
+				      <option value="1">Niveau 1/5</option>
+				      <option value="2">Niveau 2/5</option>
+				      <option value="3">Niveau 3/5</option>
+				      <option value="2">Niveau 4/5</option>
+				      <option value="3">Niveau 5/5</option>
+			    </select>
+			    <label>Niveau de la compétence</label>
+		 	 </div>
+		 	 
+		 	 <button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">Ajouter la compétence <i class="material-icons right">send</i></button>
+		 	 
+	 	 </form>
+	</div>
+	
+	
+		<div class="row">
+		<form class = "col s6 offset-s3" action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="background-color: white;clear:both">
+			<p><goodvibes style="font-size: 30px">Supprimer des compétences</goodvibes></p>
+			
+			 <div class="input-field col s12">
+				<select th:field="*{listCompetence}">	  <!--  FAUT AFFICHER ICI LES COMPETENCES DE LA PERSONNE-->	
+				
+					<option value="" disabled="disabled" selected="selected">Choisissez la compétence à supprimer</option>
+					<option th:each="competence : ${competenceList}" th:value="${{competence.id}}"
+						th:text="${competence.title}"></option>
+				</select> 
+			</div>		
+		 	 
+		 	 <button class="btn waves-effect waves-light red" id="buttonEditProfile" type="submit" name="action">Supprimer la compétence <i class="material-icons right">send</i></button>
+		 	 
+	 	 </form>
+	</div>
+			
+   
 	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 	<script type="text/javascript" th:src="@{/js/profileControls.js}"></script>
-	
+	<script> $(document).ready(function() {
+			    $('select').material_select(); });
+		</script>
 </body>
 
 </html>

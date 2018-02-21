@@ -1,5 +1,7 @@
 package fr.cephee.unilille.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -149,6 +151,8 @@ public class ProfileController {
 		ProfileForm profileForm = new ProfileForm();
 		profileForm.setDescription(member.getDescription());
 		profileForm.setEmail(member.getEmail());
+		List<Competence> listcompetence = datacom.findAll();
+		model.addAttribute("competenceList", listcompetence);
 		model.addAttribute("member", member);
 		model.addAttribute("profileForm", profileForm);
 		model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
