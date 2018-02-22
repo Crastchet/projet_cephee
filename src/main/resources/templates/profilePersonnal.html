@@ -87,11 +87,11 @@
 			
 			-->
    
-    <div id="divpubli" style="position:absolute; left:410px; top:300px; display:none;">
-		<goodvibes style="margin-left: 40px;font-size: 35px">Vos publications</goodvibes>
-		<ul class="row" th:each="item : *{publications}">
-			<li>
-				<div th:switch="${item.authorised}" class="col s12 m12 l8">
+    <div id="divpubli" style="position:absolute; left:410px; top:300px; display:none; width: 100%;">
+		<goodvibes style="font-size: 35px">Vos publications</goodvibes>
+		<div class="row">
+			<div th:each="item : *{publications}">
+				<div th:switch="${item.authorised}" class="col s12 m6 l3">
 					<div th:case="true" class="card blue-grey darken-1">
 						<div class="card-content white-text">
 							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
@@ -100,7 +100,8 @@
 							<p th:text="${item.id}"></p>
 						</div>
 						<div class="card-action">
-							<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
+							<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+								détails</a>
 						</div>
 					</div>
 					<div th:case="false" class="card blue-grey darken-4">
@@ -111,12 +112,13 @@
 							<p th:text="${item.id}"></p>
 						</div>
 						<div class="card-action">
-							<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
+							<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+								détails</a>
 						</div>
 					</div>
 				</div>
-			</li>
-		</ul>
+			</div>
+		</div>
 	</div>
 
     <div id="divrecherche" style="position:absolute; left:410px; top:300px; display:none;">
