@@ -27,6 +27,7 @@ import fr.cephee.unilille.model.MemberInterest;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.PublicationProject;
+import fr.cephee.unilille.model.TypePublicationWrapper;
 
 @Controller
 public class NavigationController {
@@ -69,7 +70,13 @@ public class NavigationController {
 		List<Competence> listcompetence = dataComp.findAll();
 		model.addAttribute("member", session.getAttribute("member"));
 		PublicationForm publicationForm = new PublicationForm();
-
+		TypePublicationWrapper form = new TypePublicationWrapper();
+		
+		form.getPublicationList().add("Projet");
+		form.getPublicationList().add("Echange");
+		form.getPublicationList().add("Evenement");
+		
+		model.addAttribute("typepublicationlist", form);
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
 		model.addAttribute("publicationForm", publicationForm);
@@ -78,7 +85,7 @@ public class NavigationController {
 	
 	@RequestMapping(value = "/searching")
 	public String searching(@ModelAttribute("publicationForm") PublicationForm publicationForm,
-			Model model,			
+			Model model,
 			HttpSession session) {
 		model.addAttribute("member", session.getAttribute("member"));
 		
@@ -117,7 +124,13 @@ public class NavigationController {
 		for (Publication p : competenceSearched)
 			if (!finalResult.contains(p))
 				finalResult.add(p);
-			
+		
+/*		if (!publicationForm.getTypeResearch().isEmpty())
+		{
+			if (!publicationForm.getTypeResearch().contains("Projet"))			
+				finalResult.remove(PublicationProject);
+		} */
+		
 		//datainterest.save();
 		model.addAttribute("listSearched", finalResult);
 		return "researchResult";

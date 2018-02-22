@@ -16,6 +16,8 @@ public class PublicationForm {
 	@NotEmpty
 	private String typePublication;
 	
+	private List<String> typeResearch;
+	
 	private boolean authorised;
 
 	private List<Category> listCategory = new ArrayList<Category>();
@@ -91,4 +93,15 @@ public class PublicationForm {
 		this.authorised = authorised;
 	}
 
+
+	public List<String> getTypeResearch() {
+		return typeResearch;
+	}
+
+
+	public void setTypeResearch(List<String> typeResearch) {
+		this.typeResearch = typeResearch;
+	}
+
+	
 }

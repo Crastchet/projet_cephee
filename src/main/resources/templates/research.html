@@ -46,6 +46,14 @@
 			</div>
 			
 			<div class="input-field col s12">
+				<select multiple="multiple" th:field="*{typeResearch}">
+					<option value="" disabled="disabled" selected="selected">Rechercher par type de publication</option>
+					<option th:each="type : ${typepublicationlist.getPublicationList()}" th:value="${type}"
+					th:text="${type}"></option>
+				</select>
+			</div>
+			
+			<div class="input-field col s12">
 				<select multiple="multiple" th:field="*{listCategory}">
 					<option value="" disabled="disabled" selected="selected">Rechercher par catégorie</option>
 					<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
