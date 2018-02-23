@@ -31,11 +31,14 @@ $(function() {
     			 if (elem.options[i].value == 'Evenement')
     				 {
     				 document.getElementById("calendarSearch").style.display = 'block';
+    				 document.getElementById("calendarSearch2").style.display = 'block';
     				 checking = true;
     				 }
-    		 	//document.getElementById("calendarSearch").style.display = 'none';
     		}
     	if (checking == false)
+    		{
 			 document.getElementById("calendarSearch").style.display = 'none';
+		 document.getElementById("calendarSearch2").style.display = 'none';
+    		}
     });
 });

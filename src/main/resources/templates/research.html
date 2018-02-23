@@ -70,7 +70,15 @@
        			<div class="input-field col s12">
 	       				<i class="material-icons prefix">date_range</i>
 	          			<input id="dateStart" type="date" class="datepicker" th:object="${publicationEventForm}" th:field="*{startevent}"></input>
-	         			<label for="dateStart">Date de début de l'evenement</label>
+	         			<label for="dateStart">Recherche d'un évènement depuis...</label>
+        		</div>
+      		</div>
+      		
+      		<div class="calendarResearch" style="display:none" id="calendarSearch2">
+       			<div class="input-field col s12">
+	       				<i class="material-icons prefix">date_range</i>
+	          			<input id="dateEnd" type="date" class="datepicker2" th:object="${publicationEventForm}" th:field="*{endevent}"></input>
+	         			<label for="dateEnd"> ...jusqu'à...</label>
         		</div>
       		</div>
       		
@@ -102,4 +110,16 @@
 		    closeOnSelect: false // Close upon selecting a date,
 		  });
 		</script>
+		<script>
+		$('.datepicker2').pickadate({
+		    selectMonths: true, // Creates a dropdown to control month
+		    selectYears: 15, // Creates a dropdown of 15 years to control year,
+		    today: 'Today',
+		    clear: 'Clear',
+		    close: 'Ok',
+		    format: 'dd-mm-yyyy',
+		    closeOnSelect: false // Close upon selecting a date,
+		  });
+		</script>
+		
 </html>

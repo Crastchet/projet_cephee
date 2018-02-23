@@ -9,6 +9,8 @@ public class PublicationEventForm extends PublicationForm {
 	@NotNull
 	private String startevent;
 	
+	private String endevent;
+	
 	@NotNull
 	private String hourstartevent;
 
@@ -44,6 +46,13 @@ public class PublicationEventForm extends PublicationForm {
 	public void setHourstartevent(String hourstartevent) {
 		this.hourstartevent = hourstartevent;
 	}
-	
+
+	public String getEndevent() {
+		return endevent;
+	}
+
+	public void setEndevent(String endevent) {
+		this.endevent = endevent;
+	}	
 	
 }
