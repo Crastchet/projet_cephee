@@ -19,3 +19,23 @@ function checkFormUpdate() {
 	} else
 		document.getElementById("boutonModifier").disabled = true;
 }
+
+$(function() {
+    
+    $('select').on('change', function() {
+    	var elem = document.getElementById("elementType");
+    	var checking = false;
+    	for (var i = 0; i < elem.options.length;i++)
+    		{
+    		 if(elem.options[i].selected)
+    			 if (elem.options[i].value == 'Evenement')
+    				 {
+    				 document.getElementById("calendarSearch").style.display = 'block';
+    				 checking = true;
+    				 }
+    		 	//document.getElementById("calendarSearch").style.display = 'none';
+    		}
+    	if (checking == false)
+			 document.getElementById("calendarSearch").style.display = 'none';
+    });
+});

@@ -36,6 +36,7 @@ public class Publication implements Serializable {
 
 	private boolean authorised = true;
 	
+	private boolean forbidden = false;
 	
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
@@ -109,6 +110,15 @@ public class Publication implements Serializable {
 
 	public void setDateModification(Date dateModification) {
 		this.dateModification = dateModification;
+	}
+
+	public boolean isForbidden() {
+		return forbidden;
+	}
+
+	public void setForbidden(boolean forbidden) {
+		this.forbidden = forbidden;
 	}	
+	
 	
 }
