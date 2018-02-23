@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
+import fr.cephee.unilille.exceptions.CompetenceTitleException;
 import fr.cephee.unilille.exceptions.DescriptionException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
@@ -104,43 +105,6 @@ public class ProfileController {
 	}
 	
 	
-	@RequestMapping(value = "/skillprofileregister", method = RequestMethod.POST)
-	public String registerProfileSkill(
-			@RequestParam(value="login", required=false) String login,
-			@ModelAttribute("profileSkillForm") ProfileSkillForm profileSkillForm,
-			Model model,
-			HttpSession session) {
-		
-		//If no login is specified, recall for session profile (need to do that because we handle admin situation)
-		if(login == null)
-			return this.registerProfileSkill(
-					((Member)session.getAttribute("member")).getLogin(),
-					profileSkillForm,
-					model, 
-					session);
-				
-		Member member = datamem.findByLogin(login);
-		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
-		
-
-		//If try to edit own profile OR If I am an admin
-		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
-			Competence competence = new Competence();
-			competence.setTitle(profileSkillForm.getCompetenceTitle());
-			datacom.save(competence);
-			Skill skill = new Skill();
-			skill.setCompetence(competence);
-			skill.setLevel(profileSkillForm.getLevel());
-			skill.setMember(member);
-			dataski.save(skill);
-			//obligé de faire les add et save dans les 2 sens Soso ???
-			member.addSkill(skill);
-			datamem.save(member);
-		}
-		
-		//We return member profile
-		return this.profile(login, model, session);
-	}
 	
 	
 	@RequestMapping(value = "/editprofile", method = RequestMethod.GET)
@@ -155,12 +119,21 @@ public class ProfileController {
 		model.addAttribute("competenceList", listcompetence);
 		model.addAttribute("member", member);
 		model.addAttribute("profileForm", profileForm);
+		model.addAttribute("profileSkillForm", new ProfileSkillForm());
 		model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
 		model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
 		return "profileEdit";
 	}
 	
-	@RequestMapping(value = "/editprofileregister", method = RequestMethod.POST)
+	/**
+	 * Register email and description
+	 * @param login
+	 * @param profileForm
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/editprofileregisterinfos", method = RequestMethod.POST)
 	public String registerProfileEdition(
 			@RequestParam(value="login", required=false) String login,
 			@ModelAttribute("profileForm") ProfileForm profileForm,
@@ -202,6 +175,64 @@ public class ProfileController {
 		return this.profile(login, model, session);
 	}
 	
+	/**
+	 * Register a skill for member
+	 *  If competence doesn't exist in DB, creates competence
+	 * @param login
+	 * @param profileSkillForm
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/editprofileregisterskill", method = RequestMethod.POST)
+	public String registerProfileSkill(
+			@RequestParam(value="login", required=false) String login,
+			@ModelAttribute("profileSkillForm") ProfileSkillForm profileSkillForm,
+			Model model,
+			HttpSession session) {
+		
+		//If no login is specified, recall for session profile (need to do that because we handle admin situation)
+		if(login == null)
+			return this.registerProfileSkill(
+					((Member)session.getAttribute("member")).getLogin(),
+					profileSkillForm,
+					model, 
+					session);
+				
+		Member member = datamem.findByLogin(login);
+		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
+		
+
+		//If try to edit own profile OR If I am an admin
+		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+			try {
+				Controls.checkCompetenceTitle(profileSkillForm.getCompetenceTitle());
+			
+				Competence competence = datacom.findByTitle(profileSkillForm.getCompetenceTitle().toLowerCase());
+				if(competence == null) {
+					competence = new Competence();
+					competence.setTitle(profileSkillForm.getCompetenceTitle().toLowerCase());
+					datacom.save(competence);
+				}
+				
+				Skill skill = new Skill();
+				skill.setCompetence(competence);
+				skill.setLevel(profileSkillForm.getLevel());
+				skill.setMember(member);
+				dataski.save(skill);
+				//obligé de faire les add et save dans les 2 sens Soso ???
+				member.addSkill(skill);
+				datamem.save(member);
+				
+			} catch (CompetenceTitleException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		//We return member profile
+		return this.profile(login, model, session);
+	}
 	
 	
 	@RequestMapping(value = "/activateprofileregister", method = RequestMethod.POST)
