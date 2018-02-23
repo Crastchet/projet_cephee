@@ -13,9 +13,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body background="img/spiration-light.png">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
+	<script type="text/javascript" th:src="@{/js/publicationFunc.js}" src="@{/js/publicationFunc.js}"></script>
+	<script type="text/javascript" th:src="@{/js/calendarFunc.js}"></script>
 	<script type="text/javascript" th:src="@{js/materialize.min.js}"></script>
-		<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script> $(document).ready(function() {
 	    $('select').material_select();
 	  });</script>
@@ -45,22 +47,33 @@
 				</div>
 			</div>
 			
-			<div class="input-field col s12">
-				<select multiple="multiple" th:field="*{typeResearch}">
+			<div class="input-field col s12" id="projectSelect">
+				<select multiple="multiple" th:field="*{typeResearch}" id="elementType">
 					<option value="" disabled="disabled" selected="selected">Rechercher par type de publication</option>
 					<option th:each="type : ${typepublicationlist.getPublicationList()}" th:value="${type}"
 					th:text="${type}"></option>
 				</select>
 			</div>
-			
-			<div class="input-field col s12">
-				<select multiple="multiple" th:field="*{listCategory}">
-					<option value="" disabled="disabled" selected="selected">Rechercher par catégorie</option>
-					<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
-						th:text="${catego.title}"></option>
-				</select>
+
+			<div class="row">
+				<div class="input-field col s12">
+					<select  multiple="multiple" th:field="*{listCategory}" id="elementCategory"
+					onselect="checkEventSelected()" onchange="checkEventSelected()">
+						<option value="" disabled="disabled" selected="selected">Rechercher par catégorie</option>
+						<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
+							th:text="${catego.title}"></option>
+					</select>
+				</div>
 			</div>
-	
+			
+			<div class="calendarResearch" style="display:none" id="calendarSearch">
+       			<div class="input-field col s12">
+	       				<i class="material-icons prefix">date_range</i>
+	          			<input id="dateStart" type="date" class="datepicker" th:object="${publicationEventForm}" th:field="*{startevent}"></input>
+	         			<label for="dateStart">Date de début de l'evenement</label>
+        		</div>
+      		</div>
+      		
 			<div class="input-field col s12">
 				<select multiple="multiple" th:field="*{listCompetence}">
 					<option value="" disabled="disabled" selected="selected">Rechercher par compétences </option>
@@ -77,4 +90,16 @@
 	</div>
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
+
+		<script>
+		$('.datepicker').pickadate({
+		    selectMonths: true, // Creates a dropdown to control month
+		    selectYears: 15, // Creates a dropdown of 15 years to control year,
+		    today: 'Today',
+		    clear: 'Clear',
+		    close: 'Ok',
+		    format: 'dd-mm-yyyy',
+		    closeOnSelect: false // Close upon selecting a date,
+		  });
+		</script>
 </html>

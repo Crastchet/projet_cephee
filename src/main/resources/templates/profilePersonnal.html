@@ -36,7 +36,7 @@
 	<div th:replace="profileHeader">&nbsp;</div>
 	
 	
-	<div id="divmesinformations" style=" position: absolute; left: 810px; top: 300px;display:none">
+	<div id="divmesinformations" style="left: 810px; top: 300px;display:none">
 	
 			<p><goodvibes style="font-size: 25px">Mes informations</goodvibes></p>
 			
@@ -47,7 +47,7 @@
 			<p th:text="${member.email}"></p>
 		</div>
 	
-    <div id="divmescompetences" style=" position: absolute; left: 410px; top: 300px;display:none">
+    <div id="divmescompetences" style="left: 410px; top: 300px;display:none">
     	
 		<goodvibes style="font-size: 25px">Mes compétences</goodvibes>
 		
@@ -87,7 +87,7 @@
 			
 			-->
    
-    <div id="divpubli" style="position:absolute; left:410px; top:300px; display:none; width: 100%;">
+    <div id="divpubli" style="left:410px; display:none ;">
 		<goodvibes style="font-size: 35px">Vos publications</goodvibes>
 		<div class="row">
 			<div th:each="item : *{publications}">

@@ -1,5 +1,8 @@
 package fr.cephee.unilille.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -13,8 +16,9 @@ public class ProfileSkillForm {
 	private String competenceTitle;
 	@NotEmpty
 	private int level;
+	private List<Competence> listCompetence = new ArrayList<Competence>();
 	
-	
+
 	public ProfileSkillForm() {
 		
 	}
@@ -31,6 +35,12 @@ public class ProfileSkillForm {
 	}
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	public List<Competence> getListCompetence() {
+		return listCompetence;
+	}
+	public void setListCompetence(List<Competence> listCompetence) {
+		this.listCompetence = listCompetence;
 	}
 	
 }

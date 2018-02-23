@@ -2,7 +2,6 @@ package fr.cephee.unilille.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +24,9 @@ import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.MemberInterest;
 import fr.cephee.unilille.model.Publication;
+import fr.cephee.unilille.model.PublicationAnnonce;
+import fr.cephee.unilille.model.PublicationEvent;
+import fr.cephee.unilille.model.PublicationEventForm;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.PublicationProject;
 import fr.cephee.unilille.model.TypePublicationWrapper;
@@ -71,11 +73,14 @@ public class NavigationController {
 		model.addAttribute("member", session.getAttribute("member"));
 		PublicationForm publicationForm = new PublicationForm();
 		TypePublicationWrapper form = new TypePublicationWrapper();
+		PublicationEventForm publiEventForm = new PublicationEventForm();
 		
 		form.getPublicationList().add("Projet");
-		form.getPublicationList().add("Echange");
+		form.getPublicationList().add("Annonce");
 		form.getPublicationList().add("Evenement");
 		
+
+		model.addAttribute("publicationEventForm", publiEventForm);
 		model.addAttribute("typepublicationlist", form);
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
@@ -125,13 +130,24 @@ public class NavigationController {
 			if (!finalResult.contains(p))
 				finalResult.add(p);
 		
-/*		if (!publicationForm.getTypeResearch().isEmpty())
+		List<Publication> tmp = new ArrayList<Publication>(); 
+		if (!publicationForm.getTypeResearch().isEmpty())
 		{
-			if (!publicationForm.getTypeResearch().contains("Projet"))			
-				finalResult.remove(PublicationProject);
-		} */
-		
-		//datainterest.save();
+				for (Publication p : finalResult)
+				{
+					if (!publicationForm.getTypeResearch().contains("Projet"))
+						if (p instanceof PublicationProject)
+							tmp.add(p);
+					if (!publicationForm.getTypeResearch().contains("Evenement"))
+						if (p instanceof PublicationEvent)
+							tmp.add(p);
+					if (!publicationForm.getTypeResearch().contains("Annonce"))
+						if (p instanceof PublicationAnnonce)
+							tmp.add(p);
+				}
+		}
+
+		finalResult.removeAll(tmp);
 		model.addAttribute("listSearched", finalResult);
 		return "researchResult";
 	}
