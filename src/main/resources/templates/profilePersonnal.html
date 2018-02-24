@@ -1,65 +1,71 @@
- <!DOCTYPE html>
- <html>
- <head>
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-   <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-   <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
- </head>
+
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+	media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="css/style.css"
+	media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="css/profile.css"
+	media="screen,projection" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8" />
+</head>
 
 
 <body background="img/spiration-light.png">
-	
+
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-	
-	<!-- <div style="float: left; margin-left: 30px;">
-		<blockquote>
-			<p><goodvibes th:text="'Votre profil'"></goodvibes></p>
-		</blockquote>
-	</div> -->
-	
 
 	<nav>
-	    <div class="nav-wrapper">
-	      <a href="#" class="brand-logo center"><goodvibes style="font-size: 40px">Votre Profil</goodvibes></a>
-	      <ul id="nav-mobile" class="left hide-on-med-and-down">
-	        <li><a class="waves-effect green darken-1 btn" th:href="@{/editprofile}" style="height:40px; width:200px;">Editer</a></li>
-	      </ul>
-	      <ul id="nav-mobile" class="right hide-on-med-and-down">			
-	      	<li style = "margin-right: 10px;font-size: 20px; color: white;" th:text=" ${member.login}">
-				<i style ="color: white;" class="material-icons" >face</i>
-			</li>
-	      </ul>
-	    </div>
-  </nav>
-  
-	<div th:replace="profileHeader">&nbsp;</div>
-	
-	
-	<div id="divmesinformations" style="left: 810px; top: 300px;display:none">
-	
-			<p><goodvibes style="font-size: 25px">Mes informations</goodvibes></p>
-			
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo center"><goodvibes
+					style="font-size: 40px">Votre Profil</goodvibes></a>
+			<ul id="nav-mobile" class="left hide-on-med-and-down">
+				<li><a class="waves-effect green darken-1 btn"
+					th:href="@{/editprofile}" style="height: 40px; width: 200px;">Editer</a></li>
+			</ul>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li style="margin-right: 10px; font-size: 20px; color: white;"
+					th:text=" ${member.login}"><i style="color: white;"
+					class="material-icons">face</i></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="profileBigScreen">
+
+		<div th:replace="profileHeader">&nbsp;</div>
+
+		<div id="divmesinformations" style="margin-top:10px; display: none">
+
+			<p>
+				<goodvibes style="font-size: 25px">Mes informations</goodvibes>
+			</p>
+
 			<goodvibes style="font-size: 15px">Ma description : </goodvibes>
 			<p th:text="${member.description}"></p>
 			<br></br>
 			<goodvibes style="font-size: 15px">Mon email : </goodvibes>
 			<p th:text="${member.email}"></p>
 		</div>
-	
-    <div id="divmescompetences" style="left: 410px; top: 300px;display:none">
-    	
-		<goodvibes style="font-size: 25px">Mes compétences</goodvibes>
-		
-		<ul id="mySkills" >
-			<li th:each="skill : *{skills}">
-				<p th:text="${skill.competence.title} + ' [Niv:' + ${skill.level} + ']'"></p>
-			</li>
-		</ul>
-	</div>	
-	
-	    
-		
+
+		<div id="divmescompetences"	style="margin-top:10px; display: none">
+
+			<goodvibes style="font-size: 25px">Mes compétences</goodvibes>
+
+			<ul id="mySkills">
+				<li th:each="skill : *{skills}">
+					<p
+						th:text="${skill.competence.title} + ' [Niv:' + ${skill.level} + ']'"></p>
+				</li>
+			</ul>
+		</div>
+
+
+
 		<!--  
 		<ul id="allCompetences">
 		    <li th:each="competence : *{competences}">
@@ -86,14 +92,14 @@
 			  		</div>
 			
 			-->
-   
-    <div id="divpubli" style="left:410px; display:none ;">
-		<goodvibes style="font-size: 35px">Vos publications</goodvibes>
-		<div class="row">
-			<div th:each="item : *{publications}">
-				<div th:switch="${item.authorised}" class="col s12 m6 l3">
-					<div th:case="true" class="card blue-grey darken-1">
-						<div class="card-content white-text">
+
+		<div id="divpubli" style="margin-top:10px; display: none;">
+			<goodvibes style="font-size: 35px">Vos publications</goodvibes>
+			<div class="row" style="overflow:scroll; height:32rem; margin-bottom:0;">
+				<div th:each="item : *{publications}" th:switch="${item.authorised}"
+					class="col s12 m6 l3">
+					<div th:case="true" class="card blue-grey darken-1" style="height:250px">
+						<div class="card-content white-text"  style="height:200px">
 							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
 							<p th:text="${item.content}"></p>
 							<p th:text="${item.dateCreation}"></p>
@@ -119,17 +125,19 @@
 				</div>
 			</div>
 		</div>
+
+		<div id="divrecherche"
+			style="margin-top:10px; display: none;">
+			<goodvibes style="font-size: 35px">Ce que vous recherchez</goodvibes>
+		</div>
+
+		<div id="divnotif"
+			style="margin-top:10px; display: none;">
+			<goodvibes style="font-size: 35px"> Vos notifications </goodvibes>
+		</div>
+
 	</div>
 
-    <div id="divrecherche" style="position:absolute; left:410px; top:300px; display:none;">
-         <goodvibes style="font-size: 35px">Ce que vous recherchez</goodvibes>
-    </div>
-
-    <div id="divnotif" style="position:absolute; left:410px; top:300px; display:none;">
-          <goodvibes style="font-size: 35px"> Vos notifications </goodvibes>
-    </div>
-
-	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 
 </body>

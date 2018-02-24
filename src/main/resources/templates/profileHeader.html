@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-   <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+<link
+	type="text/css"
+	rel="stylesheet"
+	href="css/style.css"
+	media="screen,projection" />
 </head>
 <body background="img/spiration-light.png">
 
-	
-	<ul style="float:left ; height:10000px ;">
-		<li>
-			<a 	class="waves-effect waves-light btn-large" onclick="afficher_div('divmescompetences');afficher_div('divmesinformations');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divnotif');" 
-			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
-				<i class="material-icons left">add_circle_outline</i>Vos informations
-			</a>
-		</li>
-		<li>
-			<a 	class="waves-effect waves-light btn-large" onclick="afficher_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divrecherche');masquer_div('divnotif');"
-			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
-				<i class="material-icons left">mode_edit</i>Vos publications
-			</a>
-		</li>
-		<li>
-			<a class="waves-effect waves-light btn-large" onclick="afficher_div('divrecherche');masquer_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divnotif');"
-			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
-				<i class="material-icons left">search</i>Ce que vous recherchez
-			</a>
-		</li>
-		<li>
-			<a class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');"
-			style="height:70px; width:350px; margin:10px 10px 10px 40px;">
-				<i class="material-icons left">notifications</i>Notifications</a>
-		</li>
-	</ul>
-	
+	<div id="profileMenu">
+		<ul class="row">
+			<li class="col s3 m6 l12">
+				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divmescompetences');afficher_div('divmesinformations');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divnotif');">
+					<i class="material-icons left">add_circle_outline</i>
+					<span>Vos informations</span>
+				</a>
+			</li>
+			<li class="col s3 m6 l12">
+				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divrecherche');masquer_div('divnotif');">
+					<i class="material-icons left">mode_edit</i>
+					<span>Vos publications</span>
+				</a>
+			</li>
+			<li class="col s3 m6 l12">
+				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divrecherche');masquer_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divnotif');">
+					<i class="material-icons left">search</i>
+					<span>Ce que vous recherchez</span>
+				</a>
+			</li>
+			<li class="col s3 m6 l12">
+				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');">
+					<i class="material-icons left">notifications</i>
+					<span>Notifications</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
 
 </body>
 
