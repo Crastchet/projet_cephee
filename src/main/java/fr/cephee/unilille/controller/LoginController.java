@@ -8,6 +8,7 @@ import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,11 +51,12 @@ public class LoginController {
 	@Autowired
 	private PublicationPersistence datapub;
 	
+	
 	@RequestMapping(value = "/home")
-	public String returnToHome(Model model, HttpSession session)
+	public String returnToHome(Model model, Authentication auth)
 	{		
-		model.addAttribute("member", session.getAttribute("member"));
-		Member memb = (Member) session.getAttribute("member");
+		model.addAttribute("member", auth.getPrincipal());
+		Member memb = (Member) auth.getPrincipal();
 		//log.info("INFO => " + memb.getId());
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(memb.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
@@ -62,22 +64,24 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = {"/", "/login"})
-	public String loginPage(Model model)
+	public String loginPage(Authentication auth)
 	{		
-		MemberForm memberForm = new MemberForm();
-		model.addAttribute("memberForm", memberForm);
+		log.info("appelé !");
+		Member member = (Member) auth.getPrincipal();
+		log.info(member.toString());
 		return "login";
 	}
 	
 	@RequestMapping(value = "/disconnect")
-	public String disconnect(Model model, HttpSession session)
+	public String disconnect(Model model, Authentication auth)
 	{	
-		session.removeAttribute("member");
+		//session.removeAttribute("member");
 		MemberForm memberForm = new MemberForm();
 		model.addAttribute("memberForm", memberForm);
 		return "login";
 	}
 	
+	/*
 	@RequestMapping("/createmember")
 	@ResponseBody
 	public String create(@RequestParam(value="login", required=true) String login,
@@ -96,7 +100,9 @@ public class LoginController {
 		}
 		return "member succesfully created with login = " + login;
 	}
-
+	*/
+	
+	/*
 	@RequestMapping("/createmembertest")
 	@ResponseBody
 	public String createTest(@RequestParam(value="login", required=true) String login)
@@ -117,7 +123,9 @@ public class LoginController {
 		}
 		return "Membre créee avec le login :  " + login + " Retournez sur la page précédente et connectez vous ";
 	}
+	*/
 	
+	/*
 	@RequestMapping("/deletemember")
 	@ResponseBody
 	public String delete(@RequestParam(value="id", required=true) int id) {
@@ -130,13 +138,14 @@ public class LoginController {
 		}
 		return "member succesfully deleted!";
 	}
-
+	*/
+	
 	@RequestMapping(value = "/getmemberbylogin", method = RequestMethod.POST)
 	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm,
 			BindingResult result,
 			Model model,
 			Errors errors,
-			HttpSession session) {
+			Authentication auth) {
 		
 		Member member = datamem.findByLogin(memberForm.getLogin());
 		memberForm.setMember(member);
@@ -152,7 +161,7 @@ public class LoginController {
 			datainterest.save(meminterest);
 		}
 		model.addAttribute("member", member);
-		session.setAttribute("member", member);
+		//session.setAttribute("member", member);
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(member.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
 

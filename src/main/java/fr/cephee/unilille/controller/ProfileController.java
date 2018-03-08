@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,17 +56,17 @@ public class ProfileController {
 	public String profile(
 			@RequestParam(value="login", required=false) String login,		//The member login who asks to see his profile
 			Model model,
-			HttpSession session) {
+			Authentication auth) {
 		
 		//If no login is specified, return session profile
 		if(login == null)
 			return this.profile(
-					((Member)session.getAttribute("member")).getLogin(), 
+					((Member)auth.getPrincipal()).getLogin(), 
 					model, 
-					session);
+					auth);
 		
 		Member member = datamem.findByLogin(login);
-		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
+		boolean itIsMemberSession = member.getLogin().equals( ((Member)auth.getPrincipal()).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
 		
 		
 		model.addAttribute("member", member);
@@ -110,8 +111,8 @@ public class ProfileController {
 	@RequestMapping(value = "/editprofile", method = RequestMethod.GET)
 	public String editProfile(
 			Model model,
-			HttpSession session) {
-		Member member = (Member)session.getAttribute("member");
+			Authentication auth) {
+		Member member = (Member)auth.getPrincipal();
 		ProfileForm profileForm = new ProfileForm();
 		profileForm.setDescription(member.getDescription());
 		profileForm.setEmail(member.getEmail());
@@ -138,22 +139,22 @@ public class ProfileController {
 			@RequestParam(value="login", required=false) String login,
 			@ModelAttribute("profileForm") ProfileForm profileForm,
 			Model model,
-			HttpSession session) {
+			Authentication auth) {
 		
 		//If no login is specified, recall for session profile
 		if(login == null)
 			return this.registerProfileEdition(
-					((Member)session.getAttribute("member")).getLogin(),
+					((Member)auth.getPrincipal()).getLogin(),
 					profileForm,
 					model, 
-					session);
+					auth);
 		
 		Member member = datamem.findByLogin(login);
-		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
+		boolean itIsMemberSession = member.getLogin().equals( ((Member)auth.getPrincipal()).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
 		
 
 		//If try to edit own profile OR If I am an admin
-		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+		if( itIsMemberSession || ((Member)auth.getPrincipal()).getIsAdmin() ) {
 			try {
 				Controls.checkEmail(profileForm.getEmail());
 				member.setEmail(profileForm.getEmail());
@@ -169,10 +170,10 @@ public class ProfileController {
 				e.printStackTrace();
 			}
 		}
-		session.setAttribute("member", member);
+		//session.setAttribute("member", member);
 		model.addAttribute("member", member);
 		//We return member profile
-		return this.profile(login, model, session);
+		return this.profile(login, model, auth);
 	}
 	
 	/**
@@ -189,22 +190,22 @@ public class ProfileController {
 			@RequestParam(value="login", required=false) String login,
 			@ModelAttribute("profileSkillForm") ProfileSkillForm profileSkillForm,
 			Model model,
-			HttpSession session) {
+			Authentication auth) {
 		
 		//If no login is specified, recall for session profile (need to do that because we handle admin situation)
 		if(login == null)
 			return this.registerProfileSkill(
-					((Member)session.getAttribute("member")).getLogin(),
+					((Member)auth.getPrincipal()).getLogin(),
 					profileSkillForm,
 					model, 
-					session);
+					auth);
 				
 		Member member = datamem.findByLogin(login);
-		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
+		boolean itIsMemberSession = member.getLogin().equals( ((Member)auth.getPrincipal()).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
 		
 
 		//If try to edit own profile OR If I am an admin
-		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+		if( itIsMemberSession || ((Member)auth.getPrincipal()).getIsAdmin() ) {
 			try {
 				Controls.checkCompetenceTitle(profileSkillForm.getCompetenceTitle());
 			
@@ -231,7 +232,7 @@ public class ProfileController {
 		}
 		
 		//We return member profile
-		return this.profile(login, model, session);
+		return this.profile(login, model, auth);
 	}
 	
 	
@@ -239,9 +240,9 @@ public class ProfileController {
 	public String registerActivateProfile (
 			@ModelAttribute("profileActivationForm") ProfileActivationForm profileActivationForm,
 			Model model,
-			HttpSession session) {
+			Authentication auth) {
 		
-		Member member = ((Member)session.getAttribute("member"));
+		Member member = ((Member)auth.getPrincipal());
 		
 		//If is not activated - process
 		if(!member.getActivated()) {
@@ -261,6 +262,6 @@ public class ProfileController {
 			}
 		}
 		
-		return this.profile(member.getLogin(), model, session);
+		return this.profile(member.getLogin(), model, auth);
 	}
 }

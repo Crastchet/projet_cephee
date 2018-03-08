@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,9 +57,9 @@ public class NavigationController {
 	
 	@RequestMapping(value = "/lastPubli")
 	public String goToLastPublication(Model model,
-			HttpSession session) {
-		model.addAttribute("member", session.getAttribute("member"));
-		Member memb = (Member) session.getAttribute("member");
+			Authentication auth) {
+		model.addAttribute("member", auth.getPrincipal());
+		Member memb = (Member) auth.getPrincipal();
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(memb.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
 		
@@ -67,10 +68,10 @@ public class NavigationController {
 	
 	@RequestMapping(value = "/research")
 	public String goToResearch(Model model,
-			HttpSession session) {
+			Authentication auth) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		PublicationForm publicationForm = new PublicationForm();
 		TypePublicationWrapper form = new TypePublicationWrapper();
 		PublicationEventForm publiEventForm = new PublicationEventForm();
@@ -91,8 +92,8 @@ public class NavigationController {
 	@RequestMapping(value = "/searching")
 	public String searching(@ModelAttribute("publicationForm") PublicationForm publicationForm,
 			Model model,
-			HttpSession session) {
-		model.addAttribute("member", session.getAttribute("member"));
+			Authentication auth) {
+		model.addAttribute("member", auth.getPrincipal());
 		
 		List<Publication> titleSearched = new ArrayList<Publication>();
 		List<Publication> finalResult = new ArrayList<Publication>();
@@ -111,7 +112,7 @@ public class NavigationController {
 		if (!publicationForm.getListCategory().isEmpty())
 		{
 			categorySearched = datapub.findByCategoryIn(publicationForm.getListCategory());
-			MemberInterest interest = datainterest.findByMember((Member)session.getAttribute("member"));
+			MemberInterest interest = datainterest.findByMember((Member)auth.getPrincipal());
 			for (Category c : publicationForm.getListCategory())
 				interest.addInterest(c);
 			datainterest.save(interest);

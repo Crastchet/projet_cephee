@@ -13,6 +13,7 @@ import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,11 +72,11 @@ public class PublicationController {
 	private dataParticipantPersistence dataparticipate;
 
 	@RequestMapping(value = "/formtypepublication")
-	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, HttpSession session) {
+	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, Authentication auth) {
 		PublicationForm publicationForm = new PublicationForm();
 
 		model.addAttribute("publicationForm", publicationForm);
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 
 		form.getPublicationList().add("Projet");
 		form.getPublicationList().add("Echange");
@@ -93,10 +94,10 @@ public class PublicationController {
 
 	@RequestMapping(value = "/checktypepublication", method = RequestMethod.GET)
 	public String checkTypePublication(@RequestParam(value = "publicationType", required = true) String publicationType,
-			Model model, HttpSession session) {
+			Model model, Authentication auth) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
 
@@ -116,9 +117,9 @@ public class PublicationController {
 
 	@RequestMapping(value = "/registerannonce", method = RequestMethod.POST)
 	public String createAnnonce(@ModelAttribute("publicationForm") PublicationForm publicationForm,
-			BindingResult result, Model model, HttpSession session, Errors errors) {
+			BindingResult result, Model model, Authentication auth, Errors errors) {
 		publicationForm.setTypePublication("Echange");
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
 
 		if (result.hasErrors()) {
@@ -134,7 +135,7 @@ public class PublicationController {
 			publication.setAuthorised(true);
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
-			publication.setAuthor((Member) session.getAttribute("member"));
+			publication.setAuthor((Member) auth.getPrincipal());
 			publication.setCategory(publicationForm.getListCategory());
 			datapub.save(publication);
 			model.addAttribute("publi", publication);
@@ -147,8 +148,8 @@ public class PublicationController {
 
 	@RequestMapping(value = "/registerproject", method = RequestMethod.POST)
 	public String createProject(@ModelAttribute("publicationForm") PublicationForm publicationForm,
-			BindingResult result, Model model, HttpSession session, Errors errors) {
-		model.addAttribute("member", session.getAttribute("member"));
+			BindingResult result, Model model, Authentication auth, Errors errors) {
+		model.addAttribute("member", auth.getPrincipal());
 		publicationForm.setTypePublication("Projet");
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
 
@@ -165,7 +166,7 @@ public class PublicationController {
 			publication.setAuthorised(true);
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
-			publication.setAuthor((Member) session.getAttribute("member"));
+			publication.setAuthor((Member) auth.getPrincipal());
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setListcompetence(publicationForm.getListCompetence());
 			datapub.save(publication);
@@ -179,9 +180,9 @@ public class PublicationController {
 
 	@RequestMapping(value = "/registerevent", method = RequestMethod.POST)
 	public String createEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm,
-			BindingResult result, Model model, HttpSession session, Errors errors) {
+			BindingResult result, Model model, Authentication auth, Errors errors) {
 		publicationForm.setTypePublication("Evenement");
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, publicationForm, errors);
 		if (result.hasErrors()) {
 			for (ObjectError obj : result.getAllErrors())
@@ -197,7 +198,7 @@ public class PublicationController {
 			publication.setAuthorised(true);
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
-			publication.setAuthor((Member) session.getAttribute("member"));
+			publication.setAuthor((Member) auth.getPrincipal());
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setLocation(publicationForm.getLocation());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -215,12 +216,12 @@ public class PublicationController {
 	}
 
 	@RequestMapping("/deletepublication")
-	public String delete(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
+	public String delete(@ModelAttribute("publi") Publication publication, Model model, Authentication auth) {
 		//log.info("publication is => " + publication.getId() + publication.getTitle() + " " + publication.getContent());
 		try {
 			Publication publi = datapub.findById(publication.getId());
 			datapub.delete(publi);
-			model.addAttribute("member", session.getAttribute("member"));
+			model.addAttribute("member", auth.getPrincipal());
 		} catch (Exception ex) {
 			return "errorPage";
 		}
@@ -229,8 +230,8 @@ public class PublicationController {
 
 	@RequestMapping("/finishedupdating")
 	public String finishedUpdating(@ModelAttribute("publicationForm") PublicationForm publicationForm,
-			@ModelAttribute("publi") Publication publication, BindingResult result, Model model, HttpSession session) {
-		model.addAttribute("member", session.getAttribute("member"));
+			@ModelAttribute("publi") Publication publication, BindingResult result, Model model, Authentication auth) {
+		model.addAttribute("member", auth.getPrincipal());
 		if (result.hasErrors()) {
 			for (ObjectError obj : result.getAllErrors())
 				log.info(obj.toString());
@@ -252,23 +253,23 @@ public class PublicationController {
 
 	@RequestMapping("/finishedupdatingevent")
 	public String finishedUpdatingEvent(@ModelAttribute("publicationForm") PublicationEventForm publicationForm,
-			@ModelAttribute("publi") Publication publication, BindingResult result, Model model, HttpSession session)
+			@ModelAttribute("publi") Publication publication, BindingResult result, Model model, Authentication auth)
 	{
 		Publication newpublication = updateEv(publicationForm, publication);
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		model.addAttribute("publi", newpublication);
 		datapub.save(newpublication);
 		return "detailsEvent";
 	}
 	
 	@RequestMapping("/updateproject")
-	public String updateProject(@ModelAttribute("publi") PublicationProject publication, Model model, HttpSession session) {
+	public String updateProject(@ModelAttribute("publi") PublicationProject publication, Model model, Authentication auth) {
 		List<Category> listcategory = dataCate.findAll();
 		List<Competence> listcompetence = dataComp.findAll();
 
 		model.addAttribute("categoryList", listcategory);
 		model.addAttribute("competenceList", listcompetence);
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 
 		PublicationForm publiForm = new PublicationForm();
 		publiForm.setTitle(publication.getTitle());
@@ -304,11 +305,11 @@ public class PublicationController {
 	}
 
 	@RequestMapping("/updateevent")
-	public String updateEvent(@ModelAttribute("publi") PublicationEvent publication, Model model, HttpSession session) {
+	public String updateEvent(@ModelAttribute("publi") PublicationEvent publication, Model model, Authentication auth) {
 		List<Category> listcategory = dataCate.findAll();
 
 		model.addAttribute("categoryList", listcategory);
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		log.info("First info time =)> " + publication.getStartevent());
 		PublicationEventForm publiForm = new PublicationEventForm();
 		publiForm.setTitle(publication.getTitle());
@@ -365,12 +366,12 @@ public class PublicationController {
 	}
 
 	@RequestMapping("/updateannonce")
-	public String updateAnnonce(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
-		model.addAttribute("member", session.getAttribute("member"));
+	public String updateAnnonce(@ModelAttribute("publi") Publication publication, Model model, Authentication auth) {
+		model.addAttribute("member", auth.getPrincipal());
 		List<Category> listcategory = dataCate.findAll();
 
 		model.addAttribute("categoryList", listcategory);
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 
 		PublicationForm publiForm = new PublicationForm();
 		publiForm.setTitle(publication.getTitle());
@@ -405,9 +406,9 @@ public class PublicationController {
 	}
 
 	@RequestMapping("/publish")
-	public String publish(@ModelAttribute("publi") Publication publi, Model model, HttpSession session)
+	public String publish(@ModelAttribute("publi") Publication publi, Model model, Authentication auth)
 	{
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		publi.setAuthorised(true);
 		datapub.save(publi);
 		if (publi instanceof PublicationProject) {
@@ -429,9 +430,9 @@ public class PublicationController {
 	}
 	
 	@RequestMapping("/notpublish")
-	public String notPublish(@ModelAttribute("publi") Publication publi, Model model, HttpSession session)
+	public String notPublish(@ModelAttribute("publi") Publication publi, Model model, Authentication auth)
 	{
-		model.addAttribute("member", session.getAttribute("member"));
+		model.addAttribute("member", auth.getPrincipal());
 		publi.setAuthorised(false);
 		datapub.save(publi);
 		if (publi instanceof PublicationProject) {
@@ -456,17 +457,17 @@ public class PublicationController {
 	@Transactional
 	@RequestMapping("/participate")
 	public String participateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
-			HttpSession session) {
+			Authentication auth) {
 		publi.setNbparticipant(publi.getNbparticipant() + 1);
 
-		Member mem = (Member) session.getAttribute("member");
+		Member mem = (Member) auth.getPrincipal();
 
 		Participantdata data = new Participantdata();
 		data.setMem(mem.getId());
 		data.setPubli(publi.getId());
 		dataparticipate.save(data);	
 		datapub.save(publi);
-		session.setAttribute("member", mem);
+		//session.setAttribute("member", mem);
 		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);
 		model.addAttribute("participeDeja", true);
@@ -480,18 +481,18 @@ public class PublicationController {
 	
 	@RequestMapping("/stopparticipate")
 	public String stopParticipateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
-			HttpSession session) {
+			Authentication auth) {
 		
 		publi.setNbparticipant(publi.getNbparticipant() - 1);
 		
-		Member mem = (Member) session.getAttribute("member");
+		Member mem = (Member) auth.getPrincipal();
 		
 		Participantdata data = dataparticipate.findByMemByPubli(mem.getId(), publi.getId());
 		data.setMem(mem.getId());
 		data.setPubli(publi.getId());
 		dataparticipate.delete(data);
 		datapub.save(publi);
-		session.setAttribute("member", mem);
+		//session.setAttribute("member", mem);
 		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);
 		model.addAttribute("participeDeja", false);
@@ -501,10 +502,10 @@ public class PublicationController {
 	
 	@RequestMapping("/seedetailspublication")
 	public String seeDetailsPublication(@RequestParam(value = "id", required = true) Integer id, Model model,
-			HttpSession session) {
+			Authentication auth) {
 		Publication publi = datapub.findById(id);
-		Member mem = (Member) session.getAttribute("member");
-		model.addAttribute("member", session.getAttribute("member"));
+		Member mem = (Member) auth.getPrincipal();
+		model.addAttribute("member", auth.getPrincipal());
 
 		if (publi instanceof PublicationProject) {
 			{
