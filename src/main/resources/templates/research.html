@@ -58,7 +58,7 @@
 			<div class="row">
 				<div class="input-field col s12">
 					<select  multiple="multiple" th:field="*{listCategory}" id="elementCategory"
-					onselect="checkEventSelected()" onchange="checkEventSelected()">
+					onselect="checkEventSelected()">
 						<option value="" disabled="disabled" selected="selected">Rechercher par catégorie</option>
 						<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 							th:text="${catego.title}"></option>

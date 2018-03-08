@@ -20,5 +20,13 @@ public interface PublicationPersistence extends CrudRepository<Publication, Inte
 	public List<Publication> findByAuthor(Member author);
 	public List<Publication> findTop10ByOrderByDateCreationDesc();
 	@Query("from Publication u where u.authorised = true and u.author.id != :idmember order by date_creation DESC")
-	public List<Publication> findTop10ByOrderByDateCreationDescByAuthorisedTrue(@Param("idmember") int id);	
+	public List<Publication> findTop10ByOrderByDateCreationDescByAuthorisedTrue(@Param("idmember") int id);
+	
+	//@Query("from Publication u inner join u.category pc where pc.id = :idcategory")
+	//public List<Publication> findFiltredPublicationByCategoryandDateCreation(@Param("idcategory")  int categoryId);
+	
+	
+	@Query("from Publication u inner join u.category pc where pc.id = :idcategory and u.authorised = true and u.author.id != :idmember order by date_creation DESC")
+	public List<Object> findTop20FiltredPublicationByCategoryandDateCreation(@Param("idmember") int id, @Param("idcategory")  int categoryId);
+	
 }

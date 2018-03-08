@@ -8,4 +8,6 @@ import fr.cephee.unilille.model.MemberInterest;
 public interface MemberInterestPersistence extends CrudRepository<MemberInterest, Integer> {
 
 	public MemberInterest findByMember(Member member);
+	
+	
 }

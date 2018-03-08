@@ -1,6 +1,10 @@
 package fr.cephee.unilille.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
@@ -50,6 +54,7 @@ public class LoginController {
 	@Autowired
 	private PublicationPersistence datapub;
 	
+	
 	@RequestMapping(value = "/home")
 	public String returnToHome(Model model, HttpSession session)
 	{		
@@ -58,6 +63,14 @@ public class LoginController {
 		//log.info("INFO => " + memb.getId());
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(memb.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
+		MemberInterest memint = datainterest.findByMember(memb);
+		for (Entry<Category, Integer> e : memint.getInterests().entrySet())
+		{
+			log.info("cat : " + e.getKey().getTitle() + "  cpt : " + e.getValue());
+		}
+//		List<Publication> pubfiltred = datapub.findFiltredPublication(memb.getId());
+	//	model.addAttribute("pubfiltred", pubfiltred);
+		
 		return "home";
 	}
 	
@@ -137,7 +150,8 @@ public class LoginController {
 			Model model,
 			Errors errors,
 			HttpSession session) {
-		
+
+		List<Category> cat = datacat.findAll();
 		Member member = datamem.findByLogin(memberForm.getLogin());
 		memberForm.setMember(member);
 		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, memberForm, errors);		
@@ -146,16 +160,72 @@ public class LoginController {
 		}
 		if (datainterest.findByMember(member) == null)
 		{
-			log.info("ENTENRED INTEREST SAVE");
-			List<Category> cat = datacat.findAll();
 			MemberInterest meminterest = new MemberInterest(cat, member);
 			datainterest.save(meminterest);
 		}
 		model.addAttribute("member", member);
 		session.setAttribute("member", member);
+				
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(member.getId());
-		model.addAttribute("listlasttenpub", tenLastPub);
 
+		//Debut du système publication par filtre
+
+		List<List<Object>> lpubtotal = new ArrayList<>();
+		
+		MemberInterest memInt = datainterest.findByMember(member);
+
+		for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
+			if (entry.getValue() > 0)
+			lpubtotal.add(datapub.findTop20FiltredPublicationByCategoryandDateCreation(member.getId(), entry.getKey().getId()));
+		
+		List<Publication> pubfiltred = new ArrayList<Publication>();
+		for (List<Object> lpub : lpubtotal)
+		{
+			Iterator<Object> itr = lpub.iterator();
+			while(itr.hasNext()){
+				Object[] obj = (Object[]) itr.next();
+				for (Object ob : obj)
+				{
+					if (ob instanceof Publication)
+					{
+						Publication p = (Publication) ob;
+						if (!pubfiltred.contains(p))
+						pubfiltred.add(p);
+					}
+				}
+			}
+		}
+		
+		ArrayList<Publication> finalFiltredPub = new ArrayList<Publication>();
+		for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
+		{
+			int i = 0;		
+			for (Publication p : pubfiltred)
+			{
+				for (Category c : p.getCategory())
+				if (memInt.getInterests().containsKey(c))
+				{
+					if (!finalFiltredPub.contains(p))
+						finalFiltredPub.add(p);
+					i++;
+				}
+				if (i == entry.getValue())
+					break;
+			}
+		}
+		/*for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
+		{
+			for (int i = 0; i < entry.getValue(); i++)
+			{
+ 
+			}
+		}*/
+		
+		for (Publication p : finalFiltredPub)
+			log.info("p  : " + p.getTitle());
+		
+		model.addAttribute("listlasttenpub", tenLastPub);
+		model.addAttribute("finalFiltredPub", pubfiltred);
 		return "home";
 	}
 
