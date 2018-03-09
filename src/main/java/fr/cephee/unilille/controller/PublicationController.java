@@ -219,12 +219,19 @@ public class PublicationController {
 			Publication publi = datapub.findById(publication.getId());
 			if (publi instanceof PublicationEvent)
 			{
-				
+				dataparticipate.deleteByPubli(publi.getId());
+				/*PublicationEvent pbEvent = (PublicationEvent) publi;
+				Member mem = (Member) session.getAttribute("member");
+				for (int i = 0; i < pbEvent.getNbparticipant(); i++)
+				{
+					Participantdata data = dataparticipate.findByMemByPubli(mem.getId(), publi.getId());
+				}*/
 				log.info("IT WAS AN EVENT YOU BASTARD");
 			}
 			datapub.delete(publi);
 			model.addAttribute("member", session.getAttribute("member"));
 		} catch (Exception ex) {
+			log.info("exception : " + ex);
 			return "errorPage";
 		}
 		return "redirect:/home";
@@ -494,15 +501,17 @@ public class PublicationController {
 	public String stopParticipateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
 			HttpSession session) {
 		
-		publi.setNbparticipant(publi.getNbparticipant() - 1);
-		
 		Member mem = (Member) session.getAttribute("member");
 		
 		Participantdata data = dataparticipate.findByMemByPubli(mem.getId(), publi.getId());
+		if (data != null)
+		{
+			publi.setNbparticipant(publi.getNbparticipant() - 1);
 		data.setMem(mem.getId());
 		data.setPubli(publi.getId());
 		dataparticipate.delete(data);
 		datapub.save(publi);
+		}
 		session.setAttribute("member", mem);
 		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);

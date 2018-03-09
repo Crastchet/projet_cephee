@@ -1,5 +1,8 @@
 package fr.cephee.unilille.database;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,4 +13,10 @@ public interface ParticipantDataPersistence extends CrudRepository<Participantda
 	
 	@Query("FROM Participantdata u where u.mem = :memid and u.publi = :pubid")
 	public Participantdata findByMemByPubli(@Param("memid") Integer mem, @Param("pubid")Integer pub);
+	
+	@Transactional
+	@Modifying
+	@Query("Delete FROM Participantdata u where u.publi = :pubid")
+	public void deleteByPubli(@Param("pubid") Integer pub);
+	
 }
