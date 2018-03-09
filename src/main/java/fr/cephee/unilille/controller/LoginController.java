@@ -64,10 +64,10 @@ public class LoginController {
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(memb.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
 		MemberInterest memint = datainterest.findByMember(memb);
-		for (Entry<Category, Integer> e : memint.getInterests().entrySet())
+		/*-for (Entry<Category, Integer> e : memint.getInterests().entrySet())
 		{
 			log.info("cat : " + e.getKey().getTitle() + "  cpt : " + e.getValue());
-		}
+		}*/
 //		List<Publication> pubfiltred = datapub.findFiltredPublication(memb.getId());
 	//	model.addAttribute("pubfiltred", pubfiltred);
 		
@@ -199,7 +199,7 @@ public class LoginController {
 		ArrayList<Publication> finalFiltredPub = new ArrayList<Publication>();
 		for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
 		{
-			int i = 0;		
+			int i = 0;
 			for (Publication p : pubfiltred)
 			{
 				for (Category c : p.getCategory())
@@ -222,7 +222,13 @@ public class LoginController {
 		}*/
 		
 		for (Publication p : finalFiltredPub)
+		{
 			log.info("p  : " + p.getTitle());
+				for (Category c : p.getCategory())
+				{
+					log.info("cat = " + c.getTitle());
+				}
+		}
 		
 		model.addAttribute("listlasttenpub", tenLastPub);
 		model.addAttribute("finalFiltredPub", pubfiltred);

@@ -1,11 +1,12 @@
 package fr.cephee.unilille.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  * Competence for one person : Competence + Level
@@ -18,7 +19,7 @@ public class Skill {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	private Competence competence;
 	private int level;
 	

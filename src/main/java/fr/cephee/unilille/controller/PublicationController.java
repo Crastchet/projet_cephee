@@ -527,4 +527,5 @@ public class PublicationController {
 			return "detailsEvent";
 		}
 	}
+		
 }
