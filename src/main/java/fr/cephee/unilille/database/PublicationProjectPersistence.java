@@ -10,4 +10,5 @@ import fr.cephee.unilille.model.PublicationProject;
 public interface PublicationProjectPersistence  extends CrudRepository<PublicationProject, Integer> {
 
 	public List<PublicationProject> findBylistcompetenceIn(List<Competence> competence);
+	public List<PublicationProject> findTop10ByOrderByDateCreationDesc();
 }

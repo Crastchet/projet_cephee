@@ -17,6 +17,8 @@ import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberInterestPersistence;
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.PublicationAnnoncePersistence;
+import fr.cephee.unilille.database.PublicationEventPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.database.PublicationProjectPersistence;
 import fr.cephee.unilille.model.Category;
@@ -53,6 +55,12 @@ public class NavigationController {
 	
 	@Autowired
 	private MemberInterestPersistence datainterest;
+	
+	@Autowired
+	private PublicationEventPersistence dataevent;
+	
+	@Autowired
+	private PublicationAnnoncePersistence dataannonce;
 	
 	@RequestMapping(value = "/lastPubli")
 	public String goToLastPublication(Model model,
@@ -96,18 +104,18 @@ public class NavigationController {
 		
 		List<Publication> titleSearched = new ArrayList<Publication>();
 		List<Publication> finalResult = new ArrayList<Publication>();
-		List<Publication> authorSearched = new ArrayList<Publication>();
+		//List<Publication> authorSearched = new ArrayList<Publication>();
 		List<Publication> categorySearched = new ArrayList<Publication>();
 		List<PublicationProject> competenceSearched = new ArrayList<PublicationProject>();
 		
 		if (!publicationForm.getTitle().isEmpty())
 			titleSearched = datapub.findByTitleContaining(publicationForm.getTitle());		
 		
-		if (!publicationForm.getAuthor().getLogin().isEmpty())
+		/*if (!publicationForm.getAuthor().getLogin().isEmpty())
 		{
 			Member m = datamem.findByLogin(publicationForm.getAuthor().getLogin());
 			authorSearched = datapub.findByAuthor(m);
-		}
+		}*/
 		if (!publicationForm.getListCategory().isEmpty())
 		{
 			categorySearched = datapub.findByCategoryIn(publicationForm.getListCategory());
@@ -120,9 +128,9 @@ public class NavigationController {
 			competenceSearched = datapubProj.findBylistcompetenceIn(publicationForm.getListCompetence());		
 
 		finalResult.addAll(titleSearched);
-		for (Publication p : authorSearched)
+		/*for (Publication p : authorSearched)
 			if (!finalResult.contains(p))
-				finalResult.add(p);
+				finalResult.add(p);*/
 		for (Publication p : categorySearched)
 			if (!finalResult.contains(p))
 				finalResult.add(p);
@@ -133,21 +141,35 @@ public class NavigationController {
 		List<Publication> tmp = new ArrayList<Publication>(); 
 		if (!publicationForm.getTypeResearch().isEmpty())
 		{
+			if (finalResult.isEmpty())
+			{
+				log.info("publication is empty");
+				if (publicationForm.getTypeResearch().contains("Projet"))
+					tmp.addAll(datapubProj.findTop10ByOrderByDateCreationDesc());
+				if (publicationForm.getTypeResearch().contains("Evenement"))
+					tmp.addAll(dataevent.findTop10ByOrderByDateCreationDesc());
+				if (publicationForm.getTypeResearch().contains("Annonce"))
+					tmp.addAll(dataannonce.findTop10ByOrderByDateCreationDesc());
+			}
+			else
+			{
 				for (Publication p : finalResult)
-				{
-					if (!publicationForm.getTypeResearch().contains("Projet"))
+				{log.info("publication boucle");
+					if (publicationForm.getTypeResearch().contains("Projet"))
 						if (p instanceof PublicationProject)
 							tmp.add(p);
-					if (!publicationForm.getTypeResearch().contains("Evenement"))
+					if (publicationForm.getTypeResearch().contains("Evenement"))
 						if (p instanceof PublicationEvent)
 							tmp.add(p);
-					if (!publicationForm.getTypeResearch().contains("Annonce"))
+					if (publicationForm.getTypeResearch().contains("Annonce"))
 						if (p instanceof PublicationAnnonce)
 							tmp.add(p);
 				}
+			}
 		}
-
-		finalResult.removeAll(tmp);
+		for (Publication p : tmp)
+			if (!finalResult.contains(p))
+				finalResult.add(p);
 		model.addAttribute("listSearched", finalResult);
 		return "researchResult";
 	}

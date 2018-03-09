@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationEvent;
+import fr.cephee.unilille.model.PublicationProject;
 
 @Transactional
 public interface PublicationEventPersistence extends CrudRepository<PublicationEvent, Integer> {
@@ -15,4 +16,5 @@ public interface PublicationEventPersistence extends CrudRepository<PublicationE
 	//public List<Publication> findAllByParticipants(Member member);
 	public Publication findById(int id);
 	public void deleteById(int id);
+	public List<PublicationEvent> findTop10ByOrderByDateCreationDesc();
 }
