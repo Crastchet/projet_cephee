@@ -1,5 +1,10 @@
 package fr.cephee.unilille.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 
@@ -10,15 +15,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.MemberInterestPersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
+import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.MemberForm;
+import fr.cephee.unilille.model.MemberInterest;
+import fr.cephee.unilille.model.Publication;
 
 
 @Controller
@@ -50,18 +56,22 @@ public class LoginController {
 			Member signed = (Member) auth.getPrincipal();		//membre lille1 qui se connecte
 			String username = signed.getUsername();				//on récupère son username du CAS (prenom.nom)
 			Member member = datamem.findByUsername(username);	//on check si on a déjà une trace de lui en base
-			
 			if( member == null ) {								//s'il n'existe pas en base #premiereFois
-				datamem.save(signed);								//on le save (ça lui crée un id)
+				datamem.save(signed);
+				//on le save (ça lui crée un id)
 				member = datamem.findByUsername(username);			//on le récupère (il a maintenant un id)
 			}
-
 			session.setAttribute("member", member);
 		}
 		model.addAttribute("member", session.getAttribute("member"));
-		
-		
-/* !!!!!!!!!!!!!! PARTIE DE SOFIAN !!!!!!!!!!!!!!
+		Member member = (Member) session.getAttribute("member");
+		if (datainterest.findByMember(member) == null)
+		{
+			List<Category> cat = datacat.findAll();
+			MemberInterest meminterest = new MemberInterest(cat, member);
+			datainterest.save(meminterest);
+		}
+// !!!!!!!!!!!!!! PARTIE DE SOFIAN !!!!!!!!!!!!!!
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(member.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
 
@@ -129,7 +139,7 @@ public class LoginController {
 		
 		model.addAttribute("listlasttenpub", tenLastPub);
 		model.addAttribute("finalFiltredPub", pubfiltred);
-		*/
+		
 		return "home";
 	}
 	
@@ -215,96 +225,96 @@ public class LoginController {
 
 	
 	
-//	@RequestMapping(value = "/getmemberbylogin", method = RequestMethod.POST)
-//	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm,
-//			BindingResult result,
-//			Model model,
-//			Errors errors,
-//			HttpSession session) {
-//
-//		List<Category> cat = datacat.findAll();
-//		Member member = datamem.findByUserName(memberForm.getUserName());
-//		memberForm.setMember(member);
-//		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, memberForm, errors);		
-//		if (result.hasErrors())	{
-//			return "login";
-//		}
-//		if (datainterest.findByMember(member) == null)
-//		{
-//			MemberInterest meminterest = new MemberInterest(cat, member);
-//			datainterest.save(meminterest);
-//		}
-//		model.addAttribute("member", member);
-//		session.setAttribute("member", member);
-//				
-//		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(member.getId());
-//
-//		//Debut du système publication par filtre
-//
-//		List<List<Object>> lpubtotal = new ArrayList<>();
-//		
-//		MemberInterest memInt = datainterest.findByMember(member);
-//
-//		for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
-//			if (entry.getValue() > 0)
-//			lpubtotal.add(datapub.findTop20FiltredPublicationByCategoryandDateCreation(member.getId(), entry.getKey().getId()));
-//		
-//		List<Publication> pubfiltred = new ArrayList<Publication>();
-//		for (List<Object> lpub : lpubtotal)
-//		{
-//			Iterator<Object> itr = lpub.iterator();
-//			while(itr.hasNext()){
-//				Object[] obj = (Object[]) itr.next();
-//				for (Object ob : obj)
-//				{
-//					if (ob instanceof Publication)
-//					{
-//						Publication p = (Publication) ob;
-//						if (!pubfiltred.contains(p))
-//						pubfiltred.add(p);
-//					}
-//				}
-//			}
-//		}
-//		
-//		ArrayList<Publication> finalFiltredPub = new ArrayList<Publication>();
-//		for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
-//		{
-//			int i = 0;
-//			for (Publication p : pubfiltred)
-//			{
-//				for (Category c : p.getCategory())
-//				if (memInt.getInterests().containsKey(c))
-//				{
-//					if (!finalFiltredPub.contains(p))
-//						finalFiltredPub.add(p);
-//					i++;
-//				}
-//				if (i == entry.getValue())
-//					break;
-//			}
-//		}
-//		/*for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
-//		{
-//			for (int i = 0; i < entry.getValue(); i++)
-//			{
-// 
-//			}
-//		}*/
-//		
-//		for (Publication p : finalFiltredPub)
-//		{
-//			log.info("p  : " + p.getTitle());
-//				for (Category c : p.getCategory())
-//				{
-//					log.info("cat = " + c.getTitle());
-//				}
-//		}
-//		
-//		model.addAttribute("listlasttenpub", tenLastPub);
-//		model.addAttribute("finalFiltredPub", pubfiltred);
-//		return "home";
-//	}
+/*	@RequestMapping(value = "/getmemberbylogin", method = RequestMethod.POST)
+	public String getByLogin(@ModelAttribute("memberForm") MemberForm memberForm,
+			BindingResult result,
+			Model model,
+			Errors errors,
+			HttpSession session) {
+
+		List<Category> cat = datacat.findAll();
+		Member member = datamem.findByUserName(memberForm.getUserName());
+		memberForm.setMember(member);
+		ValidationUtils.invokeValidator((org.springframework.validation.Validator) validator, memberForm, errors);		
+		if (result.hasErrors())	{
+			return "login";
+		}
+		if (datainterest.findByMember(member) == null)
+		{
+			MemberInterest meminterest = new MemberInterest(cat, member);
+			datainterest.save(meminterest);
+		}
+		model.addAttribute("member", member);
+		session.setAttribute("member", member);
+				
+		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(member.getId());
+
+		//Debut du système publication par filtre
+
+		List<List<Object>> lpubtotal = new ArrayList<>();
+		
+		MemberInterest memInt = datainterest.findByMember(member);
+
+		for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
+			if (entry.getValue() > 0)
+			lpubtotal.add(datapub.findTop20FiltredPublicationByCategoryandDateCreation(member.getId(), entry.getKey().getId()));
+		
+		List<Publication> pubfiltred = new ArrayList<Publication>();
+		for (List<Object> lpub : lpubtotal)
+		{
+			Iterator<Object> itr = lpub.iterator();
+			while(itr.hasNext()){
+				Object[] obj = (Object[]) itr.next();
+				for (Object ob : obj)
+				{
+					if (ob instanceof Publication)
+					{
+						Publication p = (Publication) ob;
+						if (!pubfiltred.contains(p))
+						pubfiltred.add(p);
+				}
+				}
+			}
+	}
+		
+		ArrayList<Publication> finalFiltredPub = new ArrayList<Publication>();
+	for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
+		{
+		int i = 0;
+		for (Publication p : pubfiltred)
+			{
+				for (Category c : p.getCategory())
+				if (memInt.getInterests().containsKey(c))
+				{
+					if (!finalFiltredPub.contains(p))
+						finalFiltredPub.add(p);
+					i++;
+				}
+				if (i == entry.getValue())
+					break;
+			}
+		}
+		/*for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
+		{
+			for (int i = 0; i < entry.getValue(); i++)
+			{
+ 
+			}
+		}
+		
+		for (Publication p : finalFiltredPub)
+	{
+			log.info("p  : " + p.getTitle());
+				for (Category c : p.getCategory())
+				{
+					log.info("cat = " + c.getTitle());
+				}
+		}
+		
+	model.addAttribute("listlasttenpub", tenLastPub);
+	model.addAttribute("finalFiltredPub", pubfiltred);
+	return "home";
+	}*/
 
 //	@RequestMapping("/updatemember")
 //	@ResponseBody
