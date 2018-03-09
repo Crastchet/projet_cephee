@@ -31,12 +31,15 @@ public class Member extends User {
 	@Column(unique=true)
 	private String username; //doublon avec classe mere, what will happen ?
 	
+	@Column(unique=true)
+	private String displayname = "DISPLAYNAME À MODIFIER DANS ACTIVATION PROFIL";
+	
 	private String firstname;
 	private String lastname;
 	private Date birth; //utiliser type Date de SQL ou java.util ?
 	private String email;
 	private String description;
-	private boolean activated;		//profile activated or not
+	private boolean isActivated;		//profile activated or not
 	private boolean isAdmin;
 	
 	@OneToMany(mappedBy="author")
@@ -45,13 +48,21 @@ public class Member extends User {
 	@OneToMany(mappedBy="member")
 	private List<Skill> skills = new ArrayList<Skill>();
 	
+	
+	public Member() {
+		super("BOOM BOOM", "TAM TAM", new ArrayList<>());
+	}
+	
 	public Member(String uid, String password, Collection<? extends GrantedAuthority> authorities, 
             String email, String lastname, String firstname) {
         super(uid, password, authorities);        
         this.email = email;
         this.lastname = lastname;
         this.firstname = firstname;
-}
+        this.username = super.getUsername(); ///mon dieu
+        this.isActivated = false;
+        this.isAdmin = false;
+	}
 	
 	
 	public void addSkill(Skill skill) {
@@ -69,6 +80,12 @@ public class Member extends User {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getDisplayname() {
+		return displayname;
+	}
+	public void setDisplayname(String displayname) {
+		this.displayname = displayname;
 	}
 	public String getFirstname() {
 		return firstname;
@@ -95,10 +112,10 @@ public class Member extends User {
 		this.email = email;
 	}
 	public boolean getActivated() {
-		return this.activated;
+		return this.isActivated;
 	}
 	public void setActived(boolean activate) {
-		this.activated = activate;
+		this.isActivated = activate;
 	}
 	public boolean getIsAdmin() {
 		return this.isAdmin;

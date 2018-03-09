@@ -62,7 +62,7 @@ public class NavigationController {
 	@Autowired
 	private PublicationAnnoncePersistence dataannonce;
 	
-	@RequestMapping(value = "/lastPubli")
+	@RequestMapping(value = "/lastpublications")
 	public String goToLastPublication(Model model,
 			HttpSession session) {
 		model.addAttribute("member", session.getAttribute("member"));

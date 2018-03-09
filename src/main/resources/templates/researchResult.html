@@ -31,7 +31,7 @@
 				<h3 th:text="${item.title}"></h3>
 				
 				
-				<span style="font-size: 20px;" th:text="'Cree par: ' + ${item.author.login}"></span>
+				<span style="font-size: 20px;" th:text="'Cree par: ' + ${item.author.displayname}"></span>
 				<span style="font-size: 20px;float: right;" th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span>
 				</div>
 				<div style="background-color: white;">

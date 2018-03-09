@@ -53,22 +53,21 @@ public class ProfileController {
 	 */
 	@RequestMapping("/profile")
 	public String profile(
-			@RequestParam(value="login", required=false) String login,		//The member login who asks to see his profile
+			@RequestParam(value="displayname", required=false) String displayname,		//The member login who asks to see his profile
 			Model model,
 			HttpSession session) {
 		
 		//If no login is specified, return session profile
-		if(login == null)
+		if(displayname == null)
 			return this.profile(
-					((Member)session.getAttribute("member")).getLogin(), 
+					((Member)session.getAttribute("member")).getDisplayname(), 
 					model, 
 					session);
 		
-		Member member = datamem.findByLogin(login);
-		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
-		
-		
+		Member member = datamem.findByDisplayname(displayname);
 		model.addAttribute("member", member);
+		
+		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
 		
 		//If it is my Profile
 		if( itIsMemberSession ) {
@@ -135,23 +134,22 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "/editprofileregisterinfos", method = RequestMethod.POST)
 	public String registerProfileEdition(
-			@RequestParam(value="login", required=false) String login,
+			@RequestParam(value="displayname", required=false) String displayname,
 			@ModelAttribute("profileForm") ProfileForm profileForm,
 			Model model,
 			HttpSession session) {
 		
 		//If no login is specified, recall for session profile
-		if(login == null)
+		if(displayname == null)
 			return this.registerProfileEdition(
-					((Member)session.getAttribute("member")).getLogin(),
+					((Member)session.getAttribute("member")).getDisplayname(),
 					profileForm,
 					model, 
 					session);
 		
-		Member member = datamem.findByLogin(login);
-		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
+		Member member = datamem.findByDisplayname(displayname);
+		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
 		
-
 		//If try to edit own profile OR If I am an admin
 		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
 			try {
@@ -172,7 +170,7 @@ public class ProfileController {
 		session.setAttribute("member", member);
 		model.addAttribute("member", member);
 		//We return member profile
-		return this.profile(login, model, session);
+		return this.profile(displayname, model, session);
 	}
 	
 	/**
@@ -186,23 +184,22 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "/editprofileregisterskill", method = RequestMethod.POST)
 	public String registerProfileSkill(
-			@RequestParam(value="login", required=false) String login,
+			@RequestParam(value="displayname", required=false) String displayname,
 			@ModelAttribute("profileSkillForm") ProfileSkillForm profileSkillForm,
 			Model model,
 			HttpSession session) {
 		
 		//If no login is specified, recall for session profile (need to do that because we handle admin situation)
-		if(login == null)
+		if(displayname == null)
 			return this.registerProfileSkill(
-					((Member)session.getAttribute("member")).getLogin(),
+					((Member)session.getAttribute("member")).getDisplayname(),
 					profileSkillForm,
 					model, 
 					session);
 				
-		Member member = datamem.findByLogin(login);
-		boolean itIsMemberSession = member.getLogin().equals( ((Member)session.getAttribute("member")).getLogin() ); //on pourrait faire des equals entre Member, méthode à redéfinir ?
+		Member member = datamem.findByDisplayname(displayname);
+		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
 		
-
 		//If try to edit own profile OR If I am an admin
 		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
 			try {
@@ -230,8 +227,9 @@ public class ProfileController {
 			}
 		}
 		
+		session.setAttribute("member", member);
 		//We return member profile
-		return this.profile(login, model, session);
+		return this.profile(displayname, model, session);
 	}
 	
 	
@@ -251,7 +249,10 @@ public class ProfileController {
 				Controls.checkDescription(profileActivationForm.getDescription());
 				member.setDescription(profileActivationForm.getDescription());
 				member.setActived(true);
+				
 				datamem.save(member);
+				session.setAttribute("member", member);
+				
 			} catch (EmailFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -261,6 +262,6 @@ public class ProfileController {
 			}
 		}
 		
-		return this.profile(member.getLogin(), model, session);
+		return this.profile(member.getDisplayname(), model, session);
 	}
 }

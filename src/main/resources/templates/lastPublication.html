@@ -30,7 +30,7 @@
 
 
 					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.login}"></span> <span
+						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -88,7 +88,7 @@
 
 
 					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.login}"></span> <span
+						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -147,7 +147,7 @@
 
 
 					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.login}"></span> <span
+						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
