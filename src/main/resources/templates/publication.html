@@ -7,7 +7,7 @@
 <body background="img/spiration-light.png">
 	<ul>
 	<li th:text="'titre : ' + ${publication.title}"/>
-	<li th:text="'titre : ' + ${publication.author.login}"/>
+	<li th:text="'titre : ' + ${publication.author.displayname}"/>
 	</ul>
 	
 	<a th:href="@{/home}">Retour à l'accueil </a>

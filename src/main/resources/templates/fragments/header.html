@@ -14,16 +14,16 @@
 			<div class="nav-wrapper">
 				<ul id="nav-mobile" class="left hide-on-med-and-down">
 					<li><a th:href="@{/home}">Accueil</a></li>
-					<li><a th:href="@{/lastPubli}">Dernières publications</a></li>
+					<li><a th:href="@{/lastpublications}">Dernières publications</a></li>
 					<li><a th:href="@{/research}">Rechercher</a></li>
 					<li><a th:href="@{/profile}">Profil</a></li>
 				</ul>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">								    
-					<li style = "margin-right: 10px;font-weight: bold;font-size: 14px; color: white;" th:text="'Connecté en tant que ' + ${member.firstname}">
+					<li style = "margin-right: 10px;font-weight: bold;font-size: 14px; color: white;" th:text="'Connecté en tant que ' + ${member.displayname}">
 						<i style ="color: white;" class="material-icons" >face</i>
 					</li>
 					<li>
-						<a style ="font-weight: bold;font-size: 14px;" th:href="@{/disconnect}">Déconnexion</a>
+						<a style ="font-weight: bold;font-size: 14px;" th:href="@{/logout}">Déconnexion</a>
 					</li>				
 				</ul>
 			</div>

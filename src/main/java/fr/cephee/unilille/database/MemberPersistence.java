@@ -8,5 +8,6 @@ import fr.cephee.unilille.model.Member;
 @Transactional
 public interface MemberPersistence extends CrudRepository<Member, Integer> {
 	public Member findById(int id);
-	public Member findByLogin(String login);
+	public Member findByUsername(String username);
+	public Member findByDisplayname(String displayname);
 }
