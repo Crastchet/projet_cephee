@@ -189,13 +189,15 @@ public class PublicationController {
 		Date date = new Date();
 		log.info(publicationForm.getStartevent());
 		try {
+			Member mem = (Member) session.getAttribute("member");
 			PublicationEvent publication = new PublicationEvent();
 			log.info(publicationForm.getHourstartevent());
 			publication.setTitle(publicationForm.getTitle());
 			publication.setAuthorised(true);
 			publication.setContent(publicationForm.getContent());
 			publication.setDateCreation(date);
-			publication.setAuthor((Member) session.getAttribute("member"));
+			publication.setAuthor(mem);
+			publication.setNbparticipant(1);
 			publication.setCategory(publicationForm.getListCategory());
 			publication.setLocation(publicationForm.getLocation());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -203,7 +205,11 @@ public class PublicationController {
 			log.info(startd.toString());
 			publication.setStartevent(startd);
 
-			datapub.save(publication);
+			Participantdata datapart = new Participantdata();
+			datapart.setMem(mem.getId());
+			PublicationEvent pubsaved = datapub.save(publication);
+			datapart.setPubli(pubsaved.getId());
+			dataparticipate.save(datapart);
 			model.addAttribute("publi", publication);
 		} catch (Exception ex) {
 			log.info(ex.toString());
