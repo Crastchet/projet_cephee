@@ -213,22 +213,6 @@ public class LoginController {
 					break;
 			}
 		}
-		/*for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
-		{
-			for (int i = 0; i < entry.getValue(); i++)
-			{
- 
-			}
-		}*/
-		
-		for (Publication p : finalFiltredPub)
-		{
-			log.info("p  : " + p.getTitle());
-				for (Category c : p.getCategory())
-				{
-					log.info("cat = " + c.getTitle());
-				}
-		}
 		
 		model.addAttribute("listlasttenpub", tenLastPub);
 		model.addAttribute("finalFiltredPub", pubfiltred);

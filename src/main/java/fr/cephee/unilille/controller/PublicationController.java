@@ -224,16 +224,7 @@ public class PublicationController {
 		try {
 			Publication publi = datapub.findById(publication.getId());
 			if (publi instanceof PublicationEvent)
-			{
 				dataparticipate.deleteByPubli(publi.getId());
-				/*PublicationEvent pbEvent = (PublicationEvent) publi;
-				Member mem = (Member) session.getAttribute("member");
-				for (int i = 0; i < pbEvent.getNbparticipant(); i++)
-				{
-					Participantdata data = dataparticipate.findByMemByPubli(mem.getId(), publi.getId());
-				}*/
-				log.info("IT WAS AN EVENT YOU BASTARD");
-			}
 			datapub.delete(publi);
 			model.addAttribute("member", session.getAttribute("member"));
 		} catch (Exception ex) {
