@@ -20,7 +20,7 @@ function checkFormUpdate() {
 		document.getElementById("boutonModifier").disabled = true;
 }
 
-$(function() {
+/*-$(function() {
     
     $('select').on('change', function() {
     	var elem = document.getElementById("elementType");
@@ -41,4 +41,4 @@ $(function() {
 		 document.getElementById("calendarSearch2").style.display = 'none';
     		}
     });
-});
+});*/
