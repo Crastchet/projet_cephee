@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import fr.cephee.unilille.model.Participantdata;
 
-public interface dataParticipantPersistence extends CrudRepository<Participantdata, Integer>{
+public interface ParticipantDataPersistence extends CrudRepository<Participantdata, Integer>{
 	
 	@Query("FROM Participantdata u where u.mem = :memid and u.publi = :pubid")
 	public Participantdata findByMemByPubli(@Param("memid") Integer mem, @Param("pubid")Integer pub);

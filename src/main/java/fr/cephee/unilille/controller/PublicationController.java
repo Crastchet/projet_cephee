@@ -5,9 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.PreRemove;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import javax.validation.Validator;
 
 import org.slf4j.Logger;
@@ -28,9 +26,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.ParticipantDataPersistence;
 import fr.cephee.unilille.database.PublicationEventPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
-import fr.cephee.unilille.database.dataParticipantPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
@@ -68,7 +66,7 @@ public class PublicationController {
 	private CompetencePersistence dataComp;
 	
 	@Autowired
-	private dataParticipantPersistence dataparticipate;
+	private ParticipantDataPersistence dataparticipate;
 
 	@RequestMapping(value = "/formtypepublication")
 	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, HttpSession session) {
@@ -219,6 +217,11 @@ public class PublicationController {
 		//log.info("publication is => " + publication.getId() + publication.getTitle() + " " + publication.getContent());
 		try {
 			Publication publi = datapub.findById(publication.getId());
+			if (publi instanceof PublicationEvent)
+			{
+				
+				log.info("IT WAS AN EVENT YOU BASTARD");
+			}
 			datapub.delete(publi);
 			model.addAttribute("member", session.getAttribute("member"));
 		} catch (Exception ex) {
@@ -453,29 +456,38 @@ public class PublicationController {
 	}
 	
 
-	@Transactional
 	@RequestMapping("/participate")
 	public String participateEvent(@ModelAttribute("publi") PublicationEvent publi, Model model,
 			HttpSession session) {
-		publi.setNbparticipant(publi.getNbparticipant() + 1);
-
 		Member mem = (Member) session.getAttribute("member");
-
-		Participantdata data = new Participantdata();
-		data.setMem(mem.getId());
-		data.setPubli(publi.getId());
-		dataparticipate.save(data);	
-		datapub.save(publi);
+		try
+		{
+			Participantdata datapersist = dataparticipate.findByMemByPubli(mem.getId(), publi.getId());
+			if (datapersist != null)
+			{
+				session.setAttribute("member", mem);
+				model.addAttribute("member", mem);
+				model.addAttribute("publi", publi);
+				model.addAttribute("participeDeja", true);
+				return "detailsEvent";
+			}
+			publi.setNbparticipant(publi.getNbparticipant() + 1);
+			Participantdata data = new Participantdata();
+			data.setMem(mem.getId());
+			data.setPubli(publi.getId());
+			dataparticipate.save(data);	
+			datapub.save(publi);
+		}
+		catch (Exception e)
+		{
+			log.info("Exception : " + e);
+			return "detailsEvent";
+		}
 		session.setAttribute("member", mem);
 		model.addAttribute("member", mem);
 		model.addAttribute("publi", publi);
 		model.addAttribute("participeDeja", true);
 		return "detailsEvent";
-	}
-	
-	@PreRemove
-	private void removeGroupsFromUsers(PublicationEvent p, Member m) {
-		//p.getParticipants().remove(m);
 	}
 	
 	@RequestMapping("/stopparticipate")
