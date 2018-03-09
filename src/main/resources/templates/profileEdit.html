@@ -33,9 +33,9 @@
 			<p><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></p>
 
 			<label for="userEmail">Adresse email :</label> 
-			<input id="userEmail"name="email" type="email" th:field="*{email}"th:value="${member.email}" onchange="checkEditProfileForm()"></input>
+			<input id="userEmail" name="email" type="email" th:field="*{email}" th:value="${member.email}" onchange="checkEditProfileForm()"></input>
 
-			<label for="userDescription"th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
+			<label for="userDescription" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
 			<textarea id="userDescription" name="description" th:field="*{description}" th:value="${member.description}" onchange="checkEditProfileForm()"></textarea>
 
 			<button class="btn waves-effect waves-light" id="buttonEditProfile"
@@ -94,8 +94,7 @@
 			</p>
 
 			<div class="input-field col s12">
-				<label for="skillName">Nom de la compétence :</label> <input
-					id="skillName" name="skillName" type="text"
+				<label for="skillName">Nom de la compétence :</label> <input id="skillName" name="skillName" type="text"
 					th:field="*{competenceTitle}"></input>
 			</div>
 
