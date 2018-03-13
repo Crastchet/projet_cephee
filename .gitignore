@@ -1,5 +1,6 @@
 mvnw
 target/
+demo/
 src/main/resources/application.properties
 .project
 .settings
