@@ -26,6 +26,9 @@
 			th:action="@{/activateprofileregister}"
 			th:object="${profileActivationForm}" method="post">
 			<div>
+				<label for="userDisplayname" class="ui-hidden-accessible">Pseudo : (3 à 10 caractères)</label>
+				<input type="text" name="displayname" id="userDisplayname" placeholder="Pseudo" class="materialize-textarea" th:field="*{displayname}" onchange="checkActivationForm()"></input>
+			
 				<label for="userEmail" class="ui-hidden-accessible">Adresse email :</label>
 				<input type="email" name="email" id="userEmail" placeholder="Adresse email" class="materialize-textarea" th:field="*{email}" onchange="checkActivationForm()"></input>
 					

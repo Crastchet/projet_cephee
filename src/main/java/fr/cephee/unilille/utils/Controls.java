@@ -8,6 +8,7 @@ import java.util.Date;
 import fr.cephee.unilille.exceptions.CompetenceTitleException;
 import fr.cephee.unilille.exceptions.DateFormatException;
 import fr.cephee.unilille.exceptions.DescriptionException;
+import fr.cephee.unilille.exceptions.DisplaynameFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 
 public abstract class Controls {
@@ -47,6 +48,20 @@ public abstract class Controls {
 	public static void checkCompetenceTitle(String competenceTitle) throws CompetenceTitleException {
 		if(competenceTitle.length() == 0)
 			throw new CompetenceTitleException("Competence ne peut pas être vide");
+	}
+
+	public static void checkDisplayname(String displayname) throws DisplaynameFormatException {
+		if(displayname.isEmpty())
+			throw new DisplaynameFormatException("Pseudo vide");
+		
+		if(displayname.length() < 3)
+			throw new DisplaynameFormatException("Pseudo trop court (" + displayname.length() + ")");
+		
+		if(displayname.length() > 10)
+			throw new DisplaynameFormatException("Pseudo trop long (" + displayname.length() + ")");
+		
+		if(displayname.matches("[0-9]+"))
+			throw new DisplaynameFormatException("Pseudo contient un/des chiffre(s)");
 	}
 	
 }

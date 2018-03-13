@@ -32,7 +32,7 @@ public class Member extends User {
 	private String username; //doublon avec classe mere, what will happen ?
 	
 	@Column(unique=true)
-	private String displayname = "DISPLAYNAME À MODIFIER DANS ACTIVATION PROFIL";
+	private String displayname;
 	
 	private String firstname;
 	private String lastname;
@@ -60,6 +60,7 @@ public class Member extends User {
         this.lastname = lastname;
         this.firstname = firstname;
         this.username = super.getUsername(); ///mon dieu
+        this.displayname = this.username + " (VISITEUR)";
         this.isActivated = false;
         this.isAdmin = false;
 	}

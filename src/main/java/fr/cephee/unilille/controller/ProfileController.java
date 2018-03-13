@@ -19,6 +19,7 @@ import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
 import fr.cephee.unilille.exceptions.CompetenceTitleException;
 import fr.cephee.unilille.exceptions.DescriptionException;
+import fr.cephee.unilille.exceptions.DisplaynameFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
@@ -244,6 +245,8 @@ public class ProfileController {
 		//If is not activated - process
 		if(!member.getActivated()) {
 			try {
+				Controls.checkDisplayname(profileActivationForm.getDisplayname());
+				member.setDisplayname(profileActivationForm.getDisplayname());
 				Controls.checkEmail(profileActivationForm.getEmail());
 				member.setEmail(profileActivationForm.getEmail());
 				Controls.checkDescription(profileActivationForm.getDescription());
@@ -252,7 +255,9 @@ public class ProfileController {
 				
 				datamem.save(member);
 				session.setAttribute("member", member);
-				
+			} catch (DisplaynameFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} catch (EmailFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

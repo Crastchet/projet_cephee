@@ -57,13 +57,15 @@ public class LoginController {
 			String username = signed.getUsername();				//on récupère son username du CAS (prenom.nom)
 			Member member = datamem.findByUsername(username);	//on check si on a déjà une trace de lui en base
 			if( member == null ) {								//s'il n'existe pas en base #premiereFois
-				datamem.save(signed);
-				//on le save (ça lui crée un id)
+				datamem.save(signed);								//on le save (ça lui crée un id)
 				member = datamem.findByUsername(username);			//on le récupère (il a maintenant un id)
 			}
 			session.setAttribute("member", member);
 		}
 		model.addAttribute("member", session.getAttribute("member"));
+		
+		
+	// !!!!!!!!!!!!!! PARTIE DE SOFIAN !!!!!!!!!!!!!!
 		Member member = (Member) session.getAttribute("member");
 		if (datainterest.findByMember(member) == null)
 		{
@@ -71,7 +73,7 @@ public class LoginController {
 			MemberInterest meminterest = new MemberInterest(cat, member);
 			datainterest.save(meminterest);
 		}
-// !!!!!!!!!!!!!! PARTIE DE SOFIAN !!!!!!!!!!!!!!
+
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(member.getId());
 		model.addAttribute("listlasttenpub", tenLastPub);
 
@@ -143,7 +145,7 @@ public class LoginController {
 		return "home";
 	}
 	
-	
+	/*
 	@RequestMapping(value = "/logout")
 	public String disconnect(Model model, HttpSession session)
 	{	
@@ -152,7 +154,7 @@ public class LoginController {
 		model.addAttribute("memberForm", memberForm);
 		return "home";
 	}
-	
+	*/
 	
 	
 	

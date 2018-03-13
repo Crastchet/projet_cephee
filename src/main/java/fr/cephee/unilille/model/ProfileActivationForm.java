@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ProfileActivationForm {
 
 	@NotEmpty
+	private String displayname;
+	@NotEmpty
 	private String email;
 	@NotEmpty
 	private String description;
@@ -14,7 +16,13 @@ public class ProfileActivationForm {
 		
 	}
 
-
+	
+	public String getDisplayname() {
+		return this.displayname;
+	}
+	public void setDisplayname(String displayname) {
+		this.displayname = displayname;
+	}
 	public String getEmail() {
 		return email;
 	}
