@@ -1,10 +1,10 @@
 @media only screen and (min-width: 993px) { 
 	
-	#profileBigScreen {
+	#PASprofileBigScreen {
 		display:flex;
 	}
 	
-	#profileMenu {
+	#PASprofileMenu {
 		width:370px;
 		margin:0 15px 0 15px;
 	}
@@ -19,7 +19,7 @@
 
 @media only screen and (min-width: 601px) and (max-width: 992px) { 
 	
-	#profileMenu {
+	#PASprofileMenu {
 		width:100%;
 		margine-left:15px;
 	}
@@ -34,23 +34,26 @@
 
 @media only screen and (min-width: 0px) and (max-width: 600px) { 
 	
-	#profileMenu {
+	#PASprofileMenu {
 		width:100%;
 		margine-left:15px;
+	}
+	#profileMenu ul > li {
+		padding: 0;
 	}
 	
 	#profileMenu ul > li > a {
 		height:70px;
 		width:100%;
-		margin:10px;
+/* 		margin:10px; */
 	}
 	
 	#profileMenu ul > li > a > span {
 		display:none;
 	}
 	
-/* 	#profileMenu ul > li > a > i { */
-/* 		width:100%; */
-/* 	} */
+ 	#profileMenu ul > li > a > i {
+ 		width:100%;
+ 	}
 	
 }
