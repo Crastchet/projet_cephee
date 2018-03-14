@@ -24,13 +24,17 @@
 		</blockquote>
 	</div>
 	
-<div id="divmenu" style = "text-align: center;margin-left: 100px;">
+<div class="row">
+<div class="col s10 offset-s2" id="divmenu" style = "text-align: center;margin-left: 100px;">
  <ul class="collapsible popout" data-collapsible="accordion">
     <li>
       <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></div>
-      <div class="row collapsible-body">
+      <div class="row collapsible-body" style="background-color: white;">
 		<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregisterinfos}" th:object="${profileForm}" method="post" style="background-color: white; clear: both">
 			<p><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></p>
+
+<!-- 			<label for="userDisplayname">Pseudo :</label>  -->
+<!-- 			<input id="userDisplayname" name="displayname" th:field="*{displayname}" th:value="${member.displayname}" onchange="checkEditProfileForm()"></input> -->
 
 			<label for="userEmail">Adresse email :</label> 
 			<input id="userEmail" name="email" type="email" th:field="*{email}" th:value="${member.email}" onchange="checkEditProfileForm()"></input>
@@ -48,7 +52,7 @@
     </li>
     <li>
       <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos compétences</goodvibes></div>
-      <div class="row collapsible-body">
+      <div class="row collapsible-body" style="background-color: white;">
 		<form class="col s6 offset-s3" action="#"
 			th:action="@{/editprofileregisterskill}"
 			th:object="${profileSkillForm}" method="post"
@@ -83,7 +87,7 @@
 
 		</form>
 	</div>
-	<div class="row collapsible-body">
+	<div class="row collapsible-body" style="background-color: white;">
 		<form class="col s6 offset-s3" action="#"
 			th:action="@{/editprofileregisterskill}"
 			th:object="${profileSkillForm}" method="post"
@@ -116,10 +120,8 @@
 
 		</form>
 	</div>
-	<div class="row collapsible-body">
-		<form class="col s6 offset-s3" action="#"
-			th:action="@{/editprofileregister}" th:object="${profileForm}"
-			method="post" style="background-color: white; clear: both">
+	<div class="row collapsible-body" style="background-color: white;">
+		<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="background-color: white; clear: both">
 			<p>
 				<goodvibes style="font-size: 30px">Supprimer des compétences</goodvibes>
 			</p>
@@ -144,9 +146,32 @@
     </li>
     <li>
       <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos centres d'interêt</goodvibes></div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+      <div class="row collapsible-body"  style="background-color: white;">
+      	<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregisterskill}" th:object="${profileSkillForm}" method="post" style="background-color: white; clear: both">
+			<p>
+				<goodvibes style="font-size: 30px">Ajouter des centres d'interêts</goodvibes>
+			</p>
+
+			<div class="input-field col s12">
+				
+			<!-- 		A FAIRE : C'EST JUSTE VISUEL EN ATTENDANT QUON DECIDE		 -->
+				<select th:field="*{listCompetence}">
+					<option value="" disabled="disabled" selected="selected">Choisissez la catégorie qui vous interresse</option>
+					<option th:each="competence : ${competenceList}"
+						th:value="${{competence.id}}" th:text="${competence.title}"></option>
+				</select>
+			</div>
+
+			
+			<button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">
+				Ajouter la catégorie en tant que centre d'interêt <i class="material-icons right">send</i>
+			</button>
+
+			</form>
+		</div>
     </li>
   </ul>  
+</div>
 </div>
         
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
