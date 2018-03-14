@@ -100,14 +100,46 @@
 
 					<h5>Description:</h5>
 					<p th:text="${publi.content}"></p>
+					
+					 <!-- Modal Trigger -->
+					  <a class="waves-effect waves-light btn modal-trigger blue" href="#modal1">Contacter l'auteur<i class="material-icons right">contact_mail</i></a>
+				
+					  <!-- Modal Structure -->
+					  <div id="modal1" class="modal">
+					    <div class="modal-content">
+					    
+					      
+					     <form class="col s6 offset-s3" action="#" th:action="@{/sendemail}" th:object="${emailForm}" method="post" style="background-color: white; clear: both">
+							<p><goodvibes style="font-size: 30px">Votre message :</goodvibes></p>
+				
+							<label for="object">Titre :</label> 
+							<input id="object" name="email" type="text" ></input>
+				
+							<label for="content" th:text="'Contenu : '"></label>
+							<textarea id="content" name="description" ></textarea>
+							
+							<input id="publicationId" name="email" type="text" th:text="${publi.id}" style ="display:none;"></input>
+							
+
+					      <button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action"> Envoyer par e-mail 
+								<i class="material-icons right">send</i>
+						  </button>
+					  </form>
+				    </div>
+				  </div>
 				</div>
 			</div>
 		</div>
 	</div>
 	</div>
-
-
-
+	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
+
+	<script>
+		  $(document).ready(function(){
+		    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+		    $('.modal').modal({  startingTop: '90%'});
+		  });
+  </script>
 </html>
