@@ -19,22 +19,6 @@
 
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
-	<nav>
-		<div class="nav-wrapper">
-			<a href="#" class="brand-logo center"><goodvibes
-					style="font-size: 40px">Votre Profil</goodvibes></a>
-			<ul id="nav-mobile" class="left hide-on-med-and-down">
-				<li><a class="waves-effect green darken-1 btn"
-					th:href="@{/editprofile}" style="height: 40px; width: 200px;">Editer</a></li>
-			</ul>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li style="margin-right: 10px; font-size: 20px; color: white;"
-					th:text=" ${member.displayname}"><i style="color: white;"
-					class="material-icons">face</i></li>
-			</ul>
-		</div>
-	</nav>
-
 	<div id="profileBigScreen" class="row">
 
 		<div th:replace="profileHeader">&nbsp;</div>
@@ -45,11 +29,15 @@
 				<goodvibes style="font-size: 25px">Mes informations</goodvibes>
 			</p>
 
+			<goodvibes style="font-size: 15px">Mon pseudo : </goodvibes>
+			<p th:text="${member.displayname}"></p>
 			<goodvibes style="font-size: 15px">Ma description : </goodvibes>
 			<p th:text="${member.description}"></p>
 			<br></br>
 			<goodvibes style="font-size: 15px">Mon email : </goodvibes>
 			<p th:text="${member.email}"></p>
+			<a class="waves-effect green darken-1 btn"
+					th:href="@{/editprofile}" style="height: 40px; width: 200px;">Editer</a>
 		</div>
 
 		<div id="divmescompetences" class="col s12 m6 l4" style="margin-top:10px; display: none">

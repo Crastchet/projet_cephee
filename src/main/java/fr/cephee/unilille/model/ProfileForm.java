@@ -22,7 +22,6 @@ public class ProfileForm {
 	
 	private String competenceTitle;
 	
-
 	private List<Skill> skills = new ArrayList<Skill>();
 	
 	private List<Competence> listCompetence = new ArrayList<Competence>();
@@ -30,8 +29,7 @@ public class ProfileForm {
 	public ProfileForm() {
 		
 	}
-	
-	
+		
 	public String getBirth() {
 		return this.birth;
 	}
@@ -66,8 +64,8 @@ public class ProfileForm {
 		return listCompetence;
 	}
 
-
 	public void setListCompetence(List<Competence> listCompetence) {
 		this.listCompetence = listCompetence;
 	}
+
 }
