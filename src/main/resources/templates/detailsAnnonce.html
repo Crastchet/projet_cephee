@@ -102,21 +102,21 @@
 					<p th:text="${publi.content}"></p>
 					
 					 <!-- Modal Trigger -->
-					  <a class="waves-effect waves-light btn modal-trigger blue" href="#modal1">Contacter l'auteur<i class="material-icons right">contact_mail</i></a>
+					  <a class="waves-effect waves-light btn modal-trigger blue" href="#modal1" th:style="${member.displayname} == ${publi.author.displayname} ? 'display:none'">Contacter l'auteur<i class="material-icons right" >contact_mail</i></a>
 				
 					  <!-- Modal Structure -->
 					  <div id="modal1" class="modal">
-					    <div class="modal-content">
+					    <div class="modal-content" style="background-color: white;" >
 					    
 					      
-					     <form class="col s6 offset-s3" action="#" th:action="@{/sendemail}" th:object="${emailForm}" method="post" style="background-color: white; clear: both">
+					     <form class="col s12" action="#" th:action="@{/sendemail}" th:object="${emailForm}" method="post" style="background-color: white; clear: both;  margin-bottom: 20px;">
 							<p><goodvibes style="font-size: 30px">Votre message :</goodvibes></p>
 				
 							<label for="object">Titre :</label> 
 							<input id="object" name="email" type="text" ></input>
 				
 							<label for="content" th:text="'Contenu : '"></label>
-							<textarea id="content" name="description" ></textarea>
+							<textarea class="materialize-textarea"  data-length="500" id="content" name="description" ></textarea>
 							
 							<input id="publicationId" name="email" type="text" th:text="${publi.id}" style ="display:none;"></input>
 							
@@ -139,7 +139,7 @@
 	<script>
 		  $(document).ready(function(){
 		    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-		    $('.modal').modal({  startingTop: '90%'});
+		    $('.modal').modal({  startingTop: '90%,'});
 		  });
   </script>
 </html>
