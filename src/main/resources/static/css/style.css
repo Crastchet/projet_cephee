@@ -44,3 +44,13 @@ buttonprofile {
   display: inline-block; /* make blocks inline-block */
   text-align: initial; /* restore text-align to default */
 }
+
+header {
+	position:sticky;
+	top:-105px;
+	z-index:1000;
+}
+
+center {
+	background:url("img/spiration-light.png");
+}

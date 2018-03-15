@@ -81,13 +81,12 @@
 			
 			-->
 
-		<div id="divpubli" style="margin-top:10px; display: none;">
+		<div id="divpubli" class="col s12 m12 l8" style="margin-top:10px; display: none;">
 			<goodvibes style="font-size: 35px">Vos publications</goodvibes>
-			<div class="row" style="overflow:scroll; height:32rem; margin-bottom:0;">
-				<div th:each="item : *{publications}" th:switch="${item.authorised}"
-					class="col s12 m6 l3">
-					<div th:case="true" class="card blue-grey darken-1" style="height:250px">
-						<div class="card-content white-text"  style="height:200px">
+			<div class="row">
+				<div th:each="item : *{publications}" class="col s12 m6 l3">
+					<div th:if="${item.authorised == false}" class="card grey lighten-3" style="height:250px">
+						<div class="card-content black-text" style="height:200px">
 							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
 							<p th:text="${item.content}"></p>
 							<p th:text="${item.dateCreation}"></p>
@@ -98,29 +97,53 @@
 								détails</a>
 						</div>
 					</div>
-					<div th:case="false" class="card blue-grey darken-4">
-						<div class="card-content white-text">
-							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
-							<p th:text="${item.content}"></p>
-							<p th:text="${item.dateCreation}"></p>
-							<p th:text="${item.id}"></p>
+					<div th:unless="${item.authorised == false}" th:switch="${item.class.name}">
+						<div th:case="'fr.cephee.unilille.model.PublicationEvent'" class="card light-blue lighten-3" style="height:250px">
+							<div class="card-content white-text" style="height:200px">
+								<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+								<p th:text="${item.content}"></p>
+								<p th:text="${item.dateCreation}"></p>
+								<p th:text="${item.id}"></p>
+							</div>
+							<div class="card-action">
+								<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+									détails</a>
+							</div>
 						</div>
-						<div class="card-action">
-							<a th:href="@{/seedetailspublication(id=${item.id})}">voir
-								détails</a>
+						<div th:case="'fr.cephee.unilille.model.PublicationProject'" class="card teal lighten-3" style="height:250px">
+							<div class="card-content white-text" style="height:200px">
+								<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+								<p th:text="${item.content}"></p>
+								<p th:text="${item.dateCreation}"></p>
+								<p th:text="${item.id}"></p>
+							</div>
+							<div class="card-action">
+								<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+									détails</a>
+							</div>
+						</div>
+						<div th:case="'fr.cephee.unilille.model.PublicationAnnonce'" class="card yellow darken-1" style="height:250px">
+							<div class="card-content white-text" style="height:200px">
+								<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+								<p th:text="${item.content}"></p>
+								<p th:text="${item.dateCreation}"></p>
+								<p th:text="${item.id}"></p>
+							</div>
+							<div class="card-action">
+								<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+									détails</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div id="divrecherche"
-			style="margin-top:10px; display: none;">
+		<div id="divrecherche" class="col s12 m12 l8" style="margin-top:10px; display: none;">
 			<goodvibes style="font-size: 35px">Ce que vous recherchez</goodvibes>
 		</div>
 
-		<div id="divnotif"
-			style="margin-top:10px; display: none;">
+		<div id="divnotif" class="col s12 m12 l8" style="margin-top:10px; display: none;">
 			<goodvibes style="font-size: 35px"> Vos notifications </goodvibes>
 		</div>
 

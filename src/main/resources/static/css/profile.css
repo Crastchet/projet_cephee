@@ -4,9 +4,9 @@
 		display:flex;
 	}
 	
-	#PASprofileMenu {
-		width:370px;
-		margin:0 15px 0 15px;
+	#profileMenu {
+		position:sticky;
+		top:60px;
 	}
 	
 	#profileMenu ul > li > a {
