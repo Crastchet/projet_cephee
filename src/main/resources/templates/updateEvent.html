@@ -18,10 +18,6 @@
 	<script type="text/javascript" th:src="@{/js/calendarFunc.js}"></script>
 	<script type="text/javascript" th:src="@{/js/multipleSelector.js}"></script>
 	<script type="text/javascript" th:src="@{js/materialize.min.js}"></script>
-	<script>
-		checkEverything();
-		checkUpdate();
-	</script>
 	<script> 
 		$(document).ready(function() {
 	   		$('select').material_select();
@@ -40,7 +36,7 @@
 			<div class="row">
        			<div class="input-field col s12">
        				<i class="material-icons prefix">title</i>
-          			<input id="titre" type="text" class="validate" th:field="*{title}" onchange="checkEverything()"/>
+          			<input id="titre" type="text" class="validate" th:field="*{title}" onchange="checkEverythingModified()"/>
          			<label for="titre">Titre de l'évenement</label>
         		</div>
       		</div>
@@ -49,7 +45,7 @@
 			<div class="row">
        			<div class="input-field col s12">
           			<i class="material-icons prefix">description</i>
-          			<textarea id="content" class="materialize-textarea" data-length="120" th:field="*{content}" onchange="checkEverything()"></textarea>
+          			<textarea id="content" class="materialize-textarea" data-length="120" th:field="*{content}" onchange="checkEverythingModified()"></textarea>
          			<label for="content">Description</label>
         		</div>
       		</div>
@@ -58,7 +54,7 @@
 			<div class="row">
        			<div class="input-field col s12">
        				<i class="material-icons prefix">location_on</i>
-          			<input id="location" type="text" class="validate" th:field="*{location}" onchange="checkEverything()"/>
+          			<input id="location" type="text" class="validate" th:field="*{location}" onchange="checkEverythingModified()"/>
          			<label for="location">Lieu de l'evenement</label>
         		</div>
       		</div>
@@ -68,7 +64,7 @@
 				<div class="row">
 	       			<div class="input-field col s12">
 		       				<i class="material-icons prefix">date_range</i>
-		          			<input id="dateStart" type="date" class="datepicker" th:field="*{startevent}" onchange="checkEverything()"/>
+		          			<input id="dateStart" type="date" class="datepicker" th:field="*{startevent}" onchange="checkEverythingModified()"/>
 		         			<label for="dateStart">Date de début de l'evenement</label>
 	        		</div>
 	      		</div>
@@ -79,7 +75,7 @@
 						<div class="inputClock">
 							<i class="material-icons prefix">access_time</i>
 							<input value="Choisissez votre heure" id="timeStart"
-								class="timepicker" type="text" onchange="checkEverything()"
+								class="timepicker" type="text" onchange="checkEverythingModified()"
 								th:field="*{hourstartevent}" />
 							<label for="timeStart">Heure de début de l'evenement</label>
 						</div>
@@ -94,7 +90,7 @@
 				</select> 
 			</div>
 	
-			<button class="btn waves-effect waves-light" id="boutonCreation"
+			<button class="btn waves-effect waves-light" id="boutonModifier"
 				type="submit" name="action" disabled="disabled">
 				Fin modification evenement<i class="material-icons right">send</i>
 			</button>
@@ -124,4 +120,8 @@
 		<script>
 			maxToday()
 		</script>
+			<script>
+		checkEverythingModified()();
+		checkUpdate();
+	</script>
 </html>

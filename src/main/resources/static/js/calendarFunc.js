@@ -32,6 +32,17 @@ function checkEverything() {
 		document.getElementById("boutonCreation").disabled = true;
 		}
 	
+}
+
+function checkEverythingModified() {
+
+	var heureStart = document.getElementById("timeStart");
+	var dateStart = document.getElementById("dateStart");
+	var titre = document.getElementById("titre");
+	var content = document.getElementById("content");
+	var location = document.getElementById("location");
+
+	
 	if (titre.value.length != 0 && content.value.length != 0
 			&& location.value.length != 0 && dateStart.value.length != 0 && heureStart.value.length != 0)
 	{

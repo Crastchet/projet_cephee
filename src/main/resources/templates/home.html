@@ -383,7 +383,7 @@
 	</div>
 	<div class="col s12 m4 offset-m1">
 	<goodvibes style="font-size: 50px;">Les publications que vous recherchez</goodvibes>
-		<div class="col s12" th:each="item : *{listlasttenpub}">
+		<div class="col s12" th:each="item : *{listSearched}">
 			
 			<!-- Evenements -->
 			<div class="card light-blue lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
