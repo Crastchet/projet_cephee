@@ -113,12 +113,12 @@
 							<p><goodvibes style="font-size: 30px">Votre message :</goodvibes></p>
 				
 							<label for="object">Titre :</label> 
-							<input id="object" name="email" type="text" ></input>
+							<input id="object" name="object" type="text" ></input>
 				
 							<label for="content" th:text="'Contenu : '"></label>
-							<textarea class="materialize-textarea"  data-length="500" id="content" name="description" ></textarea>
+							<textarea class="materialize-textarea"  data-length="500" id="content" name="content" ></textarea>
 							
-							<input id="publicationId" name="email" type="text" th:text="${publi.id}" style ="display:none;"></input>
+							<input id="publicationId" name="publicationId" type="text" th:value="${publi.id}"  style ="display:none;"></input>
 							
 
 					      <button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action"> Envoyer par e-mail 

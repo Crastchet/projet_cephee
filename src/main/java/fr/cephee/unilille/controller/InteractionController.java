@@ -51,6 +51,8 @@ public class InteractionController {
 		Member member = (Member) session.getAttribute("member");
 		String senderEmail = member.getEmail();
 		
+		log.info("NUMERO DE LA PUBLICATION : " + publicationId);
+		System.out.println("NUMERO DE LA PUBLICATION : " + publicationId);
 		Publication publication = datapub.findById(publicationId);
 		String receiverEmail = publication.getAuthor().getEmail();
 		
@@ -88,8 +90,10 @@ public class InteractionController {
 			model.addAttribute("displaymessage", "Sent email successfully....");
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
+			model.addAttribute("displaymessage", "Email failed....");
 		}
 
-		return "errorPae";
+		model.addAttribute("member", member);
+		return "errorPage";
 	}
 }

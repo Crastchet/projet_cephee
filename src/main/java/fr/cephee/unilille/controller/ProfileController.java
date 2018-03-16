@@ -1,5 +1,6 @@
 package fr.cephee.unilille.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -94,7 +95,9 @@ public class ProfileController {
 	
 	private void addProfilePublications(Member member, Model model) {
 //		model.addAttribute("publications", datapub.findByAuthor(member); //en parler à Sofian
-		model.addAttribute("publications", member.getListpublication());
+		List publications = member.getListpublication();
+		Collections.reverse(publications);
+		model.addAttribute("publications", publications);
 	}
 	
 	private void addProfileSkills(Member member, Model model) {
