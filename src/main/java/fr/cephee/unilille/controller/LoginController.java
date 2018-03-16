@@ -68,6 +68,7 @@ public class LoginController {
 				member = datamem.findByUsername(username);			//on le récupère (il a maintenant un id)
 			}
 			session.setAttribute("member", member);
+			session.setMaxInactiveInterval(1);
 		}
 		model.addAttribute("member", session.getAttribute("member"));
 

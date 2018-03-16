@@ -90,6 +90,7 @@ public class InteractionController {
 			model.addAttribute("displaymessage", "Sent email successfully....");
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
+			model.addAttribute("displaymessage", "Email failed....");
 		}
 
 		model.addAttribute("member", member);
