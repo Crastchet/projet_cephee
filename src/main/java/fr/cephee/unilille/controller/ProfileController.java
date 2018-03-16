@@ -1,9 +1,11 @@
 package fr.cephee.unilille.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +96,9 @@ public class ProfileController {
 	
 	private void addProfilePublications(Member member, Model model) {
 //		model.addAttribute("publications", datapub.findByAuthor(member); //en parler à Sofian
-		model.addAttribute("publications", member.getListpublication());
+		List publications = member.getListpublication();
+		Collections.reverse(publications);
+		model.addAttribute("publications", publications);
 	}
 	
 	private void addProfileSkills(Member member, Model model) {
