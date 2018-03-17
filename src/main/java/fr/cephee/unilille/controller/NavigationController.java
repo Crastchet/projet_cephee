@@ -63,8 +63,7 @@ public class NavigationController {
 	private PublicationAnnoncePersistence dataannonce;
 	
 	@RequestMapping(value = "/lastpublications")
-	public String goToLastPublication(Model model,
-			HttpSession session) {
+	public String goToLastPublication(Model model, HttpSession session) {
 		model.addAttribute("member", session.getAttribute("member"));
 		Member memb = (Member) session.getAttribute("member");
 		List<Publication> tenLastPub = datapub.findTop10ByOrderByDateCreationDescByAuthorisedTrue(memb.getId());

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+	media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="css/style.css"
+	media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="css/profile.css"
+	media="screen,projection" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8" />
+</head>
+
+
+<body background="img/spiration-light.png">
+
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	
+	<p th:text="'Nombre de publications : ' + ${nbpublications}"></p>
+	<ul>
+		<li th:text="'Nombre d\'évènements : ' + ${nbevents}"></li>
+		<li th:text="'Nombre d\'annonces : ' + ${nbannounces}"></li>
+		<li th:text="'Nombre de projets : ' + ${nbprojects}"></li>
+	</ul>
+	
+	<p th:text="'Nombre de membres : ' + ${nbmembers}"></p>
+	<ul>
+		<li th:text="'Nombre de membres au profil activé : ' + ${nbmembersactivated}"></li>
+		<li th:text="'Nombre de membres au profil visiteur : ' + ${nbmembersvisitors}"></li>
+	</ul>
+	
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+	
+</body>
+</html>
