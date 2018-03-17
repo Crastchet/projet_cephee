@@ -45,6 +45,9 @@ buttonprofile {
   text-align: initial; /* restore text-align to default */
 }
 
+
+/****THIBAULT****/
+
 header {
 	position:sticky;
 	top:-105px;
@@ -53,4 +56,8 @@ header {
 
 center {
 	background:url("img/spiration-light.png");
+}
+
+#headerDisplayname {
+	color:black;
 }
