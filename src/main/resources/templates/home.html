@@ -50,12 +50,15 @@
 								<h3 th:text="${item.title}"></h3>
 			
 			
-								<span style="font-size: 20px;"
-									th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+								<span style="font-size: 20px;">Créé par : 
+									<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+								</span>
+								<span
 									style="font-size: 20px; float: right;"
-									th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
-									<i class="material-icons">school</i> <span
-										th:text="'Catégories : '"></span>
+									th:text="'Créé le : ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}">
+								</span> <br></br>
+								<i class="material-icons">school</i>
+								<span th:text="'Catégories : '"></span>
 								<ul>
 									<th:block th:object="${item}"
 										th:each="it : ${item.category}">
@@ -101,8 +104,10 @@
 							<h3 th:text="${item.title}"></h3>
 		
 		
-							<span style="font-size: 20px;"
-								th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
 								style="font-size: 20px; float: right;"
 								th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
@@ -157,8 +162,10 @@
 							<h3 th:text="${item.title}"></h3>
 		
 		
-							<span style="font-size: 20px;"
-								th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
 								style="font-size: 20px; float: right;"
 								th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
@@ -213,8 +220,10 @@
 								<h3 th:text="${item.title}"></h3>
 			
 			
-								<span style="font-size: 20px;"
-									th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
 									style="font-size: 20px; float: right;"
 									th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 									<i class="material-icons">school</i> <span
@@ -264,8 +273,10 @@
 							<h3 th:text="${item.title}"></h3>
 		
 		
-							<span style="font-size: 20px;"
-								th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
 								style="font-size: 20px; float: right;"
 								th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
@@ -320,8 +331,10 @@
 							<h3 th:text="${item.title}"></h3>
 		
 		
-							<span style="font-size: 20px;"
-								th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
 								style="font-size: 20px; float: right;"
 								th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
@@ -390,8 +403,10 @@
 					<h3 class="titre" th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 				</div>
@@ -431,8 +446,10 @@
 					<h3 class="titre" th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 				</div>
@@ -478,8 +495,10 @@
 					<h3 class="titre" th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<!-- <i class="material-icons">school</i> <span
@@ -534,8 +553,10 @@
 						<h3 th:text="${item.title}"></h3>
 	
 	
-						<span style="font-size: 20px;"
-							th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+						<span style="font-size: 20px;">Créé par : 
+							<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+						</span>
+						<span
 							style="font-size: 20px; float: right;"
 							th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 							<i class="material-icons">school</i> <span
@@ -585,8 +606,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -641,8 +664,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -697,8 +722,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -749,8 +776,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -805,8 +834,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -857,8 +888,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -909,8 +942,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
@@ -965,8 +1000,10 @@
 					<h3 th:text="${item.title}"></h3>
 
 
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">school</i> <span
