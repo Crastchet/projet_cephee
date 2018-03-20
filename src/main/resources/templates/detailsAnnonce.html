@@ -76,8 +76,9 @@
 						</div>
 					</div>
 				<p>
-					<span style="font-size: 20px;"
-						th:text="'Auteur: ' + ${publi.author.displayname}"></span>
+					<span style="font-size: 20px;">Auteur : 
+							<a th:href="@{/profile(displayname=${publi.author.displayname})}" th:text="${publi.author.displayname}"></a>
+					</span>
 				</p>
 				<p>
 					<span style="font-size: 20px;"
@@ -95,8 +96,8 @@
 			<div class="card white">
 
 				<div class="card-content black-text">
-
-
+				
+					<a href="mailto:thibault.coilliaux@gmail.com">Clique ici pour m'envoyer un e-mail</a>
 
 					<h5>Description:</h5>
 					<p th:text="${publi.content}"></p>

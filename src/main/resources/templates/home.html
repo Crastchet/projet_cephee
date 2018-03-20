@@ -51,12 +51,15 @@
 								<h3 th:text="${item.title}"></h3>
 			
 			
-								<span style="font-size: 20px;"
-									th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+								<span style="font-size: 20px;">Créé par : 
+									<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+								</span>
+								<span
 									style="font-size: 20px; float: right;"
-									th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
-									<i class="material-icons">school</i> <span
-										th:text="'Catégories : '"></span>
+									th:text="'Créé le : ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}">
+								</span> <br></br>
+								<i class="material-icons">school</i>
+								<span th:text="'Catégories : '"></span>
 								<ul>
 									<th:block th:object="${item}"
 										th:each="it : ${item.category}">
@@ -102,10 +105,12 @@
 							<h3 th:text="${item.title}"></h3>
 		
 		
-							<span style="font-size: 20px;"
-								th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
 								style="font-size: 20px; float: right;"
-								th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+								th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
 									th:text="'Catégories : '"></span>
 							<ul>
@@ -158,10 +163,12 @@
 							<h3 th:text="${item.title}"></h3>
 		
 		
-							<span style="font-size: 20px;"
-								th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
 								style="font-size: 20px; float: right;"
-								th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+								th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
 									th:text="'Catégories : '"></span>
 							<ul>
@@ -215,10 +222,19 @@
 								<h3 th:text="${item2.title}"></h3>
 			
 			
+<<<<<<< HEAD
 								<span style="font-size: 20px;"
 									th:text="'Cree par: ' + ${item2.author.displayname}"></span> <span
 									style="font-size: 20px; float: right;"
 									th:text="'Cree le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+=======
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
+									style="font-size: 20px; float: right;"
+									th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+>>>>>>> 9d6444b8c6b5757f7c173f1c14047c7a36c9c023
 									<i class="material-icons">school</i> <span
 										th:text="'Catégories : '"></span>
 								<ul>
@@ -266,10 +282,19 @@
 							<h3 th:text="${item2.title}"></h3>
 		
 		
+<<<<<<< HEAD
 							<span style="font-size: 20px;"
 								th:text="'Cree par: ' + ${item2.author.displayname}"></span> <span
 								style="font-size: 20px; float: right;"
 								th:text="'Cree le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+=======
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
+								style="font-size: 20px; float: right;"
+								th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+>>>>>>> 9d6444b8c6b5757f7c173f1c14047c7a36c9c023
 								<i class="material-icons">school</i> <span
 									th:text="'Catégories : '"></span>
 							<ul>
@@ -322,10 +347,19 @@
 							<h3 th:text="${item2.title}"></h3>
 		
 		
+<<<<<<< HEAD
 							<span style="font-size: 20px;"
 								th:text="'Cree par: ' + ${item2.author.displayname}"></span> <span
 								style="font-size: 20px; float: right;"
 								th:text="'Cree le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+=======
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
+								style="font-size: 20px; float: right;"
+								th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+>>>>>>> 9d6444b8c6b5757f7c173f1c14047c7a36c9c023
 								<i class="material-icons">school</i> <span
 									th:text="'Catégories : '"></span>
 							<ul>
@@ -394,10 +428,19 @@
 					<h3 class="titre" th:text="${item3.title}"></h3>
 
 
+<<<<<<< HEAD
 					<span style="font-size: 20px;"
 						th:text="'Cree par: ' + ${item3.author.displayname}"></span> <span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item3.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+=======
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+>>>>>>> 9d6444b8c6b5757f7c173f1c14047c7a36c9c023
 				</div>
 
 					<!-- Evenements -->
@@ -435,10 +478,19 @@
 					<h3 class="titre" th:text="${item3.title}"></h3>
 
 
+<<<<<<< HEAD
 					<span style="font-size: 20px;"
 						th:text="'Cree par: ' + ${item3.author.displayname}"></span> <span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item3.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+=======
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+>>>>>>> 9d6444b8c6b5757f7c173f1c14047c7a36c9c023
 				</div>
 
 
@@ -482,10 +534,19 @@
 					<h3 class="titre" th:text="${item3.title}"></h3>
 
 
+<<<<<<< HEAD
 					<span style="font-size: 20px;"
 						th:text="'Cree par: ' + ${item3.author.displayname}"></span> <span
 						style="font-size: 20px; float: right;"
 						th:text="'Cree le: ' + ${#dates.format(item3.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+=======
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+>>>>>>> 9d6444b8c6b5757f7c173f1c14047c7a36c9c023
 						<!-- <i class="material-icons">school</i> <span
 							th:text="'Catégories : '"></span>
 					<ul>
@@ -519,6 +580,513 @@
 	</div>
 	    </div>
   	</div>
+<<<<<<< HEAD
+=======
+  	
+  	
+  	
+	<goodvibes style="margin-left: 300px;font-size: 50px;">Les 10 dernières publications</goodvibes>
+	<div class="carousel" data-indicators="true" style="height:800px;">
+		<div class="carousel-item" style="height:600px; width:600px;" th:each="item : *{listlasttenpub}">
+			  	<!-- Evenements -->
+				<div class="card light-blue lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
+				
+					<div class="card-content white-text">
+						<span style="font-size: 20px; float: right;"
+							th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+						<span style="font-size: 20px; float: right;"
+							th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+						<span style="font-size: 20px; float: right;"
+							th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+						<h3 th:text="${item.title}"></h3>
+	
+	
+						<span style="font-size: 20px;">Créé par : 
+							<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+						</span>
+						<span
+							style="font-size: 20px; float: right;"
+							th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+							<i class="material-icons">school</i> <span
+								th:text="'Catégories : '"></span>
+						<ul>
+							<th:block th:object="${item}"
+								th:each="it : ${item.category}">
+								<li th:text="${it.title}"></li>
+							</th:block>
+						</ul>
+					</div>
+					<div style="background-color: white;">
+	
+						<!-- Evenements -->
+						<div class="card-content black-text"
+							th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
+							<i class="material-icons">access_time</i> <span
+								th:text="'Date et Heure : ' + ${item.startevent}"></span> <br></br>
+							<i class="material-icons">location_on</i> <span
+								th:text="'Lieu evenement ' + ${item.location}"></span> <br></br>
+							<i class="material-icons">people</i> <span
+								th:text="'Nombre de participants: ' + ${item.nbparticipant}">
+							</span>
+							<h5>Description:</h5>
+							<p th:text="${item.content}"></p>
+						</div>
+	
+					</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details/Participer</a> <a>Signaler</a>
+				</div>
+				
+			</div>
+			
+			<!-- Projets -->
+			<div class="card teal lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+			
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+
+					<!-- Projets -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+
+						<i class="material-icons">school</i> <span
+							th:text="'Competences requises: '"></span>
+						<ul>
+							<th:block th:object="${item}"
+								th:each="it : ${item.listcompetence}">
+								<li th:text="${it.title}">Item description here...</li>
+							</th:block>
+						</ul>
+						<br></br> <br></br>
+
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details</a> <a>Signaler</a>
+				</div>
+			
+			</div>
+			
+			<!-- Annonces -->
+			<div class="card yellow darken-1" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+			
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+
+					<!-- Annonces/Echanges -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+
+
+
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details</a> <a>Signaler</a>
+				</div>
+			</div>
+		</div>
+	  </div>
+	
+	
+	<div class="row">
+	
+	<div class="col s12 m4 offset-m1">
+	<goodvibes style="font-size: 50px;">Les 10 dernières publications</goodvibes>
+		<div class="col s12" th:each="item : *{listlasttenpub}">
+			
+			<!-- Evenements -->
+			<div class="card light-blue lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
+				
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+					<!-- Evenements -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
+						<i class="material-icons">access_time</i> <span
+							th:text="'Date et Heure : ' + ${item.startevent}"></span> <br></br>
+						<i class="material-icons">location_on</i> <span
+							th:text="'Lieu evenement ' + ${item.location}"></span> <br></br>
+						<i class="material-icons">people</i> <span
+							th:text="'Nombre de participants: ' + ${item.nbparticipant}">
+						</span>
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details/Participer</a> <a>Signaler</a>
+				</div>
+				
+			</div>
+			
+			
+			<!-- Projets -->
+			<div class="card teal lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+			
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+
+					<!-- Projets -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+
+						<i class="material-icons">school</i> <span
+							th:text="'Competences requises: '"></span>
+						<ul>
+							<th:block th:object="${item}"
+								th:each="it : ${item.listcompetence}">
+								<li th:text="${it.title}">Item description here...</li>
+							</th:block>
+						</ul>
+						<br></br> <br></br>
+
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details</a> <a>Signaler</a>
+				</div>
+			
+			</div>
+			
+			<!-- Annonces -->
+			<div class="card yellow darken-1" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+			
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+
+					<!-- Annonces/Echanges -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+
+
+
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details</a> <a>Signaler</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col s12 m4 offset-m1">
+	<goodvibes style="font-size: 50px;">Les publications que vous recherchez</goodvibes>
+		<div class="col s12" th:each="item : *{listSearched}">
+			
+			<!-- Evenements -->
+			<div class="card light-blue lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
+				
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+					<!-- Evenements -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
+						<i class="material-icons">access_time</i> <span
+							th:text="'Date et Heure : ' + ${item.startevent}"></span> <br></br>
+						<i class="material-icons">location_on</i> <span
+							th:text="'Lieu evenement ' + ${item.location}"></span> <br></br>
+						<i class="material-icons">people</i> <span
+							th:text="'Nombre de participants: ' + ${item.nbparticipant}">
+						</span>
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details/Participer</a> <a>Signaler</a>
+				</div>
+				
+			</div>
+			
+			
+			<!-- Projets -->
+			<div class="card teal lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+			
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+
+					<!-- Projets -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+
+						<i class="material-icons">school</i> <span
+							th:text="'Competences requises: '"></span>
+						<ul>
+							<th:block th:object="${item}"
+								th:each="it : ${item.listcompetence}">
+								<li th:text="${it.title}">Item description here...</li>
+							</th:block>
+						</ul>
+						<br></br> <br></br>
+
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details</a> <a>Signaler</a>
+				</div>
+			
+			</div>
+			
+			<!-- Annonces -->
+			<div class="card yellow darken-1" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+			
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;">Créé par : 
+						<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+					</span>
+					<span
+						style="font-size: 20px; float: right;"
+						th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						<i class="material-icons">school</i> <span
+							th:text="'Catégories : '"></span>
+					<ul>
+						<th:block th:object="${item}"
+							th:each="it : ${item.category}">
+							<li th:text="${it.title}"></li>
+						</th:block>
+					</ul>
+				</div>
+				<div style="background-color: white;">
+
+
+					<!-- Annonces/Echanges -->
+					<div class="card-content black-text"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+
+
+
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				</div>
+
+				<div class="card-action" style="background-color: white;"><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details</a> <a>Signaler</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+>>>>>>> 9d6444b8c6b5757f7c173f1c14047c7a36c9c023
 
 
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>

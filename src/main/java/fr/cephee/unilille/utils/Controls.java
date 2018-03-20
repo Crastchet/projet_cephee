@@ -40,7 +40,6 @@ public abstract class Controls {
 	
 	public static void checkDescription(String description) throws DescriptionException {
 		String realDescription = description.replace(" ", "");
-		System.out.println(realDescription);
 		if(realDescription.length() > DESCRIPTION_SIZE_MAX)
 			throw new DescriptionException("Description ne peut pas être plus grande que " + DESCRIPTION_SIZE_MAX + " caractères");
 		if(realDescription.length() < DESCRIPTION_SIZE_MIN)
