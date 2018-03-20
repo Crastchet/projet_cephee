@@ -61,9 +61,18 @@ public class InteractionController {
 		// Get system properties
 		Properties properties = System.getProperties();
 
-		// Setup mail server
-		properties.setProperty("mail.smtp.host", host);
-
+//		// Setup mail server
+//		properties.setProperty("mail.smtp.host", host);
+//		
+//		// Setup server port
+//		properties.setProperty("mail.smtp.port", "465");
+		
+		properties.put("mail.smtp.auth", "false");
+	     //Put below to false, if no https is needed
+	    properties.put("mail.smtp.starttls.enable", "false");
+	    properties.put("mail.smtp.host", host);
+//	    properties.put("mail.smtp.port", "465");
+		
 		// Get the default Session object.
 		javax.mail.Session mailSession = Session.getDefaultInstance(properties);
 
