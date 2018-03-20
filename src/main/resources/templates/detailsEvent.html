@@ -83,8 +83,9 @@
 					</div>
 
 					<p>
-						<span style="font-size: 20px;"
-							th:text="'Auteur: ' + ${publi.author.displayname}"></span>
+						<span style="font-size: 20px;">Auteur : 
+							<a th:href="@{/profile(displayname=${publi.author.displayname})}" th:text="${publi.author.displayname}"></a>
+						</span>
 					</p>
 					<p>
 						<span style="font-size: 20px;"

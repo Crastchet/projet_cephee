@@ -1,49 +1,152 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection" th:href="@{/css/materialize.min.css}" /> 
-	<link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+	media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="css/style.css"
+	media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="css/profile.css"
+	media="screen,projection" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8" />
 </head>
 
+
 <body background="img/spiration-light.png">
+
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
-	<div style="float: left; margin-left: 30px;">
-		<blockquote>
-			<h3 th:text="'Profil de ' + ${member.displayname}"></h3>
-		</blockquote>
-	</div>
-	
-	<div th:replace="profileHeader">&nbsp;</div>	
+	<div id="profileBigScreen" class="row">
+
+		<div th:replace="profileHeader">&nbsp;</div>
+
+		<div id="divmesinformations" class="col s12 m6 l4" style="display: none">
+
+			<p>
+				<goodvibes style="font-size: 25px">Ses informations</goodvibes>
+			</p>
+
+			<goodvibes style="font-size: 15px">Son pseudo : </goodvibes>
+			<p th:text="${member.displayname}"></p>
+			<goodvibes style="font-size: 15px">Sa description : </goodvibes>
+			<p th:text="${member.description}"></p>
+			<br></br>
+			<goodvibes style="font-size: 15px">Son email : </goodvibes>
+			<p th:text="${member.email}"></p>
+		</div>
+
+		<div id="divmescompetences" class="col s12 m6 l4" style="margin-top:10px; display: none">
+
+			<goodvibes style="font-size: 25px">Ses compétences</goodvibes>
+
+			<ul id="mySkills">
+				<li th:each="skill : *{skills}">
+					<p
+						th:text="${skill.competence.title} + ' [Niv:' + ${skill.level} + ']'"></p>
+				</li>
+			</ul>
+		</div>
 
 
-	<div id="divcompetences" style="float:right;margin-right:550px;display:none">
-		<h4>Ses compétences</h4>
-		<ul class="collection">
-			<li class="collection-item">Sport [static]</li>
-			<li class="collection-item">Musique [static]</li>
+
+		<!--  
+		<ul id="allCompetences">
+		    <li th:each="competence : *{competences}">
+		    	<p th:text="${competence.title}"></p>
+		    </li>
 		</ul>
-		<ul id="dropdown2" class="dropdown-content">
-		    <li><a href="#!">Sport [static]</a></li>
-		    <li><a href="#!">Cuisine [static]</a></li>
-		    <li><a href="#!">Musique [static]</a></li>
-		</ul>
+        <div class="row">
+       		<form class="col s12" action="#" th:action="@{/skillprofileregister}" th:object="${profileSkillForm}" method="post">
+         		<div class="row">
+           			<div class="input-field col s12">
+            			<p>
+							Nom : <input id="skillName" type="text" name="skillName" th:field="*{competenceTitle}" />
+						</p>
+						
+						<p>
+							Niveau : <input id="skillLevel" type="text" name="skillLevel" th:field="*{level}" />
+						</p>
+   					</div>
+           		</div>
+				 <button class="btn waves-effect waves-light" value="Ajouter" type="submit" name="action" id="buttonAddSkill">Submit
+   					 <i class="material-icons right">send</i>
+  				</button>
+			</form>
+			  		</div>
+			
+			-->
+
+		<div id="divpubli" class="col s12 m12 l8" style="margin-top:10px; display: none;">
+			<goodvibes style="font-size: 35px">Ses publications</goodvibes>
+			<div class="row">
+				<div th:each="item : *{publications}" class="col s12 m6 l3">
+					<div th:if="${item.authorised == false}" class="card grey lighten-3" style="height:250px">
+						<div class="card-content black-text" style="height:200px">
+							<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+							<p th:text="${item.content}"></p>
+							<p th:text="${item.dateCreation}"></p>
+							<p th:text="${item.id}"></p>
+						</div>
+						<div class="card-action">
+							<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+								détails</a>
+						</div>
+					</div>
+					<div th:unless="${item.authorised == false}" th:switch="${item.class.name}">
+						<div th:case="'fr.cephee.unilille.model.PublicationEvent'" class="card light-blue lighten-3" style="height:250px">
+							<div class="card-content white-text" style="height:200px">
+								<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+								<p th:text="${item.content}"></p>
+								<p th:text="${item.dateCreation}"></p>
+								<p th:text="${item.id}"></p>
+							</div>
+							<div class="card-action">
+								<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+									détails</a>
+							</div>
+						</div>
+						<div th:case="'fr.cephee.unilille.model.PublicationProject'" class="card teal lighten-3" style="height:250px">
+							<div class="card-content white-text" style="height:200px">
+								<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+								<p th:text="${item.content}"></p>
+								<p th:text="${item.dateCreation}"></p>
+								<p th:text="${item.id}"></p>
+							</div>
+							<div class="card-action">
+								<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+									détails</a>
+							</div>
+						</div>
+						<div th:case="'fr.cephee.unilille.model.PublicationAnnonce'" class="card yellow darken-1" style="height:250px">
+							<div class="card-content white-text" style="height:200px">
+								<span class="card-title" th:text="'Titre: ' + ${item.title}"></span>
+								<p th:text="${item.content}"></p>
+								<p th:text="${item.dateCreation}"></p>
+								<p th:text="${item.id}"></p>
+							</div>
+							<div class="card-action">
+								<a th:href="@{/seedetailspublication(id=${item.id})}">voir
+									détails</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="divrecherche" class="col s12 m12 l8" style="margin-top:10px; display: none;">
+			<goodvibes style="font-size: 35px">Ce qu'il recherche</goodvibes>
+		</div>
+
+		<div id="divnotif" class="col s12 m12 l8" style="margin-top:10px; display: none;">
+			<goodvibes style="font-size: 35px"> Ses notifications </goodvibes>
+		</div>
+
 	</div>
-	
-	<div id="divpubli" style="float:right;margin-right:600px;display:none">
-		<h4> Ses publications (un peu intrusif ça nan ?)</h4>
-	</div>
-	
-	<div id="divrecherche" style="float:right;margin-right:550px;display:none">
-		<h4>Ce qu'il recherche</h4>
-	</div>
-	
-	
+
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
-	
-</body>
 
+</body>
 </html>

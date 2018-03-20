@@ -12,27 +12,31 @@
 	<div id="profileMenu" class="col s12 m12 l4 row">
 		<ul>
 			<li class="col s3 m6 l12">
-				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divmescompetences');afficher_div('divmesinformations');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divnotif');">
+				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divmescompetences');afficher_div('divmesinformations');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divnotif');">
 					<i class="material-icons left">add_circle_outline</i>
-					<span>Vos informations</span>
+					<span th:case="true">Vos informations</span>
+					<span th:case="false">Ses informations</span>
 				</a>
 			</li>
 			<li class="col s3 m6 l12">
-				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divrecherche');masquer_div('divnotif');">
+				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divrecherche');masquer_div('divnotif');">
 					<i class="material-icons left">mode_edit</i>
-					<span>Vos publications</span>
+					<span th:case="true">Vos publications</span>
+					<span th:case="false">Ses publications</span>
 				</a>
 			</li>
 			<li class="col s3 m6 l12">
-				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divrecherche');masquer_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divnotif');">
+				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divrecherche');masquer_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divnotif');">
 					<i class="material-icons left">search</i>
-					<span>Ce que vous recherchez</span>
+					<span th:case="true">Ce que vous recherchez</span>
+					<span th:case="false">Ce qu'il recherche</span>
 				</a>
 			</li>
 			<li class="col s3 m6 l12">
-				<a class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');">
+				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');">
 					<i class="material-icons left">notifications</i>
-					<span>Notifications</span>
+					<span th:case="true">Notifications</span>
+					<span th:case="false">Ses participations</span>
 				</a>
 			</li>
 		</ul>

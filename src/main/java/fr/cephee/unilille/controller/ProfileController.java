@@ -70,6 +70,7 @@ public class ProfileController {
 		model.addAttribute("member", member);
 		
 		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
+		model.addAttribute("membersession", itIsMemberSession);
 		
 		//If it is my Profile
 		if( itIsMemberSession ) {
@@ -89,7 +90,17 @@ public class ProfileController {
 		}
 		
 		//If it is not my Profile
-		return "profileMember";
+		else {
+			//If profile is not activated, it's because he typed url manually
+			if( member.getActivated() == false ) //not supposed to get here so we don't add any specific message
+				return "errorPage";
+			//If profile is activated
+			else {
+				this.addProfilePublications(member, model);
+				this.addProfileSkills(member, model);
+				return "profileMember";
+			}
+		}
 	}
 	
 	
