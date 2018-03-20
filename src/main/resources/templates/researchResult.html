@@ -18,7 +18,8 @@
 		<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-
+	
+	<main>
 	<goodvibes style="margin-left: 300px;font-size: 50px;">Résultats de la recherche</goodvibes>
 	
 		
@@ -194,7 +195,18 @@
 		</div>
 		</div>
 	</div>
-		
+	</main>	
+	<style>
+		body {
+    		display: flex;
+   			min-height: 100vh;
+    		flex-direction: column;
+  		}
+
+  		main {
+    		flex: 1 0 auto;
+  		}
+	</style>
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 </body>
 </html>

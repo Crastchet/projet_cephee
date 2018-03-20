@@ -18,6 +18,8 @@
 
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
+	<main> 
+	
 	<div id="profileBigScreen" class="row">
 
 		<div th:replace="profileHeader">&nbsp;</div>
@@ -148,6 +150,18 @@
 
 	</div>
 
+	<style>
+		body {
+    		display: flex;
+   			min-height: 100vh;
+    		flex-direction: column;
+  		}
+
+  		main {
+    		flex: 1 0 auto;
+  		}
+	</style>
+	</main>
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 
 </body>
