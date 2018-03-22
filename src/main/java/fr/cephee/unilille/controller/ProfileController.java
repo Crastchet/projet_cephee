@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.NotificationPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
 import fr.cephee.unilille.exceptions.CompetenceTitleException;
 import fr.cephee.unilille.exceptions.DescriptionException;
@@ -24,6 +25,7 @@ import fr.cephee.unilille.exceptions.DisplaynameFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Notification;
 import fr.cephee.unilille.model.ProfileActivationForm;
 import fr.cephee.unilille.model.ProfileForm;
 import fr.cephee.unilille.model.ProfileSkillForm;
@@ -44,6 +46,8 @@ public class ProfileController {
 	@Autowired
 	private CompetencePersistence datacom;
 	
+	@Autowired
+	private NotificationPersistence datanotif;
 	
 	/**
 	 * - if /profile - return session profile
@@ -95,6 +99,8 @@ public class ProfileController {
 			}
 			//If it is activated - we don't suggest to activate
 			else {
+				List<Notification> notifs = datanotif.findById(member.getId());
+				model.addAttribute("notifications", notifs);
 				this.addProfilePublications(member, model);
 				this.addProfileSkills(member, model);
 				return "profilePersonnal";
@@ -135,20 +141,49 @@ public class ProfileController {
 	
 	@RequestMapping(value = "/editprofile", method = RequestMethod.GET)
 	public String editProfile(
+			@RequestParam(value="displayname", required=false) String displayname,
 			Model model,
 			HttpSession session) {
+		
+		//If no login is specified, recall for session profile
+		if(displayname == null)
+			return this.editProfile(
+				((Member)session.getAttribute("member")).getDisplayname(),
+				model, 
+				session);
+		
+		//Get member session
 		Member member = (Member)session.getAttribute("member");
-		ProfileForm profileForm = new ProfileForm();
-		profileForm.setDescription(member.getDescription());
-		profileForm.setEmail(member.getEmail());
-		List<Competence> listcompetence = datacom.findAll();
-		model.addAttribute("competenceList", listcompetence);
+		//Add member session to model
 		model.addAttribute("member", member);
-		model.addAttribute("profileForm", profileForm);
-		model.addAttribute("profileSkillForm", new ProfileSkillForm());
-		model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
-		model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
-		return "profileEdit";
+
+		//Get member we editing
+		Member memberProfile = datamem.findByDisplayname(displayname);
+		//If no member for displayname, go error page
+		if(memberProfile == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer ce membre");
+			return "errorPage";
+		}
+		
+		//Search if we are on own profile or not
+		boolean itIsMemberSession = displayname.equals( member.getDisplayname() );
+				
+		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+			model.addAttribute("memberprofile", memberProfile);
+			
+			ProfileForm profileForm = new ProfileForm();
+			profileForm.setDescription(memberProfile.getDescription());
+			profileForm.setEmail(memberProfile.getEmail());
+			List<Competence> listcompetence = datacom.findAll();
+			model.addAttribute("competenceList", listcompetence);
+			
+			model.addAttribute("profileForm", profileForm);
+			model.addAttribute("profileSkillForm", new ProfileSkillForm());
+			model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
+			model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
+			return "profileEdit";
+		}
+		return this.profile(displayname, model, session);
 	}
 	
 	/**
@@ -166,26 +201,41 @@ public class ProfileController {
 			Model model,
 			HttpSession session) {
 		
-		//If no login is specified, recall for session profile
-		if(displayname == null)
-			return this.registerProfileEdition(
-					((Member)session.getAttribute("member")).getDisplayname(),
-					profileForm,
-					model, 
-					session);
+		//Get member session
+		Member member = (Member)session.getAttribute("member");
+		//Add member session to model
+		model.addAttribute("member", member);
+				
+		//If no member is specified, return error
+		if(displayname == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer");
+			return "errorPage";
+		}
+			
+		//Get member we editing
+		Member memberProfile = datamem.findByDisplayname(displayname);
+		//If no member for displayname, go error page
+		if(memberProfile == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer ce membre");
+			return "errorPage";
+		}
 		
-		Member member = datamem.findByDisplayname(displayname);
-		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
+		//Search if we are on own profile or not
+		boolean itIsMemberSession = displayname.equals( member.getDisplayname() );
 		
 		//If try to edit own profile OR If I am an admin
-		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+		if( itIsMemberSession || member.getIsAdmin() ) {
 			try {
 				Controls.checkEmail(profileForm.getEmail());
-				member.setEmail(profileForm.getEmail());
+				memberProfile.setEmail(profileForm.getEmail());
 				Controls.checkDescription(profileForm.getDescription());
-				member.setDescription(profileForm.getDescription());
+				memberProfile.setDescription(profileForm.getDescription());
 				
-				datamem.save(member);
+				datamem.save(memberProfile);
+				
+				//If I edited my own profile, we update session member
+				if( itIsMemberSession )
+					session.setAttribute("member", memberProfile);
 			} catch (EmailFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -194,8 +244,9 @@ public class ProfileController {
 				e.printStackTrace();
 			}
 		}
-		session.setAttribute("member", member);
-		model.addAttribute("member", member);
+		
+		//Add member we editing to model 
+		model.addAttribute("memberprofile", memberProfile);
 		//We return member profile
 		return this.profile(displayname, model, session);
 	}
@@ -216,19 +267,30 @@ public class ProfileController {
 			Model model,
 			HttpSession session) {
 		
-		//If no login is specified, recall for session profile (need to do that because we handle admin situation)
-		if(displayname == null)
-			return this.registerProfileSkill(
-					((Member)session.getAttribute("member")).getDisplayname(),
-					profileSkillForm,
-					model, 
-					session);
+		//Get member session
+		Member member = (Member)session.getAttribute("member");
+		//Add member session to model
+		model.addAttribute("member", member);
 				
-		Member member = datamem.findByDisplayname(displayname);
-		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
+		//If no member is specified, return error
+		if(displayname == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer");
+			return "errorPage";
+		}
+				
+		//Get member we editing
+		Member memberProfile = datamem.findByDisplayname(displayname);
+		//If no member for displayname, go error page
+		if(memberProfile == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer ce membre");
+			return "errorPage";
+		}
+		
+		//Search if we are on own profile or not
+		boolean itIsMemberSession = displayname.equals( member.getDisplayname() );
 		
 		//If try to edit own profile OR If I am an admin
-		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+		if( itIsMemberSession || member.getIsAdmin() ) {
 			try {
 				Controls.checkCompetenceTitle(profileSkillForm.getCompetenceTitle());
 			
@@ -241,12 +303,13 @@ public class ProfileController {
 				
 				Skill skill = new Skill();
 				skill.setCompetence(competence);
-				skill.setLevel(profileSkillForm.getLevel());
-				skill.setMember(member);
+				System.out.println(profileSkillForm.getLevel());
+				skill.setLevel( Integer.parseInt(profileSkillForm.getLevel()) );
+				skill.setMember(memberProfile);
 				dataski.save(skill);
 				//obligé de faire les add et save dans les 2 sens Soso ???
-				member.addSkill(skill);
-				datamem.save(member);
+				memberProfile.addSkill(skill);
+				datamem.save(memberProfile);
 				
 			} catch (CompetenceTitleException e) {
 				// TODO Auto-generated catch block

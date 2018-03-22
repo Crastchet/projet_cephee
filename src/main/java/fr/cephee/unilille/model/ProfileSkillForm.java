@@ -15,7 +15,7 @@ public class ProfileSkillForm {
 	@NotEmpty
 	private String competenceTitle;
 	@NotEmpty
-	private int level;
+	private String level;
 	private List<Competence> listCompetence = new ArrayList<Competence>();
 	
 
@@ -30,10 +30,10 @@ public class ProfileSkillForm {
 	public void setCompetenceTitle(String competenceTitle) {
 		this.competenceTitle = competenceTitle;
 	}
-	public int getLevel() {
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 	public List<Competence> getListCompetence() {

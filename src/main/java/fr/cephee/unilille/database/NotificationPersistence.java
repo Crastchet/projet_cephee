@@ -10,4 +10,5 @@ import fr.cephee.unilille.model.Notification;
 public interface NotificationPersistence  extends CrudRepository<Notification, Integer>{
 	public List<Notification> findByAuthor(Member author);
 	public List<Notification> findByMemberTargeted(Member targetedmember);
+	public List<Notification> findById(Integer id);
 }

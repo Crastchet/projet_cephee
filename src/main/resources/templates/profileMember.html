@@ -35,6 +35,8 @@
 			<br></br>
 			<goodvibes style="font-size: 15px">Son email : </goodvibes>
 			<p th:text="${memberprofile.email}"></p>
+			<a th:if="member.isAdmin" class="waves-effect green darken-1 btn"
+					th:href="@{/editprofile(displayname=${memberprofile.displayname})}" style="height: 40px; width: 200px;">Editer</a>
 		</div>
 
 		<div id="divmescompetences" class="col s12 m6 l4" style="margin-top:10px; display: none">
@@ -124,6 +126,12 @@
 
 		<div id="divnotif" class="col s12 m12 l8" style="margin-top:10px; display: none;">
 			<goodvibes style="font-size: 35px"> Ses notifications </goodvibes>
+			<div th:each="item : *{notifications}" class="col s12 m6 l3">
+						<div class="card-content black-text" style="height:200px">
+							<span class="card-title" th:text="${item.author}"></span>
+							<p class="card-text" th:text="${item.content}"></p>
+						</div>
+			</div>
 		</div>
 
 	</div>

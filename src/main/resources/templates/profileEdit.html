@@ -30,7 +30,7 @@
     <li>
       <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></div>
       <div class="row collapsible-body" style="background-color: white;">
-		<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregisterinfos}" th:object="${profileForm}" method="post" style="background-color: white; clear: both">
+		<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregisterinfos(displayname=${memberprofile.displayname})}" th:object="${profileForm}" method="post" style="background-color: white; clear: both">
 			<p><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></p>
 
 <!-- 			<label for="userDisplayname">Pseudo :</label>  -->
@@ -54,7 +54,7 @@
       <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos compétences</goodvibes></div>
       <div class="row collapsible-body" style="background-color: white;">
 		<form class="col s6 offset-s3" action="#"
-			th:action="@{/editprofileregisterskill}"
+			th:action="@{/editprofileregisterskill(displayname=${memberprofile.displayname})}"
 			th:object="${profileSkillForm}" method="post"
 			style="background-color: white; clear: both">
 			<p>
@@ -89,7 +89,7 @@
 	</div>
 	<div class="row collapsible-body" style="background-color: white;">
 		<form class="col s6 offset-s3" action="#"
-			th:action="@{/editprofileregisterskill}"
+			th:action="@{/editprofileregisterskill(displayname=${memberprofile.displayname})}"
 			th:object="${profileSkillForm}" method="post"
 			style="background-color: white; clear: both">
 			<p>
@@ -103,13 +103,13 @@
 			</div>
 
 			<div class="input-field col s12">
-				<select>
+				<select th:field="*{level}">
 					<option value="" disabled="disabled" selected="selected">Niveau estimé</option>
 					<option value="1">Niveau 1/5</option>
 					<option value="2">Niveau 2/5</option>
 					<option value="3">Niveau 3/5</option>
-					<option value="2">Niveau 4/5</option>
-					<option value="3">Niveau 5/5</option>
+					<option value="4">Niveau 4/5</option>
+					<option value="5">Niveau 5/5</option>
 				</select> <label>Niveau de la compétence</label>
 			</div>
 
