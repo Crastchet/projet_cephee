@@ -89,7 +89,7 @@
 					</p>
 					<p>
 						<span style="font-size: 20px;"
-							th:text="'créé le: ' + ${#dates.format(publi.dateCreation, 'dd-MM-yyyy')}"></span>
+							th:text="'Créé le: ' + ${#dates.format(publi.dateCreation, 'dd-MM-yyyy')}"></span>
 					</p>
 									<i class="material-icons">school</i> <span th:text="'Catégories : '"></span>
 				<ul>
@@ -112,11 +112,11 @@
 
 					<div class="card-content black-text">
 						<i class="material-icons">access_time</i> <span
-							th:text="'Date et Heure Début: ' + ${publi.startevent}"></span> <br></br>
+							th:text="'Date : ' + ${#dates.format(publi.startevent, 'dd-MM-yyyy')}"></span> <br></br>
 						<i class="material-icons">location_on</i> <span
-							th:text="'Lieu événement: ' + ${publi.location}"></span> <br></br>
+							th:text="'Lieu : ' + ${publi.location}"></span> <br></br>
 						<br></br> <i class="material-icons">people</i> <span
-							th:text="'Nombre de participants: ' + ${publi.nbparticipant}">
+							th:text="'Participants : ' + ${publi.nbparticipant}">
 						</span>
 						<h5>Description:</h5>
 						<p th:text="${publi.content}"></p>

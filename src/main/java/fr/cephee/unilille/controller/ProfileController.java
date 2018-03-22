@@ -66,10 +66,22 @@ public class ProfileController {
 					model, 
 					session);
 		
+		//Get member we visiting
 		Member member = datamem.findByDisplayname(displayname);
-		model.addAttribute("member", member);
+		if(member == null)
+			return this.profile(
+					((Member)session.getAttribute("member")).getDisplayname(), 
+					model, 
+					session);
+				
+		//Add session member to model
+		model.addAttribute("member", session.getAttribute("member"));
 		
+		//Add member we visiting to model 
+		model.addAttribute("memberprofile", member);
+		//Search if we are on own profile or not
 		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
+		//Help profile menu to decide which word to display (personnal or not)
 		model.addAttribute("membersession", itIsMemberSession);
 		
 		//If it is my Profile

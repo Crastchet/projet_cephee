@@ -72,11 +72,11 @@
 								<div class="card-content black-text"
 									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
 									<i class="material-icons">access_time</i> <span
-										th:text="'Date et Heure : ' + ${item.startevent}"></span> <br></br>
+										th:text="'Date : ' + ${#dates.format(item.startevent, 'dd-MM-yyyy')}"></span> <br></br>
 									<i class="material-icons">location_on</i> <span
-										th:text="'Lieu evenement ' + ${item.location}"></span> <br></br>
+										th:text="'Lieu : ' + ${item.location}"></span> <br></br>
 									<i class="material-icons">people</i> <span
-										th:text="'Nombre de participants: ' + ${item.nbparticipant}">
+										th:text="'Participants : ' + ${item.nbparticipant}">
 									</span>
 									<h5>Description:</h5>
 									<p th:text="${item.content}"></p>

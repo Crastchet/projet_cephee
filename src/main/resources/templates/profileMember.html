@@ -29,12 +29,12 @@
 			</p>
 
 			<goodvibes style="font-size: 15px">Son pseudo : </goodvibes>
-			<p th:text="${member.displayname}"></p>
+			<p th:text="${memberprofile.displayname}"></p>
 			<goodvibes style="font-size: 15px">Sa description : </goodvibes>
-			<p th:text="${member.description}"></p>
+			<p th:text="${memberprofile.description}"></p>
 			<br></br>
 			<goodvibes style="font-size: 15px">Son email : </goodvibes>
-			<p th:text="${member.email}"></p>
+			<p th:text="${memberprofile.email}"></p>
 		</div>
 
 		<div id="divmescompetences" class="col s12 m6 l4" style="margin-top:10px; display: none">
@@ -82,16 +82,7 @@
 			<goodvibes style="font-size: 35px">Vos publications</goodvibes>
 			<div class="row">
 				<div th:each="item : *{publications}" class="col s12 m6 l3">
-					<div th:if="${item.authorised == false}" class="card grey lighten-3" style="height:250px">
-						<div class="card-content black-text" style="height:200px">
-							<span class="card-title" th:text="${item.title}"></span>
-							<p class="card-text" th:text="${item.content}"></p>
-						</div>
-						<div class="card-action">
-							<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
-						</div>
-					</div>
-					<div th:unless="${item.authorised == false}" th:switch="${item.class.name}">
+					<div th:if="${item.authorised}" th:switch="${item.class.name}">
 						<div th:case="'fr.cephee.unilille.model.PublicationEvent'" class="card light-blue lighten-3" style="height:250px">
 							<div class="card-content black-text" style="height:200px">
 								<span class="card-title" th:text="${item.title}"></span>
@@ -119,6 +110,9 @@
 								<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
 							</div>
 						</div>
+					</div>
+					<div th:unless="${item.authorised == false}" th:switch="${item.class.name}">
+						
 					</div>
 				</div>
 			</div>

@@ -31,12 +31,12 @@
 			</p>
 
 			<goodvibes style="font-size: 15px">Mon pseudo : </goodvibes>
-			<p th:text="${member.displayname}"></p>
+			<p th:text="${memberprofile.displayname}"></p>
 			<goodvibes style="font-size: 15px">Ma description : </goodvibes>
-			<p th:text="${member.description}"></p>
+			<p th:text="${memberprofile.description}"></p>
 			<br></br>
 			<goodvibes style="font-size: 15px">Mon email : </goodvibes>
-			<p th:text="${member.email}"></p>
+			<p th:text="${memberprofile.email}"></p>
 			<a class="waves-effect green darken-1 btn"
 					th:href="@{/editprofile}" style="height: 40px; width: 200px;">Editer</a>
 		</div>
