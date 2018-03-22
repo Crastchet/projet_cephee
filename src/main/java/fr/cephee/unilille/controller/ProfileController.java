@@ -99,7 +99,7 @@ public class ProfileController {
 			}
 			//If it is activated - we don't suggest to activate
 			else {
-				List<Notification> notifs = datanotif.findById(member.getId());
+				List<Notification> notifs = datanotif.findByMemberTargeted(member);
 				model.addAttribute("notifications", notifs);
 				this.addProfilePublications(member, model);
 				this.addProfileSkills(member, model);

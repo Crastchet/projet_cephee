@@ -233,9 +233,10 @@ public class PublicationController {
 					if (publi.getAuthor().getId() != partd.getMem())
 					{
 						Notification notification = new Notification();
-						notification.setContent("L'évènement " + publi.getTitle() + " crée par " + publi.getAuthor() + " a été supprimé");
+						notification.setContent("L'évènement " + publi.getTitle() + " crée par " + publi.getAuthor().getDisplayname() + " a été supprimé");
 						notification.setAuthor(publi.getAuthor());
 						Member member = datamem.findById(partd.getMem());
+						System.out.println("id : " + member.getId() + " name : " + member.getFirstname() + " " + member.getDisplayname());
 						notification.setMemberTargeted(member);
 						System.out.println(partd.getMem());
 						datanotif.save(notification);
