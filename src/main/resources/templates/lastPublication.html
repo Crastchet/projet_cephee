@@ -33,44 +33,7 @@
 		<div class="col s12 m4 offset-m1" style="height: 500px; overflow: hidden; text-overflow: ellipsis;" th:each="item : *{listlasttenpub}">
 			
 			<!-- Evenements -->
-			<div class="card light-blue lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
-				
-				<div class="card-content white-text">
-					<span style="font-size: 20px; float: right;"
-						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
-					<span style="font-size: 20px; float: right;"
-						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
-					<span style="font-size: 20px; float: right;"
-						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
-					<h3 th:text="${item.title}"></h3>
-
-
-					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
-						style="font-size: 20px; float: right;"
-						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
-				</div>
-
-					<!-- Evenements -->
-					<div class="card-content black-text" style="background-color: white;"
-						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
-						<i class="material-icons">access_time</i> <span
-							th:text="'Date et Heure : ' + ${item.startevent}"></span> <br></br>
-						<i class="material-icons">location_on</i> <span
-							th:text="'Lieu evenement ' + ${item.location}"></span> <br></br>
-						<i class="material-icons">people</i> <span
-							th:text="'Nombre de participants: ' + ${item.nbparticipant}">
-						</span>
-						<h5>Description:</h5>
-						<p th:text="${item.content}"></p>
-					</div>
-
-				<div class="card-action" style="background-color: white;"><a
-						th:href="@{/seedetailspublication(id=${item.id})}">voir
-						details/Participer</a> <a>Signaler</a>
-				</div>
-				
-			</div>
+			<div th:replace="fragments/event :: event"></div>
 			
 			
 			<!-- Projets -->

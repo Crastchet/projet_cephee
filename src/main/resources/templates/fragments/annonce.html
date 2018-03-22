@@ -9,6 +9,7 @@
 </head>
 <body>
 
+	<!-- Annonce court -->
 	<div th:fragment="annonce">
 		
 		<!-- Annonces -->
@@ -57,6 +58,59 @@
 						details</a> <a>Signaler</a>
 				</div>
 			</div>
+		</div>
+		
+		<!-- Annonce court -->
+		<div th:fragment="annonceLong">
+			
+			<div class="card yellow darken-1" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+					
+						<div class="card-content white-text">
+							<span style="font-size: 20px; float: right;"
+								th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+							<span style="font-size: 20px; float: right;"
+								th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+							<span style="font-size: 20px; float: right;"
+								th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+							<h3 th:text="${item.title}"></h3>
+		
+		
+							<span style="font-size: 20px;">Créé par : 
+								<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+							</span>
+							<span
+								style="font-size: 20px; float: right;"
+								th:text="'Créé le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+								<i class="material-icons">school</i> <span
+									th:text="'Catégories : '"></span>
+							<ul>
+								<th:block th:object="${item}"
+									th:each="it : ${item.category}">
+									<li th:text="${it.title}"></li>
+								</th:block>
+							</ul>
+						</div>
+						<div style="background-color: white;">
+		
+		
+							<!-- Annonces/Echanges -->
+							<div class="card-content black-text"
+								th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
+		
+		
+		
+								<h5>Description:</h5>
+								<p th:text="${item.content}"></p>
+							</div>
+		
+						</div>
+		
+						<div class="card-action" style="background-color: white;"><a
+								th:href="@{/seedetailspublication(id=${item.id})}">voir
+								details</a> <a>Signaler</a>
+						</div>
+					</div>
+			
 		</div>
 
 </body>
