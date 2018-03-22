@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.NotificationPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
 import fr.cephee.unilille.exceptions.CompetenceTitleException;
 import fr.cephee.unilille.exceptions.DescriptionException;
@@ -24,6 +25,7 @@ import fr.cephee.unilille.exceptions.DisplaynameFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Notification;
 import fr.cephee.unilille.model.ProfileActivationForm;
 import fr.cephee.unilille.model.ProfileForm;
 import fr.cephee.unilille.model.ProfileSkillForm;
@@ -44,6 +46,8 @@ public class ProfileController {
 	@Autowired
 	private CompetencePersistence datacom;
 	
+	@Autowired
+	private NotificationPersistence datanotif;
 	
 	/**
 	 * - if /profile - return session profile
@@ -95,6 +99,8 @@ public class ProfileController {
 			}
 			//If it is activated - we don't suggest to activate
 			else {
+				List<Notification> notifs = datanotif.findById(member.getId());
+				model.addAttribute("notifications", notifs);
 				this.addProfilePublications(member, model);
 				this.addProfileSkills(member, model);
 				return "profilePersonnal";

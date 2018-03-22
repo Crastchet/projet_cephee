@@ -26,12 +26,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.NotificationPersistence;
 import fr.cephee.unilille.database.ParticipantDataPersistence;
 import fr.cephee.unilille.database.PublicationEventPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Notification;
 import fr.cephee.unilille.model.Participantdata;
 import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.PublicationAnnonce;
@@ -55,9 +57,6 @@ public class PublicationController {
 
 	@Autowired
 	private PublicationPersistence datapub;
-	
-	@Autowired
-	private PublicationEventPersistence datapubevent;
 
 	@Autowired
 	private CategoryPersistence dataCate;
@@ -67,6 +66,9 @@ public class PublicationController {
 	
 	@Autowired
 	private ParticipantDataPersistence dataparticipate;
+	
+	@Autowired
+	private NotificationPersistence datanotif;
 
 	@RequestMapping(value = "/formtypepublication")
 	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, HttpSession session) {
@@ -224,7 +226,22 @@ public class PublicationController {
 		try {
 			Publication publi = datapub.findById(publication.getId());
 			if (publi instanceof PublicationEvent)
+			{		
+				List<Participantdata> listparticipant = dataparticipate.findByPubli(publication.getId());
+				for (Participantdata partd : listparticipant)
+				{
+					if (publi.getAuthor().getId() != partd.getMem())
+					{
+						Notification notification = new Notification();
+						notification.setContent("L'évènement " + publi.getTitle() + " crée par " + publi.getAuthor() + " a été supprimé");
+						notification.setAuthor(publi.getAuthor());
+						Member member = datamem.findById(partd.getMem());
+						notification.setMemberTargeted(member);
+						datanotif.save(notification);
+					}
+				}
 				dataparticipate.deleteByPubli(publi.getId());
+			}
 			datapub.delete(publi);
 			model.addAttribute("member", session.getAttribute("member"));
 		} catch (Exception ex) {
