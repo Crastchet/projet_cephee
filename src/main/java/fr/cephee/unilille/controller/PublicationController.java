@@ -230,17 +230,12 @@ public class PublicationController {
 				List<Participantdata> listparticipant = dataparticipate.findByPubli(publication.getId());
 				for (Participantdata partd : listparticipant)
 				{
-					if (publi.getAuthor().getId() != partd.getMem())
-					{
 						Notification notification = new Notification();
 						notification.setContent("L'évènement " + publi.getTitle() + " crée par " + publi.getAuthor().getDisplayname() + " a été supprimé");
 						notification.setAuthor(publi.getAuthor());
 						Member member = datamem.findById(partd.getMem());
-						System.out.println("id : " + member.getId() + " name : " + member.getFirstname() + " " + member.getDisplayname());
 						notification.setMemberTargeted(member);
-						System.out.println(partd.getMem());
 						datanotif.save(notification);
-					}
 				}
 				dataparticipate.deleteByPubli(publi.getId());
 			}
@@ -253,6 +248,7 @@ public class PublicationController {
 		return "redirect:/home";
 	}
 
+	
 	@RequestMapping("/finishedupdating")
 	public String finishedUpdating(@ModelAttribute("publicationForm") PublicationForm publicationForm,
 			@ModelAttribute("publi") Publication publication, BindingResult result, Model model, HttpSession session) {
