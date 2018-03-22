@@ -237,6 +237,7 @@ public class PublicationController {
 						notification.setAuthor(publi.getAuthor());
 						Member member = datamem.findById(partd.getMem());
 						notification.setMemberTargeted(member);
+						System.out.println(partd.getMem());
 						datanotif.save(notification);
 					}
 				}
@@ -245,7 +246,7 @@ public class PublicationController {
 			datapub.delete(publi);
 			model.addAttribute("member", session.getAttribute("member"));
 		} catch (Exception ex) {
-			log.info("exception : " + ex);
+			System.out.println("exception : " + ex);
 			return "errorPage";
 		}
 		return "redirect:/home";
