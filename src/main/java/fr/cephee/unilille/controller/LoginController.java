@@ -22,6 +22,7 @@ import fr.cephee.unilille.database.CategoryPersistence;
 import fr.cephee.unilille.database.MemberInterestPersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.ParticipantDataPersistence;
+import fr.cephee.unilille.database.PublicationEventPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Member;
@@ -54,6 +55,8 @@ public class LoginController {
 	@Autowired
 	private PublicationPersistence datapub;
 
+	@Autowired
+	private PublicationEventPersistence dataevent;
 
 	@RequestMapping(value = {"/", "/home"})
 	public String returnToHome(Model model, HttpSession session, Authentication auth)
@@ -94,10 +97,10 @@ public class LoginController {
 		for (Map.Entry<Category, Integer> entry : memInt.getInterests().entrySet())
 			if (entry.getValue() > 0)
 				lpubtotal.add(datapub.findTop20FiltredPublicationByCategoryandDateCreation(member.getId(), entry.getKey().getId()));
-
+			
 		List<Publication> pubfiltred = new ArrayList<Publication>();
 		for (List<Object> lpub : lpubtotal)
-		{
+		{			
 			Iterator<Object> itr = lpub.iterator();
 			while(itr.hasNext()){
 				Object[] obj = (Object[]) itr.next();
@@ -106,6 +109,7 @@ public class LoginController {
 					if (ob instanceof Publication)
 					{
 						Publication p = (Publication) ob;
+						//System.out.println("publication is : " + p.getTitle() + "  " + p.getClass());
 						if (!pubfiltred.contains(p))
 							pubfiltred.add(p);
 					}
@@ -131,34 +135,35 @@ public class LoginController {
 			}
 		}
 
-		for (Publication p : finalFiltredPub)
+		/*for (Publication p : finalFiltredPub)
 		{
 			log.info("p  : " + p.getTitle());
 			for (Category c : p.getCategory())
 			{
 				log.info("cat = " + c.getTitle());
 			}
-		}
+		}*/
 
 
 		//partie pour les evenements auquels on participe
-		List<Publication> publiuser = member.getListpublication();
+		List<PublicationEvent> publiuser = (List<PublicationEvent>) dataevent.findAll();
 		List<PublicationEvent> publiUserParticipate = new ArrayList<>();
 		List<PublicationEvent> publiUserHasParticipated = new ArrayList<>();
 		Date d = Calendar.getInstance().getTime();
-		for (Publication p : publiuser)
+		for (PublicationEvent p : publiuser)
 		{
-			if (p instanceof PublicationEvent)
-			{
 				Participantdata data = dataparticipant.findByMemByPubli(member.getId(), p.getId());			
 				if (data != null)
-					if (((PublicationEvent) p).getStartevent().after(d))
+					if (p.getStartevent().after(d))
 					{
+						System.out.println("particpe :  " + p.getTitle());
 						publiUserParticipate.add((PublicationEvent) p);	
 					}
 					else
+					{
+						System.out.println("has particped :  " + p.getTitle());
 						publiUserHasParticipated.add((PublicationEvent) p);	
-			}
+					}
 		}
 
 		model.addAttribute("listparticipateuser", publiUserParticipate);
