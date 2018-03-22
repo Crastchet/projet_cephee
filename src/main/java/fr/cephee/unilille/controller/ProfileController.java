@@ -245,7 +245,6 @@ public class ProfileController {
 			}
 		}
 		
-		System.out.println("coucou");
 		//Add member we editing to model 
 		model.addAttribute("memberprofile", memberProfile);
 		//We return member profile
@@ -268,19 +267,30 @@ public class ProfileController {
 			Model model,
 			HttpSession session) {
 		
-		//If no login is specified, recall for session profile (need to do that because we handle admin situation)
-		if(displayname == null)
-			return this.registerProfileSkill(
-					((Member)session.getAttribute("member")).getDisplayname(),
-					profileSkillForm,
-					model, 
-					session);
+		//Get member session
+		Member member = (Member)session.getAttribute("member");
+		//Add member session to model
+		model.addAttribute("member", member);
 				
-		Member member = datamem.findByDisplayname(displayname);
-		boolean itIsMemberSession = displayname.equals( ((Member)session.getAttribute("member")).getDisplayname() );
+		//If no member is specified, return error
+		if(displayname == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer");
+			return "errorPage";
+		}
+				
+		//Get member we editing
+		Member memberProfile = datamem.findByDisplayname(displayname);
+		//If no member for displayname, go error page
+		if(memberProfile == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer ce membre");
+			return "errorPage";
+		}
+		
+		//Search if we are on own profile or not
+		boolean itIsMemberSession = displayname.equals( member.getDisplayname() );
 		
 		//If try to edit own profile OR If I am an admin
-		if( itIsMemberSession || ((Member)session.getAttribute("member")).getIsAdmin() ) {
+		if( itIsMemberSession || member.getIsAdmin() ) {
 			try {
 				Controls.checkCompetenceTitle(profileSkillForm.getCompetenceTitle());
 			
@@ -293,12 +303,13 @@ public class ProfileController {
 				
 				Skill skill = new Skill();
 				skill.setCompetence(competence);
-				skill.setLevel(profileSkillForm.getLevel());
-				skill.setMember(member);
+				System.out.println(profileSkillForm.getLevel());
+				skill.setLevel( Integer.parseInt(profileSkillForm.getLevel()) );
+				skill.setMember(memberProfile);
 				dataski.save(skill);
 				//obligé de faire les add et save dans les 2 sens Soso ???
-				member.addSkill(skill);
-				datamem.save(member);
+				memberProfile.addSkill(skill);
+				datamem.save(memberProfile);
 				
 			} catch (CompetenceTitleException e) {
 				// TODO Auto-generated catch block
