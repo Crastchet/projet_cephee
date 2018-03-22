@@ -2,6 +2,8 @@ package fr.cephee.unilille.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -156,16 +158,30 @@ public class LoginController {
 				if (data != null)
 					if (p.getStartevent().after(d))
 					{
-						System.out.println("particpe :  " + p.getTitle());
+						//System.out.println("particpe :  " + p.getTitle());
 						publiUserParticipate.add((PublicationEvent) p);	
 					}
 					else
 					{
-						System.out.println("has particped :  " + p.getTitle());
+						//System.out.println("has particped :  " + p.getTitle());
 						publiUserHasParticipated.add((PublicationEvent) p);	
 					}
 		}
-
+		
+        Collections.sort(publiUserParticipate, new Comparator<PublicationEvent>(){
+        	 
+            @Override
+            public int compare(PublicationEvent o1, PublicationEvent o2) {
+                return o2.getStartevent().compareTo(o1.getStartevent());
+            }
+        });
+        Collections.sort(publiUserHasParticipated, new Comparator<PublicationEvent>(){
+       	 
+            @Override
+            public int compare(PublicationEvent o1, PublicationEvent o2) {
+                return o2.getStartevent().compareTo(o1.getStartevent());
+            }
+        });
 		model.addAttribute("listparticipateuser", publiUserParticipate);
 		model.addAttribute("listhasparticipateduser", publiUserHasParticipated);
 		model.addAttribute("listlasttenpub", tenLastPub);
@@ -174,6 +190,7 @@ public class LoginController {
 		return "home";
 	}
 
+ 
 	/*
 	@RequestMapping(value = "/logout")
 	public String disconnect(Model model, HttpSession session)
