@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="project">
+		<div class="card teal lighten-3" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+			
+				<div class="card-content white-text">
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+					<span style="font-size: 20px; float: right;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+					<h3 th:text="${item.title}"></h3>
+
+
+					<span style="font-size: 20px;"
+						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+						style="font-size: 20px; float: right;"
+						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+				</div>
+
+
+					<!-- Projets -->
+					<div class="card-content black-text" style="background-color: white;"
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">
+
+						<!-- <i class="material-icons">school</i> <span
+							th:text="'Competences requises: '"></span>
+						<ul>
+							<th:block th:object="${item}"
+								th:each="it : ${item.listcompetence}">
+								<li th:text="${it.title}">Item description here...</li>
+							</th:block>
+						</ul> -->
+
+						<h5>Description:</h5>
+						<p th:text="${item.content}"></p>
+					</div>
+
+				<div class="card-action" style="background-color: white;">
+					<!-- <a
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}"
+						th:text="'Je participe'"></a>  --><a
+						th:href="@{/seedetailspublication(id=${item.id})}">voir
+						details</a> <a>Signaler</a>
+				</div>
+			
+			</div>
+		</div>
+
+</body>
+</html>
