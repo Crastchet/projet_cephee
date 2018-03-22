@@ -219,7 +219,7 @@ public class PublicationController {
 		}
 		return "detailsEvent";
 	}
-
+	
 	@RequestMapping("/deletepublication")
 	public String delete(@ModelAttribute("publi") Publication publication, Model model, HttpSession session) {
 		//log.info("publication is => " + publication.getId() + publication.getTitle() + " " + publication.getContent());

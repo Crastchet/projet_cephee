@@ -126,12 +126,6 @@
 
 		<div id="divnotif" class="col s12 m12 l8" style="margin-top:10px; display: none;">
 			<goodvibes style="font-size: 35px"> Ses notifications </goodvibes>
-			<div th:each="item : *{notifications}" class="col s12 m6 l3">
-						<div class="card-content black-text" style="height:200px">
-							<span class="card-title" th:text="${item.author}"></span>
-							<p class="card-text" th:text="${item.content}"></p>
-						</div>
-			</div>
 		</div>
 
 	</div>

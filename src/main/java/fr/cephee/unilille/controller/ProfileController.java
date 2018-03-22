@@ -137,7 +137,20 @@ public class ProfileController {
 	}
 	
 	
-	
+	@RequestMapping("/deletenotification")
+	public String deleteNotif(Integer notification, Model model, HttpSession session)
+	{
+						
+		Member member = (Member) session.getAttribute("member");
+		model.addAttribute("membersession", true);
+		model.addAttribute("memberprofile", member);
+		model.addAttribute("member", session.getAttribute("member"));
+		
+		datanotif.delete(notification);
+		List<Notification> notifs = datanotif.findByMemberTargeted(member);
+		model.addAttribute("notifications", notifs);
+		return "profilePersonnal";
+	}
 	
 	@RequestMapping(value = "/editprofile", method = RequestMethod.GET)
 	public String editProfile(
