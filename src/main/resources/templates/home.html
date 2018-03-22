@@ -220,16 +220,11 @@
 									th:if="${item2.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
 								<h3 th:text="${item2.title}"></h3>
 			
-								<span style="font-size: 20px;"
-									th:text="'Crée par: ' + ${item2.author.displayname}"></span> <span
-									style="font-size: 20px; float: right;"
-									th:text="'Crée le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 							<span style="font-size: 20px;">Créé par : 
 								<a th:href="@{/profile(displayname=${item2.author.displayname})}" th:text="${item2.author.displayname}"></a>
 							</span>
-							<span
-									style="font-size: 20px; float: right;"
-									th:text="'Créé le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+							<span style="font-size: 20px; float: right;" th:text="'Créé le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+
 									<i class="material-icons">school</i> <span
 										th:text="'Catégories : '"></span>
 								<ul>
@@ -275,16 +270,12 @@
 							<span style="font-size: 20px; float: right;"
 								th:if="${item2.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
 							<h3 th:text="${item2.title}"></h3>
-							<span style="font-size: 20px;"
-								th:text="'Crée par: ' + ${item2.author.displayname}"></span> <span
-								style="font-size: 20px; float: right;"
-								th:text="'Crée le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+
 							<span style="font-size: 20px;">Créé par : 
 								<a th:href="@{/profile(displayname=${item2.author.displayname})}" th:text="${item2.author.displayname}"></a>
 							</span>
 							<span
-								style="font-size: 20px; float: right;"
-								th:text="'Créé le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+								style="font-size: 20px; float: right;" th:text="'Créé le : ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
 									th:text="'Catégories : '"></span>
 							<ul>
@@ -335,16 +326,11 @@
 							<span style="font-size: 20px; float: right;"
 								th:if="${item2.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
 							<h3 th:text="${item2.title}"></h3>
-							<span style="font-size: 20px;"
-								th:text="'Crée par: ' + ${item2.author.displayname}"></span> <span
-								style="font-size: 20px; float: right;"
-								th:text="'Crée le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 							<span style="font-size: 20px;">Créé par : 
 								<a th:href="@{/profile(displayname=${item2.author.displayname})}" th:text="${item2.author.displayname}"></a>
 							</span>
 							<span
-								style="font-size: 20px; float: right;"
-								th:text="'Créé le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+								style="font-size: 20px; float: right;" th:text="'Créé le: ' + ${#dates.format(item2.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 								<i class="material-icons">school</i> <span
 									th:text="'Catégories : '"></span>
 							<ul>
@@ -411,10 +397,7 @@
 					<span style="font-size: 20px; float: right;"
 						th:if="${item3.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
 					<h3 class="titre" th:text="${item3.title}"></h3>
-					<span style="font-size: 20px;"
-						th:text="'Crée par: ' + ${item3.author.displayname}"></span> <span
-						style="font-size: 20px; float: right;"
-						th:text="'Crée le: ' + ${#dates.format(item3.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+
 					<span style="font-size: 20px;">Créé par : 
 						<a th:href="@{/profile(displayname=${item3.author.displayname})}" th:text="${item3.author.displayname}"></a>
 					</span>
@@ -456,10 +439,7 @@
 					<span style="font-size: 20px; float: right;"
 						th:if="${item3.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
 					<h3 class="titre" th:text="${item3.title}"></h3>
-					<span style="font-size: 20px;"
-						th:text="'Crée par: ' + ${item3.author.displayname}"></span> <span
-						style="font-size: 20px; float: right;"
-						th:text="'Crée le: ' + ${#dates.format(item3.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+
 					<span style="font-size: 20px;">Créé par : 
 						<a th:href="@{/profile(displayname=${item3.author.displayname})}" th:text="${item3.author.displayname}"></a>
 					</span>
@@ -507,10 +487,7 @@
 					<span style="font-size: 20px; float: right;"
 						th:if="${item3.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
 					<h3 class="titre" th:text="${item3.title}"></h3>
-					<span style="font-size: 20px;"
-						th:text="'Crée par: ' + ${item3.author.displayname}"></span> <span
-						style="font-size: 20px; float: right;"
-						th:text="'Crée le: ' + ${#dates.format(item3.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+
 					<span style="font-size: 20px;">Créé par : 
 						<a th:href="@{/profile(displayname=${item3.author.displayname})}" th:text="${item3.author.displayname}"></a>
 					</span>
@@ -550,6 +527,7 @@
 	</div>
 	    </div>
   	</div>
+
 
 
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>

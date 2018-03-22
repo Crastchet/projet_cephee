@@ -15,6 +15,27 @@
 		margin:10px;
 	}
 	
+	/* CARDS VOS PUBLICATIONS */
+	#divpubli span.card-title {
+		height:50px;
+		font-size:19px !important;
+		line-height:21px;
+		overflow:hidden;
+	}
+	
+	#divpubli div.card-content {
+		padding:20px;
+	}
+	
+	#divpubli div.card-content p.card-text {
+		overflow:scroll;
+		height:132px;
+	}
+	
+	#divpubli div.card-content p.card-text::-webkit-scrollbar {
+		width:0 !important;
+	}
+	
 }
 
 @media only screen and (min-width: 601px) and (max-width: 992px) { 
