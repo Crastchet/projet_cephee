@@ -33,14 +33,9 @@
 							</a>
 							<ul>
 								<li>
-									<form action="#" th:action="@{/deletepublication}"
-										th:object="${publi}" method="post">
-										<button class="btn-floating red" id="boutonSuppression"
-											type="submit" name="action"
-											title="Supprimer cette publication">
-											<i class="material-icons right">delete_forever</i>
-										</button>
-									</form>
+									
+								  <!-- Modal Trigger -->
+								  <button data-target="modal2" class="btn-floating red modal-trigger"><i class="material-icons right">delete_forever</i></button>
 								</li>
 
 								<li>
@@ -77,7 +72,18 @@
 							</ul>
 						</div>
 					</div>
-
+								<!-- Modal Structure -->
+								  <div id="modal2" class="modal open" style="opacity: 1; transform: scaleX(1); top: 10%;background-color: white;">
+								    <div class="modal-content">
+								      <goodvibes style="font-size: 25px; color: black">Supprimer cette publication définitivement ?</goodvibes>
+								    </div>
+								    <div class="modal-footer">
+								      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
+								      
+								      <a href="#!" th:href="@{/deletepublication}" th:object="${publi}" class="modal-action modal-close waves-effect waves-green btn-flat" >Confirmer</a>
+								      
+								    </div>
+								  </div>
 					<p>
 						<span style="font-size: 20px;">Auteur : 
 							<a th:href="@{/profile(displayname=${publi.author.displayname})}" th:text="${publi.author.displayname}"></a>
