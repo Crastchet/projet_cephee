@@ -50,26 +50,26 @@
 								</form>
 							</li>
 
-							<li>
-								<form action="#" th:action="@{/notpublish}" th:object="${publi}"
-									method="post">
-									<button class="btn-floating blue" id="boutonMasquer"
-										type="submit" name="action" title="Masquer cette publication">
-										<i class="material-icons right">lock_outline</i>
-									</button>
-								</form>
-							</li>
+							<li th:if="${publi.authorised}">
+									<form action="#" th:action="@{/notpublish}"
+										th:object="${publi}" method="post">
+										<button class="btn-floating blue" id="boutonMasquer"
+											type="submit" name="action" title="Masquer cette publication">
+											<i class="material-icons right">lock_outline</i>
+										</button>
+									</form>
+								</li>
 
-							<li>
-								<form action="#" th:action="@{/publish}" th:object="${publi}"
-									method="post">
-									<button class="btn-floating yellow" id="boutonApparition"
-										type="submit" name="action"
-										title="Faire apparaître cette publication">
-										<i class="material-icons right">lock_open</i>
-									</button>
-								</form>
-							</li>
+								<li th:unless="${publi.authorised}">
+									<form action="#" th:action="@{/publish}" th:object="${publi}"
+										method="post">
+										<button class="btn-floating yellow" id="boutonApparition"
+											type="submit" name="action"
+											title="Faire apparaître cette publication">
+											<i class="material-icons right">lock_open</i>
+										</button>
+									</form>
+								</li>
 						</ul>
 						<!-- <form action="#" th:action="@{/participate}" th:object="${publi}"
 							method="post">

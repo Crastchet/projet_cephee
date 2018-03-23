@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.servlet.http.HttpSession;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
@@ -12,6 +13,8 @@ import javax.mail.internet.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +33,6 @@ public class InteractionController {
 	
 	@Autowired
 	private PublicationPersistence datapub;
-	
 	
 	
 	@RequestMapping(value = "/getsendemail")
@@ -54,24 +56,26 @@ public class InteractionController {
 		Publication publication = datapub.findById(publicationId);
 		String receiverEmail = publication.getAuthor().getEmail();
 		
-		
-		// Assuming you are sending email from localhost
-		String host = "localhost";
 
+		// Assuming you are sending email from lille1-smtp
+		String host = "smtps.univ-lille1.fr";
+		String port = "587";
+
+		
 		// Get system properties
 		Properties properties = System.getProperties();
 
-//		// Setup mail server
-//		properties.setProperty("mail.smtp.host", host);
-//		
-//		// Setup server port
-//		properties.setProperty("mail.smtp.port", "465");
+		// Setup mail server
+		properties.setProperty("mail.smtp.host", host);
 		
-		properties.put("mail.smtp.auth", "false");
-	     //Put below to false, if no https is needed
-	    properties.put("mail.smtp.starttls.enable", "false");
-	    properties.put("mail.smtp.host", host);
-//	    properties.put("mail.smtp.port", "465");
+		// Setup server port
+		properties.setProperty("mail.smtp.port", port);
+		
+		//Set authentication to TRUE
+		properties.setProperty("mail.smtp.auth", "true");
+		
+		properties.setProperty("mail.smtp.starttls.enable", "true");
+		
 		
 		// Get the default Session object.
 		javax.mail.Session mailSession = Session.getDefaultInstance(properties);
@@ -93,7 +97,7 @@ public class InteractionController {
 			message.setText(content);
 
 			// Send message
-			Transport.send(message);
+			Transport.send(message, "sofian.casier", "C&?1+mur");
 			model.addAttribute("displaymessage", "Sent email successfully....");
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
@@ -103,4 +107,5 @@ public class InteractionController {
 		model.addAttribute("member", member);
 		return "errorPage";
 	}
+	
 }

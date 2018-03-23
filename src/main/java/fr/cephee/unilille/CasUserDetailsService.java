@@ -31,10 +31,11 @@ public class CasUserDetailsService extends AbstractCasAssertionUserDetailsServic
     @Value("${attribute.firstName}")
     private String firstNameAttribute;
     
+
     @Override
     protected UserDetails loadUserDetails(Assertion asrtn) {
         
-        AttributePrincipal principal = asrtn.getPrincipal();     
+        AttributePrincipal principal = asrtn.getPrincipal();
         
         // retrieve CAS ID
         String id = principal.getName();
@@ -60,7 +61,7 @@ public class CasUserDetailsService extends AbstractCasAssertionUserDetailsServic
             
             if(entry.getKey().equalsIgnoreCase(firstNameAttribute)) {
                 firstName = (String) entry.getValue();
-            }            
+            }
         }
 
         return new Member(id, "", authorities, mail, lastName, firstName);  

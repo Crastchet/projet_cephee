@@ -54,7 +54,7 @@
 									</form>
 								</li>
 
-								<li>
+								<li th:if="${publi.authorised}">
 									<form action="#" th:action="@{/notpublish}"
 										th:object="${publi}" method="post">
 										<button class="btn-floating blue" id="boutonMasquer"
@@ -64,7 +64,7 @@
 									</form>
 								</li>
 
-								<li>
+								<li th:unless="${publi.authorised}">
 									<form action="#" th:action="@{/publish}" th:object="${publi}"
 										method="post">
 										<button class="btn-floating yellow" id="boutonApparition"
