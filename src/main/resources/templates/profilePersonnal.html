@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title th:text="#{prof.title}"></title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css"
@@ -84,7 +85,7 @@
 
 		<div id="divpubli" class="col s12 m12 l8"
 			style="margin-top: 10px; display: none;">
-			<goodvibes style="font-size: 35px">Vos publications</goodvibes>
+			<goodvibes style="font-size: 35px" th:text="#{prof.pub}"></goodvibes>
 			<div class="row">
 				<div th:each="item : *{publications}" class="col s12 m6 l3">
 					<div th:if="${item.authorised == false}"

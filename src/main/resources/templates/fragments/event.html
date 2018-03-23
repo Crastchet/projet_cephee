@@ -16,37 +16,37 @@
 				
 				<div class="card-content white-text">
 					<span style="font-size: 20px; float: right;"
-						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}" th:text="#{publi.event}"></span>
 					<span style="font-size: 20px; float: right;"
-						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}" th:text="#{publi.proj}"></span>
 					<span style="font-size: 20px; float: right;"
-						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}" th:text="#{publi.anno}"></span>
 					<h3 th:text="${item.title}"></h3>
 
 
 					<span style="font-size: 20px;"
-						th:text="'Cree par: ' + ${item.author.displayname}"></span> <span
+						th:text="#{publi.auteurCrea} + ${item.author.displayname}"></span> <span
 						style="font-size: 20px; float: right;"
-						th:text="'Cree le: ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
+						th:text="#{publi.dateCrea} + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></span> <br></br>
 				</div>
 
 					<!-- Evenements -->
 					<div class="card-content black-text" style="background-color: white;"
 						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
 						<i class="material-icons">access_time</i> <span
-							th:text="'Date et Heure : ' + ${item.startevent}"></span> <br></br>
+							th:text="#{publi.date} + ${item.startevent}"></span> <br></br>
 						<i class="material-icons">location_on</i> <span
-							th:text="'Lieu evenement ' + ${item.location}"></span> <br></br>
+							th:text="#{publi.lieu} + ${item.location}"></span> <br></br>
 						<i class="material-icons">people</i> <span
-							th:text="'Nombre de participants: ' + ${item.nbparticipant}">
+							th:text="#{publi.particip} + ${item.nbparticipant}">
 						</span>
-						<h5>Description:</h5>
+						<h5 th:text="#{publi.descr}"></h5>
 						<p th:text="${item.content}"></p>
 					</div>
 
 				<div class="card-action" style="background-color: white;"><a
-						th:href="@{/seedetailspublication(id=${item.id})}">voir
-						details/Participer</a> <a>Signaler</a>
+						th:href="@{/seedetailspublication(id=${item.id})}" th:text="#{publi.voirParti}"></a> 
+						<a th:text="#{publi.signa}"></a>
 				</div>
 				
 			</div>
@@ -59,23 +59,23 @@
 						
 							<div class="card-content white-text">
 								<span style="font-size: 20px; float: right;"
-									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">Evenement</span>
+									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}" th:text="#{publi.event}"></span>
 								<span style="font-size: 20px; float: right;"
-									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}">Projet</span>
+									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationProject'}" th:text="#{publi.proj}"></span>
 								<span style="font-size: 20px; float: right;"
-									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">Annonce</span>
+									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}" th:text="#{publi.anno}"></span>
 								<h3 th:text="${item.title}"></h3>
 			
 			
-								<span style="font-size: 20px;">Créé par : 
-									<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="${item.author.displayname}"></a>
+								<span style="font-size: 20px;">
+									<a th:href="@{/profile(displayname=${item.author.displayname})}" th:text="#{publi.auteurCrea} + ${item.author.displayname}"></a>
 								</span>
 								<span
 									style="font-size: 20px; float: right;"
-									th:text="'Créé le : ' + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}">
+									th:text="#{publi.dateCrea} + ${#dates.format(item.dateCreation, 'dd-MM-yyyy')}">
 								</span> <br></br>
 								<i class="material-icons">school</i>
-								<span th:text="'Catégories : '"></span>
+								<span th:text="#{publi.cat}"></span>
 								<ul>
 									<th:block th:object="${item}"
 										th:each="it : ${item.category}">
@@ -89,21 +89,21 @@
 								<div class="card-content black-text"
 									th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}">
 									<i class="material-icons">access_time</i> <span
-										th:text="'Date : ' + ${#dates.format(item.startevent, 'dd-MM-yyyy')}"></span> <br></br>
+										th:text="#{publi.date} + ${#dates.format(item.startevent, 'dd-MM-yyyy')}"></span> <br></br>
 									<i class="material-icons">location_on</i> <span
-										th:text="'Lieu : ' + ${item.location}"></span> <br></br>
+										th:text="#{publi.lieu} + ${item.location}"></span> <br></br>
 									<i class="material-icons">people</i> <span
-										th:text="'Participants : ' + ${item.nbparticipant}">
+										th:text="#{publi.particip} + ${item.nbparticipant}">
 									</span>
-									<h5>Description:</h5>
+									<h5 th:text="#{publi.descr}"></h5>
 									<p th:text="${item.content}"></p>
 								</div>
 			
 							</div>
 		
 						<div class="card-action" style="background-color: white;"><a
-								th:href="@{/seedetailspublication(id=${item.id})}">voir
-								details/Participer</a> <a>Signaler</a>
+								th:href="@{/seedetailspublication(id=${item.id})}" th:text="#{publi.voirParti}"></a> 
+								<a th:text="#{publi.signa}"></a>
 						</div>
 						
 					</div>
