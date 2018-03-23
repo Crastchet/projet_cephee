@@ -18,6 +18,8 @@ public class ProfileSkillForm {
 	private String level;
 	private List<Competence> listCompetence = new ArrayList<Competence>();
 	
+	
+	
 
 	public ProfileSkillForm() {
 		

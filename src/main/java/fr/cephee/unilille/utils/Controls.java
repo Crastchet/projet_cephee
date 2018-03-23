@@ -47,7 +47,7 @@ public abstract class Controls {
 	}
 	
 	public static void checkCompetenceTitle(String competenceTitle) throws CompetenceTitleException {
-		if(competenceTitle.length() == 0)
+		if(competenceTitle == null || competenceTitle.replaceAll(" ", "").length() == 0)
 			throw new CompetenceTitleException("Competence ne peut pas être vide");
 	}
 

@@ -121,18 +121,18 @@
 		</form>
 	</div>
 	<div class="row collapsible-body" style="background-color: white;">
-		<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregister}" th:object="${profileForm}" method="post" style="background-color: white; clear: both">
+		<form class="col s6 offset-s3" action="#" th:action="@{/editprofileremoveskill(displayname=${memberprofile.displayname})}" th:object="${profileSkillForm}" method="post" style="background-color: white; clear: both">
 			<p>
 				<goodvibes style="font-size: 30px">Supprimer des compétences</goodvibes>
 			</p>
 
 			<div class="input-field col s12">
-				<select th:field="*{listCompetence}">
+				<select th:field="*{competenceTitle}">
 					<!--  FAUT AFFICHER ICI LES COMPETENCES DE LA PERSONNE-->
 
 					<option value="" disabled="disabled" selected="selected">Choisissez la compétence à supprimer</option>
-					<option th:each="competence : ${competenceList}"
-						th:value="${{competence.id}}" th:text="${competence.title}"></option>
+					<option th:each="skill : ${skillList}"
+						th:value="${{skill.competence.title}}" th:text="${skill.competence.title} + ' [' + ${skill.level} + ']'"></option>
 				</select>
 			</div>
 

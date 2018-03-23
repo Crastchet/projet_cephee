@@ -57,4 +57,9 @@ public class Skill {
 		this.member = member;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		Skill s = (Skill) o;
+		return s.id == this.id;
+	}
 }

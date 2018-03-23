@@ -29,6 +29,7 @@ import fr.cephee.unilille.model.Notification;
 import fr.cephee.unilille.model.ProfileActivationForm;
 import fr.cephee.unilille.model.ProfileForm;
 import fr.cephee.unilille.model.ProfileSkillForm;
+import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.Skill;
 import fr.cephee.unilille.utils.Controls;
 
@@ -66,17 +67,17 @@ public class ProfileController {
 		//If no login is specified, return session profile
 		if(displayname == null)
 			return this.profile(
-					((Member)session.getAttribute("member")).getDisplayname(), 
-					model, 
-					session);
+				((Member)session.getAttribute("member")).getDisplayname(), 
+				model, 
+				session);
 		
 		//Get member we visiting
 		Member member = datamem.findByDisplayname(displayname);
 		if(member == null)
 			return this.profile(
-					((Member)session.getAttribute("member")).getDisplayname(), 
-					model, 
-					session);
+				((Member)session.getAttribute("member")).getDisplayname(), 
+				model, 
+				session);
 				
 		//Add session member to model
 		model.addAttribute("member", session.getAttribute("member"));
@@ -97,12 +98,11 @@ public class ProfileController {
 				model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
 				return "profilePersonnal-NotActivated";
 			}
-			//If it is activated - we don't suggest to activate
+			//If it is activated - we don't suggest to activate and we load data
 			else {
-				List<Notification> notifs = datanotif.findByMemberTargeted(member);
-				model.addAttribute("notifications", notifs);
-				this.addProfilePublications(member, model);
 				this.addProfileSkills(member, model);
+				this.addProfilePublications(member, model);
+				this.addProfileNotifications(member, model);
 				return "profilePersonnal";
 			}
 		}
@@ -123,8 +123,7 @@ public class ProfileController {
 	
 	
 	private void addProfilePublications(Member member, Model model) {
-//		model.addAttribute("publications", datapub.findByAuthor(member); //en parler à Sofian
-		List publications = member.getListpublication();
+		List<Publication> publications = member.getListpublication();
 		Collections.reverse(publications);
 		model.addAttribute("publications", publications);
 	}
@@ -134,6 +133,11 @@ public class ProfileController {
 		
 		model.addAttribute("competences", datacom.findAll());
 		model.addAttribute("profileSkillForm", new ProfileSkillForm()); //let us add skills on the same page
+	}
+	
+	private void addProfileNotifications(Member member, Model model) {
+		List<Notification> notifs = datanotif.findByMemberTargeted(member);
+		model.addAttribute("notifications", notifs);
 	}
 	
 	
@@ -187,8 +191,10 @@ public class ProfileController {
 			ProfileForm profileForm = new ProfileForm();
 			profileForm.setDescription(memberProfile.getDescription());
 			profileForm.setEmail(memberProfile.getEmail());
-			List<Competence> listcompetence = datacom.findAll();
-			model.addAttribute("competenceList", listcompetence);
+			List<Competence> listCompetence = datacom.findAll();
+			model.addAttribute("competenceList", listCompetence);
+			List<Skill> listSkill = memberProfile.getSkills();
+			model.addAttribute("skillList", listSkill);
 			
 			model.addAttribute("profileForm", profileForm);
 			model.addAttribute("profileSkillForm", new ProfileSkillForm());
@@ -316,12 +322,77 @@ public class ProfileController {
 				
 				Skill skill = new Skill();
 				skill.setCompetence(competence);
-				System.out.println(profileSkillForm.getLevel());
 				skill.setLevel( Integer.parseInt(profileSkillForm.getLevel()) );
 				skill.setMember(memberProfile);
 				dataski.save(skill);
 				//obligé de faire les add et save dans les 2 sens Soso ???
 				memberProfile.addSkill(skill);
+				datamem.save(memberProfile);
+				
+			} catch (CompetenceTitleException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		session.setAttribute("member", member);
+		//We return member profile
+		return this.profile(displayname, model, session);
+	}
+	
+	
+	/**
+	 * Register a skill for member
+	 *  If competence doesn't exist in DB, creates competence
+	 * @param login
+	 * @param profileSkillForm
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/editprofileremoveskill", method = RequestMethod.POST)
+	public String removeProfileSkill(
+			@RequestParam(value="displayname", required=false) String displayname,
+			@ModelAttribute("profileSkillForm") ProfileSkillForm profileSkillForm,
+			Model model,
+			HttpSession session) {
+		
+		//Get member session
+		Member member = (Member)session.getAttribute("member");
+		//Add member session to model
+		model.addAttribute("member", member);
+				
+		//If no member is specified, return error
+		if(displayname == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer");
+			return "errorPage";
+		}
+				
+		//Get member we editing
+		Member memberProfile = datamem.findByDisplayname(displayname);
+		//If no member for displayname, go error page
+		if(memberProfile == null) {
+			model.addAttribute("displaymessage", "Impossible d'éditer ce membre");
+			return "errorPage";
+		}
+		
+		//Search if we are on own profile or not
+		boolean itIsMemberSession = displayname.equals( member.getDisplayname() );
+		
+		//If try to edit own profile OR If I am an admin
+		if( itIsMemberSession || member.getIsAdmin() ) {
+			try {
+				Controls.checkCompetenceTitle(profileSkillForm.getCompetenceTitle());
+			
+				Skill skill = null;
+				for( Skill s : memberProfile.getSkills() )
+					if( s.getCompetence().getTitle().equals(profileSkillForm.getCompetenceTitle()) ) {
+						skill = s;
+						break;
+					}
+				if( skill != null )
+					member.removeSkill(skill);
+				
 				datamem.save(memberProfile);
 				
 			} catch (CompetenceTitleException e) {
