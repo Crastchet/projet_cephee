@@ -9,21 +9,21 @@
 			<div th:style="${member.activated} ? 'display:block' : 'display:none'" >
 		<div class="fixed-action-btn">
 			<a class="btn-floating btn-large red"> <i class="large material-icons">mode_edit</i></a>	  
-			<goodvibes style="font-size: 35px;"> Publier</goodvibes>
+			<goodvibes style="font-size: 35px;" th:text="#{foo.publi}"></goodvibes>
 			<ul>
 				<li>
 					<a th:href="@{/checktypepublication(publicationType=project)}" class="btn-floating green">
-					<i class="material-icons">widgets</i></a><p><goodvibes style="font-size: 20px">Nouveau projet</goodvibes></p>
+					<i class="material-icons">widgets</i></a><p><goodvibes style="font-size: 20px" th:text="#{foo.proj}"></goodvibes></p>
 				</li>
 				
 				<li>
 					<a th:href="@{/checktypepublication(publicationType=exchange)}" class="btn-floating yellow darken-1">
-					<i class="material-icons">compare_arrows</i></a><p><goodvibes style="font-size: 20px">Nouvelle annonce</goodvibes></p>
+					<i class="material-icons">compare_arrows</i></a><p><goodvibes style="font-size: 20px" th:text="#{foo.annon}"></goodvibes></p>
 				</li>
 				
 				<li>
 					<a th:href="@{/checktypepublication(publicationType=event)}" class="btn-floating blue">
-					<i class="material-icons">event</i></a><p><goodvibes style="font-size: 20px">Nouvel évènement</goodvibes></p>
+					<i class="material-icons">event</i></a><p><goodvibes style="font-size: 20px" th:text="#{foo.even}"></goodvibes></p>
 				</li>
 			</ul>
 			</div>
@@ -51,14 +51,14 @@
             </div>
               <div class="col l4 s12">
                 <h5 class="white-text">UniLille</h5>
-                <p class="grey-text text-lighten-4">Bienvenue sur le site de mise en relation des étudiants et personels de l'Université de Lille</p>
+                <p class="grey-text text-lighten-4" th:text="#{foo.text}"></p>
               </div>
               <div class="col l3 s12">
-                <h5 class="white-text">Liens utiles</h5>
+                <h5 class="white-text" th:text="#{foo.liens}"></h5>
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="https://www.univ-lille.fr/">Université de Lille</a></li>
-                  <li><a class="grey-text text-lighten-3" href="https://www.univ-lille.fr/plan-contact/">Plan et contact</a></li>
-                  <li><a class="grey-text text-lighten-3" href="https://www.univ-lille.fr/actualites/">Actualités</a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://www.univ-lille.fr/" th:text="#{foo.univ}"></a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://www.univ-lille.fr/plan-contact/" th:text="#{foo.plan}"></a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://www.univ-lille.fr/actualites/" th:text="#{foo.actu}"></a></li>
                 </ul>
               </div>
               
@@ -93,8 +93,8 @@
           </div>
           <div class="footer-copyright">
             <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            © 2018 Team Cephee
+            <a class="grey-text text-lighten-4 right" href="#!"></a>
             </div>
           </div>
         </footer>

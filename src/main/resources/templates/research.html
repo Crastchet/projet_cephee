@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Rechercher des publications</title>
+<title th:text="#{rech.title}"></title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -30,13 +30,13 @@
 			method="post">
 	
 		
-			<goodvibes style="margin-left: 40px;font-size: 55px">Rechercher des publications</goodvibes>
+			<goodvibes style="margin-left: 40px;font-size: 55px" th:text="#{rech.intitule}"></goodvibes>
 		
 			<!-- Titre -->
 			<div class="row">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">title</i> <input id="titre"
-						type="text" class="validate" th:field="*{title}"/> <label for="titre">Rechercher par titre</label>
+						type="text" class="validate" th:field="*{title}"/> <label for="titre" th:text="#{rech.titre}"></label>
 				</div>
 			</div>
 	
@@ -49,7 +49,7 @@
 			
 			<div class="input-field col s12" id="projectSelect">
 				<select multiple="multiple" th:field="*{typeResearch}" id="elementType">
-					<option value="" disabled="disabled" selected="selected">Rechercher par type de publication</option>
+					<option value="" disabled="disabled" selected="selected" th:text="#{rech.type}"></option>
 					<option th:each="type : ${typepublicationlist.getPublicationList()}" th:value="${type}"
 					th:text="${type}"></option>
 				</select>
@@ -59,7 +59,7 @@
 				<div class="input-field col s12">
 					<select  multiple="multiple" th:field="*{listCategory}" id="elementCategory"
 					onselect="checkEventSelected()">
-						<option value="" disabled="disabled" selected="selected">Rechercher par catégorie</option>
+						<option value="" disabled="disabled" selected="selected" th:text="#{rech.cat}"></option>
 						<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
 							th:text="${catego.title}"></option>
 					</select>
@@ -84,15 +84,14 @@
       		
 			<div class="input-field col s12">
 				<select multiple="multiple" th:field="*{listCompetence}">
-					<option value="" disabled="disabled" selected="selected">Rechercher par compétences </option>
+					<option value="" disabled="disabled" selected="selected" th:text="#{rech.comp}"></option>
 					<option th:each="competence : ${competenceList}"
 						th:value="${{competence.id}}" th:text="${competence.title}"></option>
 				</select>
 			</div>
 	
 			<button class="btn waves-effect waves-light" id="boutonCreation"
-				type="submit" name="action" >
-				Lancer la recherche <i class="material-icons right">send</i>
+				type="submit" name="action" th:text="#{rech.send}"><i class="material-icons right">send</i>
 			</button>
 		</form>
 	</div>
