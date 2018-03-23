@@ -13,17 +13,17 @@
 		<nav>
 			<div class="nav-wrapper">
 				<ul id="nav-mobile" class="left hide-on-med-and-down">
-					<li><a th:href="@{/home}">Accueil</a></li>
-					<li><a th:href="@{/lastpublications}">Dernières publications</a></li>
-					<li><a th:href="@{/research}">Rechercher</a></li>
-					<li><a th:href="@{/profile}">Profil</a></li>
+					<li><a th:href="@{/home}" th:text="#{nav.accueil}"></a></li>
+					<li><a th:href="@{/lastpublications}" th:text="#{nav.derPub}"></a></li>
+					<li><a th:href="@{/research}" th:text="#{nav.recherche}"></a></li>
+					<li><a th:href="@{/profile}" th:text="#{nav.profil}"></a></li>
 				</ul>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">								    
 					<li style = "margin-right: 10px;font-weight: bold;font-size: 14px; color: white;">
-						Connecté en tant que <span id="headerDisplayname" th:text="${member.displayname}"></span>
+						<span th:text="#{nav.co}"></span> <span id="headerDisplayname" th:text="${member.displayname}"></span>
 					</li>
 					<li>
-						<a style ="font-weight: bold;font-size: 14px;" th:href="@{/logout}">Déconnexion</a>
+						<a style ="font-weight: bold;font-size: 14px;" th:href="@{/logout}" th:text="#{nav.deco}"></a>
 					</li>				
 				</ul>
 			</div>
