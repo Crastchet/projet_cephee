@@ -234,6 +234,7 @@ public class PublicationController {
 						notification.setContent("L'évènement " + publi.getTitle() + " crée par " + publi.getAuthor().getDisplayname() + " a été supprimé");
 						notification.setAuthor(publi.getAuthor());
 						Member member = datamem.findById(partd.getMem());
+						System.out.println("ID : " + member.getId());
 						notification.setMemberTargeted(member);
 						datanotif.save(notification);
 				}

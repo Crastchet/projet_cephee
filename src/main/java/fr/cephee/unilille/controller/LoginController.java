@@ -73,11 +73,9 @@ public class LoginController {
 				member = datamem.findByUsername(username);			//on le récupère (il a maintenant un id)
 			}
 			session.setAttribute("member", member);
-			//session.setMaxInactiveInterval(1);
 		}
 		model.addAttribute("member", session.getAttribute("member"));
-
-
+		
 		// !!!!!!!!!!!!!! PARTIE DE SOFIAN !!!!!!!!!!!!!!
 		Member member = (Member) session.getAttribute("member");
 		if (datainterest.findByMember(member) == null)
