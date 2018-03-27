@@ -7,12 +7,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Competence for one person : Competence + Level
  * @author thibault
  *
  */
+@Table(uniqueConstraints = @UniqueConstraint(columnNames={"competence_id", "member_id"})
+	)
+
 @Entity
 public class Skill {
 	@Id

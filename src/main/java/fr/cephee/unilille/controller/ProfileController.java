@@ -320,10 +320,16 @@ public class ProfileController {
 					datacom.save(competence);
 				}
 				
-				Skill skill = new Skill();
-				skill.setCompetence(competence);
+				//Check if doesn't already exist a skill for this competence and member
+				Skill skill = dataski.findByCompetenceAndMember(competence, memberProfile);
+				//If there is no skill for this competence and this member - create it first
+				if( skill == null ) {
+					skill = new Skill();
+					skill.setCompetence(competence);
+					skill.setMember(memberProfile);
+				}
 				skill.setLevel( Integer.parseInt(profileSkillForm.getLevel()) );
-				skill.setMember(memberProfile);
+				
 				dataski.save(skill);
 				//obligé de faire les add et save dans les 2 sens Soso ???
 				memberProfile.addSkill(skill);
@@ -391,9 +397,7 @@ public class ProfileController {
 						break;
 					}
 				if( skill != null )
-					member.removeSkill(skill);
-				
-				datamem.save(memberProfile);
+					dataski.delete(skill);
 				
 			} catch (CompetenceTitleException e) {
 				// TODO Auto-generated catch block
