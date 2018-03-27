@@ -2,6 +2,7 @@ package fr.cephee.unilille.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,15 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.CompetencePersistence;
+import fr.cephee.unilille.database.MemberInterestPersistence;
 import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.NotificationPersistence;
+import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
 import fr.cephee.unilille.exceptions.CompetenceTitleException;
 import fr.cephee.unilille.exceptions.DescriptionException;
 import fr.cephee.unilille.exceptions.DisplaynameFormatException;
 import fr.cephee.unilille.exceptions.EmailFormatException;
+import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.MemberInterest;
 import fr.cephee.unilille.model.Notification;
 import fr.cephee.unilille.model.ProfileActivationForm;
 import fr.cephee.unilille.model.ProfileForm;
@@ -45,10 +50,17 @@ public class ProfileController {
 	private SkillPersistence dataski;
 	
 	@Autowired
+	private MemberInterestPersistence datainterest;
+		
+	@Autowired
 	private CompetencePersistence datacom;
 	
 	@Autowired
 	private NotificationPersistence datanotif;
+	
+	@Autowired
+	private PublicationPersistence datapubli;
+	
 	
 	/**
 	 * - if /profile - return session profile
@@ -103,6 +115,7 @@ public class ProfileController {
 				this.addProfileSkills(member, model);
 				this.addProfilePublications(member, model);
 				this.addProfileNotifications(member, model);
+				this.addSearchInterest(member, model);
 				return "profilePersonnal";
 			}
 		}
@@ -121,6 +134,13 @@ public class ProfileController {
 		}
 	}
 	
+	private void addSearchInterest(Member member, Model model)
+	{
+
+		MemberInterest memint = datainterest.findByMember(member);
+		Map<Category, Integer> interests = memint.getInterests();
+		model.addAttribute("interests", interests);
+	}
 	
 	private void addProfilePublications(Member member, Model model) {
 		List<Publication> publications = member.getListpublication();
