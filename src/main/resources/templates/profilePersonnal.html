@@ -169,11 +169,14 @@
 			<goodvibes style="font-size: 35px"> Vos notifications </goodvibes>
 				<div th:each="notification : *{notifications}">
 					<form action="#" th:action="@{/deletenotification}" method="post">
-						<div class="card-content black-text" style="height: 200px">
+						<div class="card-content black-text" style="height: 50px">
 							<p class="card-text" th:text="${notification.content}"></p>
 						</div>
 						<input type="hidden" name="notification" th:value="${notification.id}" />
-						<input type="submit" value="Effacer" ></input>
+						<button class="btn waves-effect waves-light red" type="submit" name="action">Supprimer
+   							 <i class="material-icons right">delete</i>
+ 						</button>
+						
 					</form>
 				</div>
 		</div>
