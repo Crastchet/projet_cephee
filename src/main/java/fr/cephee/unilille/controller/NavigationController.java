@@ -94,7 +94,7 @@ public class NavigationController {
 		model.addAttribute("publicationForm", publicationForm);
 		return "research";
 	}
-	
+		
 	@RequestMapping(value = "/searching")
 	public String searching(@ModelAttribute("publicationForm") PublicationForm publicationForm,
 			Model model,
