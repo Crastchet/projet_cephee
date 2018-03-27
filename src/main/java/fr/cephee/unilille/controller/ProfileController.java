@@ -41,8 +41,6 @@ import fr.cephee.unilille.utils.Controls;
 @Controller
 public class ProfileController {
 
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
 	@Autowired
 	private MemberPersistence datamem;
 	
@@ -50,16 +48,13 @@ public class ProfileController {
 	private SkillPersistence dataski;
 	
 	@Autowired
-	private MemberInterestPersistence datainterest;
+	private MemberInterestPersistence dataint;
 		
 	@Autowired
 	private CompetencePersistence datacom;
 	
 	@Autowired
 	private NotificationPersistence datanotif;
-	
-	@Autowired
-	private PublicationPersistence datapubli;
 	
 	
 	/**
@@ -115,7 +110,7 @@ public class ProfileController {
 				this.addProfileSkills(member, model);
 				this.addProfilePublications(member, model);
 				this.addProfileNotifications(member, model);
-				this.addSearchInterest(member, model);
+				this.addProfileSearchInterests(member, model);
 				return "profilePersonnal";
 			}
 		}
@@ -134,13 +129,6 @@ public class ProfileController {
 		}
 	}
 	
-	private void addSearchInterest(Member member, Model model)
-	{
-
-		MemberInterest memint = datainterest.findByMember(member);
-		Map<Category, Integer> interests = memint.getInterests();
-		model.addAttribute("interests", interests);
-	}
 	
 	private void addProfilePublications(Member member, Model model) {
 		List<Publication> publications = member.getListpublication();
@@ -158,6 +146,12 @@ public class ProfileController {
 	private void addProfileNotifications(Member member, Model model) {
 		List<Notification> notifs = datanotif.findByMemberTargeted(member);
 		model.addAttribute("notifications", notifs);
+	}
+	
+	private void addProfileSearchInterests(Member member, Model model) {
+		MemberInterest memberInterest = dataint.findByMember(member);
+		Map<Category, Integer> interests = memberInterest.getInterests();
+		model.addAttribute("interests", interests);
 	}
 	
 	

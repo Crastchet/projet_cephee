@@ -2,29 +2,29 @@ package fr.cephee.unilille.controller;
 
 import java.util.Properties;
 
-import javax.servlet.http.HttpSession;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.cephee.unilille.database.MemberPersistence;
+import fr.cephee.unilille.database.NotificationPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
 import fr.cephee.unilille.model.EmailFormProfile;
 import fr.cephee.unilille.model.EmailFormPublication;
 import fr.cephee.unilille.model.Member;
+import fr.cephee.unilille.model.Notification;
 import fr.cephee.unilille.model.Publication;
 
 
@@ -37,6 +37,8 @@ public class InteractionController {
 	private PublicationPersistence datapub;
 	@Autowired
 	private MemberPersistence datamem;
+	@Autowired
+	private NotificationPersistence datanot;
 	
 	
 	@RequestMapping(value = "/getsendemail")
@@ -103,6 +105,12 @@ public class InteractionController {
 			// Send message
 			Transport.send(message, "sofian.casier", "C&?1+mur");
 			model.addAttribute("displaymessage", "Sent email successfully....");
+			
+			Notification notification = new Notification();
+			notification.setAuthor(member);
+			notification.setContent("Vous avez reçu un email de la part de " + notification.getAuthor() + " concernant votre annonce " + publication.getTitle());
+			notification.setMemberTargeted(publication.getAuthor());
+			datanot.save(notification);
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 			model.addAttribute("displaymessage", "Email failed....");
@@ -172,6 +180,12 @@ public class InteractionController {
 			// Send message with sofian account
 			Transport.send(message, "sofian.casier", "C&?1+mur");
 			model.addAttribute("displaymessage", "Sent email successfully....");
+			
+			Notification notification = new Notification();
+			notification.setAuthor(member);
+			notification.setContent("Vous avez reçu un email de la part de " + notification.getAuthor());
+			notification.setMemberTargeted(memberProfile);
+			datanot.save(notification);
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 			model.addAttribute("displaymessage", "Email failed....");
