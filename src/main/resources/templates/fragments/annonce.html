@@ -11,11 +11,26 @@
 
 	<!-- Annonce court -->
 	<div th:fragment="annonce">
+	
+	<style>
+				.white-text-court {
+					height: 150px;
+				}
+				.black-text-court {
+					height: 250px;
+				}
+				h3 {
+					white-space : nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					font-size: 35px;
+				}
+			</style>
 		
 		<!-- Annonces -->
 			<div class="card yellow darken-1" th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
 			
-				<div class="card-content white-text">
+				<div class="card-content white-text white-text-court">
 					<span style="font-size: 20px; float: right;"
 						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}" th:text="#{publi.event}"></span>
 					<span style="font-size: 20px; float: right;"
@@ -41,7 +56,7 @@
 
 
 					<!-- Annonces/Echanges -->
-					<div class="card-content black-text"  style="background-color: white;"
+					<div class="card-content black-text black-text-court"  style="background-color: white;"
 						th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationAnnonce'}">
 
 

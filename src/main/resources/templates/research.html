@@ -61,7 +61,7 @@
 					onselect="checkEventSelected()">
 						<option value="" disabled="disabled" selected="selected" th:text="#{rech.cat}"></option>
 						<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
-							th:text="${catego.title}"></option>
+							th:text="${catego.title}"  style="position:relative;z-index:10;"></option>
 					</select>
 				</div>
 			</div>

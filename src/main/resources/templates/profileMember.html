@@ -16,6 +16,7 @@
 
 <body background="img/spiration-light.png">
 
+<main>
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
 	<div id="profileBigScreen" class="row">
@@ -152,10 +153,22 @@
 		</div>
 
 		<div id="divnotif" class="col s12 m12 l8" style="margin-top:10px; display: none;">
-			<goodvibes style="font-size: 35px"> Ses notifications </goodvibes>
+			<goodvibes style="font-size: 35px"> Ses participations </goodvibes>
 		</div>
 
 	</div>
+</main>
+	<style>
+		body {
+    		display: flex;
+   			min-height: 100vh;
+    		flex-direction: column;
+  		}
+
+  		main {
+    		flex: 1 0 auto;
+  		}
+	</style>
 
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 

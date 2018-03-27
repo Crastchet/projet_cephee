@@ -55,24 +55,28 @@
 	    <!-- Les publication que vous recherchez -->
 	    <div id="tab2" class="col s12">
 	    
-	    	<div class="carousel" data-indicators="true" style="height:800px;">
-	    	<div th:if="${finalFiltredPub.isEmpty()}"><p>Faites des recherches ou ajoutez des centres d'intérêt pour voir des publications ici</p></div>
-	    	<div th:if="${!finalFiltredPub.isEmpty()}"><p>Faites des recherches ou ajoutez des centres d'intérêt pour voir des publications ici test</p></div>
-				<div class="carousel-item" style="height:600px; width:600px;" th:each="item : *{finalFiltredPub}">
-				<!-- <div class="carousel-item" style="height:600px; width:600px;" th:each="item2 : *{listlasttenpub}"> -->
-					<!-- Evenements -->
-					<div th:replace="fragments/event :: eventLong"></div>
-					
-					<!-- Projets -->
-					<div th:replace="fragments/project :: projectLong"></div>
-					
-					<!-- Annonces -->
-					<div th:replace="fragments/annonce :: annonceLong"></div>
-					
-				</div>
-	  		</div>
+	    	
+	    	<div th:if="${finalFiltredPub.isEmpty()}"><p style="font-size: 25px; text-align: center; margin-top: 100px;">Faites des recherches ou ajoutez des centres d'intérêt pour voir des publications ici</p></div>
+				
 	  		
 	  		
+	  		
+	  		<div class="row">
+			<!-- <div class="col s12 m4 offset-m1" style="height: 500px; overflow: hidden; text-overflow: ellipsis;" th:each="item3 : *{listparticipateuser}"> -->
+			<div class="col s12 m4 offset-m1" style="height: 500px; overflow: hidden; text-overflow: ellipsis;" th:each="item : *{finalFiltredPub}">
+				
+				<!-- Evenements -->
+				<div th:replace="fragments/event :: event"></div>
+					
+				<!-- Projets -->
+				<div th:replace="fragments/project :: project"></div>
+					
+				<!-- Annonces -->
+				<div th:replace="fragments/annonce :: annonce"></div>
+			
+			</div>
+			</div>
+				
 	    </div>
 	    
 	    
