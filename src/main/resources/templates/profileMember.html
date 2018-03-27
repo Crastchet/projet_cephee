@@ -35,7 +35,7 @@
 			<br></br>
 			<goodvibes style="font-size: 15px">Son email : </goodvibes>
 			<p th:text="${memberprofile.email}"></p>
-			<a th:if="member.isAdmin" class="waves-effect green darken-1 btn"
+			<a th:if="${member.isAdmin}" class="waves-effect green darken-1 btn"
 					th:href="@{/editprofile(displayname=${memberprofile.displayname})}" style="height: 40px; width: 200px;">Editer</a>
 		</div>
 
