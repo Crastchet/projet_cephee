@@ -116,10 +116,10 @@ public class Member extends User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean getActivated() {
+	public boolean getIsActivated() {
 		return this.isActivated;
 	}
-	public void setActived(boolean activate) {
+	public void setIsActived(boolean activate) {
 		this.isActivated = activate;
 	}
 	public boolean getIsAdmin() {

@@ -2,7 +2,7 @@ package fr.cephee.unilille.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class EmailForm {
+public class EmailFormPublication {
 
 	
 	@NotEmpty
@@ -15,7 +15,7 @@ public class EmailForm {
 //	private String receiver; //pas sûr de ça
 	
 	
-	public EmailForm() {
+	public EmailFormPublication() {
 		
 	}
 	

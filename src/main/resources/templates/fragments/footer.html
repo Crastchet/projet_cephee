@@ -6,7 +6,7 @@
 	<footer th:fragment="footer">
 		<!--Import jQuery before materialize.js-->
 
-			<div th:style="${member.activated} ? 'display:block' : 'display:none'" >
+			<div th:style="${member.IsActivated} ? 'display:block' : 'display:none'" >
 		<div class="fixed-action-btn">
 			<a class="btn-floating btn-large red"> <i class="large material-icons">mode_edit</i></a>	  
 			<goodvibes style="font-size: 35px;" th:text="#{foo.publi}"></goodvibes>

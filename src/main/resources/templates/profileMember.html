@@ -39,33 +39,42 @@
 			<a th:if="${member.isAdmin}" class="waves-effect green darken-1 btn"
 					th:href="@{/editprofile(displayname=${memberprofile.displayname})}" style="height: 40px; width: 200px;">Editer</a>
 		
+			<div id="contactMember" th:if="${member.isActivated}">
 		
-		 <!-- Modal Trigger -->
-					  <a class="waves-effect waves-light btn modal-trigger blue" href="#modal1">Contacter<i class="material-icons right" >contact_mail</i></a>
-				
-					  <!-- Modal Structure -->
-					  <div id="modal1" class="modal">
-					    <div class="modal-content" style="background-color: white;" >
-					    
-					      
-					     <form class="col s12" action="#" th:action="@{/sendemail}" th:object="${emailForm}" method="post" style="background-color: white; clear: both;  margin-bottom: 20px;">
-							<p><goodvibes style="font-size: 30px">Votre message :</goodvibes></p>
-				
-							<label for="object">Titre :</label> 
-							<input id="object" name="object" type="text" ></input>
-				
+			 	<!-- Modal Trigger -->
+				<a
+					class="waves-effect waves-light btn modal-trigger blue"
+					href="#modal1">Contacter<i class="material-icons right">contact_mail</i></a>
+	
+				<!-- Modal Structure -->
+				<div
+					id="modal1"
+					class="modal">
+					<div
+						class="modal-content"
+						style="background-color: white;">
+	
+	
+						<form class="col s12" action="#" th:action="@{/sendemailfromprofile}" th:object="${emailForm}" method="post"
+							style="background-color: white; clear: both; margin-bottom: 20px;">
+							<p>
+								<goodvibes style="font-size: 30px">Votre message :</goodvibes>
+							</p>
+	
+							<label for="object">Titre :</label>
+							<input id="object" name="object" type="text"></input> 
 							<label for="content" th:text="'Contenu : '"></label>
-							<textarea class="materialize-textarea"  data-length="500" id="content" name="content" ></textarea>
-							
-							<input id="publicationId" name="publicationId" type="text" th:value="0"  style ="display:none;"></input>
-							
-
-					      <button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action"> Envoyer par e-mail 
-								<i class="material-icons right">send</i>
-						  </button>
-					  </form>
-				    </div>
-				  </div>
+							<textarea class="materialize-textarea" data-length="500" id="content" name="content"></textarea>
+	
+							<input id="memberprofileReceiver" name="receiverId" type="text" th:value="${memberprofile.id}" style="display: none;"></input>
+	
+							<button	class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">
+								Envoyer par e-mail <i class="material-icons right">send</i>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div id="divmescompetences" class="col s12 m6 l4" style="margin-top:10px; display: none">
 

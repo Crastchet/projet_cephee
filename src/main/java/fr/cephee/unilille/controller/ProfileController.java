@@ -104,7 +104,7 @@ public class ProfileController {
 		//If it is my Profile
 		if( itIsMemberSession ) {
 			//If profile is not activated - we suggest to activate
-			if( member.getActivated() == false ) {
+			if( member.getIsActivated() == false ) {
 				model.addAttribute("profileActivationForm", new ProfileActivationForm());
 				model.addAttribute("DESCRIPTION_SIZE_MAX", Controls.DESCRIPTION_SIZE_MAX);
 				model.addAttribute("DESCRIPTION_SIZE_MIN", Controls.DESCRIPTION_SIZE_MIN);
@@ -123,7 +123,7 @@ public class ProfileController {
 		//If it is not my Profile
 		else {
 			//If profile is not activated, it's because he typed url manually
-			if( member.getActivated() == false ) //not supposed to get here so we don't add any specific message
+			if( member.getIsActivated() == false ) //not supposed to get here so we don't add any specific message
 				return "errorPage";
 			//If profile is activated
 			else {
@@ -440,7 +440,7 @@ public class ProfileController {
 		Member member = ((Member)session.getAttribute("member"));
 		
 		//If is not activated - process
-		if(!member.getActivated()) {
+		if(!member.getIsActivated()) {
 			try {
 				Controls.checkDisplayname(profileActivationForm.getDisplayname());
 				member.setDisplayname(profileActivationForm.getDisplayname());
@@ -448,7 +448,7 @@ public class ProfileController {
 				member.setEmail(profileActivationForm.getEmail());
 				Controls.checkDescription(profileActivationForm.getDescription());
 				member.setDescription(profileActivationForm.getDescription());
-				member.setActived(true);
+				member.setIsActived(true);
 				
 				datamem.save(member);
 				session.setAttribute("member", member);

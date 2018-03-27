@@ -20,8 +20,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import fr.cephee.unilille.database.MemberPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
-import fr.cephee.unilille.model.EmailForm;
+import fr.cephee.unilille.model.EmailFormProfile;
+import fr.cephee.unilille.model.EmailFormPublication;
 import fr.cephee.unilille.model.Member;
 import fr.cephee.unilille.model.Publication;
 
@@ -33,6 +35,8 @@ public class InteractionController {
 	
 	@Autowired
 	private PublicationPersistence datapub;
+	@Autowired
+	private MemberPersistence datamem;
 	
 	
 	@RequestMapping(value = "/getsendemail")
@@ -40,8 +44,8 @@ public class InteractionController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/sendemail")
-	public String sendEmail(@ModelAttribute("emailForm") EmailForm emailForm, Model model, HttpSession session) {
+	@RequestMapping(value = "/sendemailfrompublication")
+	public String sendEmailFromPublication(@ModelAttribute("emailForm") EmailFormPublication emailForm, Model model, HttpSession session) {
 		//Controls of received data
 			//peut etre toujours vérifier que le membre est activé ?
 		String object = emailForm.getObject();
@@ -97,6 +101,75 @@ public class InteractionController {
 			message.setText(content);
 
 			// Send message
+			Transport.send(message, "sofian.casier", "C&?1+mur");
+			model.addAttribute("displaymessage", "Sent email successfully....");
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+			model.addAttribute("displaymessage", "Email failed....");
+		}
+
+		model.addAttribute("member", member);
+		return "errorPage";
+	}
+	
+	
+	@RequestMapping(value = "/sendemailfromprofile")
+	public String sendEmailFromProfile(@ModelAttribute("emailForm") EmailFormProfile emailForm, Model model, HttpSession session) {
+		//Controls of received data
+			//peut etre toujours vérifier que le membre est activé ?
+			//vérifier le membre receiver !
+		String object = emailForm.getObject();
+		String content = emailForm.getContent();
+		System.out.println(emailForm.getContent());
+		Member memberProfile = datamem.findById(emailForm.getReceiverId());
+		
+		
+		//Gathering data
+		Member member = (Member) session.getAttribute("member");
+		String senderEmail = member.getEmail();
+		
+		String receiverEmail = memberProfile.getEmail();
+
+		// Assuming we are sending email from lille1-smtp
+		String host = "smtps.univ-lille1.fr";
+		String port = "587";
+
+		
+		// Get system properties
+		Properties properties = System.getProperties();
+
+		// Setup mail server
+		properties.setProperty("mail.smtp.host", host);
+		
+		// Setup server port
+		properties.setProperty("mail.smtp.port", port);
+		
+		//Set authentication to TRUE
+		properties.setProperty("mail.smtp.auth", "true");
+		
+		properties.setProperty("mail.smtp.starttls.enable", "true");
+		
+		
+		// Get the default Session object.
+		javax.mail.Session mailSession = Session.getDefaultInstance(properties);
+
+		try {
+			// Create a default MimeMessage object.
+			MimeMessage message = new MimeMessage(mailSession);
+
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(senderEmail));
+
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail));
+
+			// Set Subject: header field
+			message.setSubject(object);
+
+			// Now set the actual message
+			message.setText(content);
+
+			// Send message with sofian account
 			Transport.send(message, "sofian.casier", "C&?1+mur");
 			model.addAttribute("displaymessage", "Sent email successfully....");
 		} catch (MessagingException mex) {
