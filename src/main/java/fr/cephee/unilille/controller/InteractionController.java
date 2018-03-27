@@ -108,7 +108,7 @@ public class InteractionController {
 			
 			Notification notification = new Notification();
 			notification.setAuthor(member);
-			notification.setContent("Vous avez reçu un email de la part de " + notification.getAuthor() + " concernant votre annonce " + publication.getTitle());
+			notification.setContent("Vous avez reçu un email de la part de " + notification.getAuthor().getDisplayname() + " concernant votre annonce " + publication.getTitle());
 			notification.setMemberTargeted(publication.getAuthor());
 			datanot.save(notification);
 		} catch (MessagingException mex) {
@@ -183,7 +183,7 @@ public class InteractionController {
 			
 			Notification notification = new Notification();
 			notification.setAuthor(member);
-			notification.setContent("Vous avez reçu un email de la part de " + notification.getAuthor());
+			notification.setContent("Vous avez reçu un email de la part de " + notification.getAuthor().getDisplayname());
 			notification.setMemberTargeted(memberProfile);
 			datanot.save(notification);
 		} catch (MessagingException mex) {
