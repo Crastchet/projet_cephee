@@ -57,11 +57,11 @@
 
 			<div class="row">
 				<div class="input-field col s12">
-					<select  multiple="multiple" th:field="*{listCategory}" id="elementCategory"
+					<select size="5" multiple="multiple" th:field="*{listCategory}" id="elementCategory"
 					onselect="checkEventSelected()">
 						<option value="" disabled="disabled" selected="selected" th:text="#{rech.cat}"></option>
 						<option th:each="catego : ${categoryList}" th:value="${{catego.id}}"
-							th:text="${catego.title}"  style="position:relative;z-index:10;"></option>
+							th:text="${catego.title}"></option>
 					</select>
 				</div>
 			</div>

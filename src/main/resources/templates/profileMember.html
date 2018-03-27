@@ -20,7 +20,7 @@
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
 	<div id="profileBigScreen" class="row">
-
+profile
 		<div th:replace="profileHeader">&nbsp;</div>
 
 		<div id="divmesinformations" class="col s12 m6 l4" style="display: block">
@@ -118,34 +118,47 @@
 			-->
 
 		<div id="divpubli" class="col s12 m12 l8" style="margin-top:10px; display: none;">
-			<goodvibes style="font-size: 35px">Vos publications</goodvibes>
+			<goodvibes style="font-size: 35px">Ses publications</goodvibes>
 			<div class="row">
 				<div th:each="item : *{publications}" class="col s12 m6 l3">
 					<div th:if="${item.authorised}" th:switch="${item.class.name}">
-						<div th:case="'fr.cephee.unilille.model.PublicationEvent'" class="card light-blue lighten-3" style="height:250px">
+						<div th:case="'fr.cephee.unilille.model.PublicationEvent'" class="card light-blue lighten-3" style="height:250px; -moz-box-shadow: 0px 10px 5px 0px #656565; -webkit-box-shadow: 0px 10px 5px 0px #656565; -o-box-shadow: 0px 10px 5px 0px #656565; box-shadow: 0px 10px 5px 0px #656565; filter: progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=5);">
 							<div class="card-content black-text" style="height:200px">
-								<span class="card-title" th:text="${item.title}"></span>
-								<p class="card-text" th:text="${item.content}"></p>
+								<span style="overflow: hidden; text-overflow: ellipsis; color: white; font-size: 1.5em; line-height: 110%; margin: 1.46rem 0 2rem 0;"
+									th:text="${item.title}"></span>
+								<p class="card-text"
+									style="overflow: auto; margin-top: 5%; color: white"
+									th:text="${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></p>
 							</div>
-							<div class="card-action">
+							<div class="card-action white">
 								<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
 							</div>
 						</div>
-						<div th:case="'fr.cephee.unilille.model.PublicationProject'" class="card teal lighten-3" style="height:250px">
+						<div th:case="'fr.cephee.unilille.model.PublicationProject'"
+							class="card teal lighten-3"
+							style="height: 250px; -moz-box-shadow: 0px 10px 5px 0px #656565; -webkit-box-shadow: 0px 10px 5px 0px #656565; -o-box-shadow: 0px 10px 5px 0px #656565; box-shadow: 0px 10px 5px 0px #656565; filter: progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=5);">
 							<div class="card-content black-text" style="height:200px">
-								<span class="card-title" th:text="${item.title}"></span>
-								<p class="card-text" th:text="${item.content}"></p>
+								<span style="overflow: hidden; text-overflow: ellipsis; color: white; font-size: 1.5em; line-height: 110%; margin: 1.46rem 0 2rem 0;"
+									th:text="${item.title}"></span>
+								<p class="card-text"
+									style="overflow: auto; margin-top: 5%; color: white"
+									th:text="${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></p>
 							</div>
-							<div class="card-action">
+							<div class="card-action white">
 								<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
 							</div>
 						</div>
-						<div th:case="'fr.cephee.unilille.model.PublicationAnnonce'" class="card yellow darken-1" style="height:250px">
+						<div th:case="'fr.cephee.unilille.model.PublicationAnnonce'"
+							class="card yellow darken-1"
+							style="height: 250px; -moz-box-shadow: 0px 10px 5px 0px #656565; -webkit-box-shadow: 0px 10px 5px 0px #656565; -o-box-shadow: 0px 10px 5px 0px #656565; box-shadow: 0px 10px 5px 0px #656565; filter: progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=5);">
 							<div class="card-content black-text" style="height:200px">
-								<span class="card-title" th:text="${item.title}"></span>
-								<p class="card-text" th:text="${item.content}"></p>
+								<span style="overflow: hidden; text-overflow: ellipsis; color: white; font-size: 1.5em; line-height: 110%; margin: 1.46rem 0 2rem 0;"
+									th:text="${item.title}"></span>
+								<p class="card-text"
+									style="overflow: auto; margin-top: 5%; color: white"
+									th:text="${#dates.format(item.dateCreation, 'dd-MM-yyyy')}"></p>
 							</div>
-							<div class="card-action">
+							<div class="card-action white">
 								<a th:href="@{/seedetailspublication(id=${item.id})}">voir détails</a>
 							</div>
 						</div>
