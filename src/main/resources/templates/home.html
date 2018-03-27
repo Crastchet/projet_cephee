@@ -56,7 +56,9 @@
 	    <div id="tab2" class="col s12">
 	    
 	    	<div class="carousel" data-indicators="true" style="height:800px;">
-	    	<div th:if="${finalFiltredPub.isEmpty()}"><p>Faites des recherches ou ajoutez des centres d'intérêt pour voir des publications ici</p></div>
+	    	<div th:if="${finalFiltredPub.isEmpty()}">
+	    		<goodvibes style="font-size: 25px">Faites des recherches ou ajoutez des centres d'intérêt pour voir des publications ici</goodvibes>
+	    	</div>
 				<div class="carousel-item" style="height:600px; width:600px;" th:each="item : *{finalFiltredPub}">
 				<!-- <div class="carousel-item" style="height:600px; width:600px;" th:each="item2 : *{listlasttenpub}"> -->
 					<!-- Evenements -->

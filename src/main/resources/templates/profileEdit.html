@@ -144,32 +144,6 @@
 		</form>
 	</div>
     </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos centres d'interêt</goodvibes></div>
-      <div class="row collapsible-body"  style="background-color: white;">
-      	<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregisterskill}" th:object="${profileSkillForm}" method="post" style="background-color: white; clear: both">
-			<p>
-				<goodvibes style="font-size: 30px">Ajouter des centres d'interêts</goodvibes>
-			</p>
-
-			<div class="input-field col s12">
-				
-			<!-- 		A FAIRE : C'EST JUSTE VISUEL EN ATTENDANT QUON DECIDE		 -->
-				<select th:field="*{listCompetence}">
-					<option value="" disabled="disabled" selected="selected">Choisissez la catégorie qui vous interresse</option>
-					<option th:each="competence : ${competenceList}"
-						th:value="${{competence.id}}" th:text="${competence.title}"></option>
-				</select>
-			</div>
-
-			
-			<button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action">
-				Ajouter la catégorie en tant que centre d'interêt <i class="material-icons right">send</i>
-			</button>
-
-			</form>
-		</div>
-    </li>
   </ul>  
 </div>
 </div>

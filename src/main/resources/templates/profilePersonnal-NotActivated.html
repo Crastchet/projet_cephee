@@ -36,7 +36,7 @@
 					<input type="email" name="email" id="userEmail" placeholder="Adresse email" class="materialize-textarea" th:field="*{email}" onchange="checkActivationForm()"></input>
 						
 					<label for="userDescription" class="ui-hidden-accessible" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
-					<textarea name="description" id="userDescription" placeholder="Décrivez vous" class="materialize-textarea" data-length="500" th:field="*{description}" onchange="checkActivationForm()"></textarea>
+					<textarea name="description" id="userDescription" placeholder="Décrivez vous" class="materialize-textarea" data-length="500" th:field="*{description}" onkeydown="checkActivationForm()"></textarea>
 						
 					<button class="btn waves-effect waves-light" id="buttonActivate" disabled="disabled" type="submit" name="action" style="margin-left: 30px;">
 						Activer votre profil <i class="material-icons right">send</i>
