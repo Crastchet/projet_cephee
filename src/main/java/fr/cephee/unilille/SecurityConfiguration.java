@@ -103,6 +103,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .and()
             .authorizeRequests()
                 .anyRequest()
+                    .permitAll()
+            .and()
+            	.logout()
+            		.logoutUrl("/logout")
+            		.invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
                     .permitAll();
     }
     

@@ -18,7 +18,6 @@ public class UniLilleApplication extends SpringBootServletInitializer {
 
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		log.info("coucou2");
         return application.sources(UniLilleApplication.class);
 	}
 }
