@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class EmailFormProfile {
 
-	
 	@NotEmpty
 	private String object;
 	@NotEmpty

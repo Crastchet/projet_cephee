@@ -124,11 +124,11 @@
 			<div class="card-action" style="background-color: white;">
 				<a th:href="@{/seedetailspublication(id=${item.id})}" th:text="#{publi.voir}"></a>
 				<!-- ModalReport Trigger -->
-				<a href="#modalReport" th:text="#{publi.report}"></a>
+				<a th:href="'#modalReport' + ${item.id}" th:text="#{publi.report}"></a>
 			</div>
 						
 			<!-- ModalReport Structure -->
-			<div id="modalReport" class="modal">
+			<div th:id="'modalReport' + ${item.id}" class="modal">
 				<div class="modal-content" style="background-color: white;">
 					<form class="col s12" action="#" th:action="@{/report(publicationid=${item.id})}" th:object="${reportForm}" method="post"
 						style="background-color: white; clear: both; margin-bottom: 20px;">

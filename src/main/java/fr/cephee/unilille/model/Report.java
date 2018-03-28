@@ -24,14 +24,17 @@ public class Report {
 	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private Integer id;
 	
+	@ManyToOne
 	private Publication publication;
 	@ManyToOne
 	private Member reporter;
 	
 	@NotEmpty
 	private String title;
+	
 	private String content;
-	@NotEmpty
+	
+//	@NotEmpty
 	private Date date;
 	
 	
@@ -54,7 +57,7 @@ public class Report {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Publication getPublicationId() {
+	public Publication getPublication() {
 		return publication;
 	}
 	public void setPublication(Publication publication) {
