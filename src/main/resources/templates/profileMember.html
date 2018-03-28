@@ -37,13 +37,14 @@
 			<goodvibes style="font-size: 15px">Son email : </goodvibes>
 			<p th:text="${memberprofile.email}"></p>
 			<a th:if="${member.isAdmin}" class="waves-effect green darken-1 btn"
-					th:href="@{/editprofile(displayname=${memberprofile.displayname})}" style="height: 40px; width: 200px;">Editer</a>
+					th:href="@{/editprofile(displayname=${memberprofile.displayname})}" style="height: 40px; width: 200px;float: left;margin-right: 20px;">Editer</a>
 		
 			<div id="contactMember" th:if="${member.isActivated}">
 		
 			 	<!-- Modal Trigger -->
 				<a
 					class="waves-effect waves-light btn modal-trigger blue"
+					style="height: 40px; width: 200px;"
 					href="#modal1">Contacter<i class="material-icons right">contact_mail</i></a>
 	
 				<!-- Modal Structure -->
