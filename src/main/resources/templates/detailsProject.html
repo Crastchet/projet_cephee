@@ -25,7 +25,7 @@
 				<div class="card-content white-text">
 					<h3 th:text="${publi.title}"></h3>
 					<div id="ownPublication"
-						th:style="${member.displayname} != ${publi.author.displayname} ? 'display:none'">
+						th:if="${member.displayname} == ${publi.author.displayname} or ${member.isAdmin}">
 						<div class="fixed-action-btn horizontal"
 							style="position: absolute;; right: 20px; top: 20px">
 							<a class="btn-floating btn-large red"> <i
