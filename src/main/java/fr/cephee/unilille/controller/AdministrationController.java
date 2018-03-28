@@ -64,7 +64,7 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		Member member = (Member)session.getAttribute("member");
 		model.addAttribute("member", member);
 		if( ! member.getIsAdmin() ) {
-			model.addAttribute("displaymessage", "Vous n'avez pas accès à cette section :)");
+			model.addAttribute("displaymessage", " Vous n'avez pas accès à cette section :)");
 			return "errorPage";
 		}
 		

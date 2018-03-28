@@ -15,28 +15,46 @@
 
 
 <body background="img/spiration-light.png">
-
+	
 	<div th:replace="fragments/header :: header">&nbsp;</div>
-	
-	<p th:text="'Nombre de publications : ' + ${nbpublications}"></p>
-	<ul>
-		<li th:text="'Nombre d\'évènements : ' + ${nbevents}"></li>
-		<li th:text="'Nombre d\'annonces : ' + ${nbannounces}"></li>
-		<li th:text="'Nombre de projets : ' + ${nbprojects}"></li>
-	</ul>
-	
-	<p th:text="'Nombre de membres : ' + ${nbmembers}"></p>
-	<ul>
-		<li th:text="'Nombre de membres au profil activé : ' + ${nbmembersactivated}"></li>
-		<li th:text="'Nombre de membres au profil visiteur : ' + ${nbmembersvisitors}"></li>
-	</ul>
-	
-	<ul>
-		<li th:each="report : ${reports}" th:text="${report.title}">
-			<p th:text="${report}">Pourquoi ça s'affiche pas :'()</p>
-			<a th:href="@{/seedetailspublication(id=${report.publication.id})}">Lien vers</a>
-		</li>
-	</ul>
+	<div style= "margin-left: 100px;">
+		<p><goodvibes style="font-size: 40px">Page d'administration </goodvibes></p>
+		<p><goodvibes style="font-size: 25px">Statistiques de la plateforme : </goodvibes></p>
+		
+		<p th:text="'Nombre de publications : ' + ${nbpublications}"></p>
+		<ul>
+			<li th:text="'Nombre d\'évènements : ' + ${nbevents}"></li>
+			<li th:text="'Nombre d\'annonces : ' + ${nbannounces}"></li>
+			<li th:text="'Nombre de projets : ' + ${nbprojects}"></li>
+		</ul>
+		
+		<p th:text="'Nombre de membres : ' + ${nbmembers}"></p>
+		<ul>
+			<li th:text="'Nombre de membres au profil activé : ' + ${nbmembersactivated}"></li>
+			<li th:text="'Nombre de membres au profil visiteur : ' + ${nbmembersvisitors}"></li>
+		</ul>
+		
+		<p><goodvibes style="font-size: 25px">Les derniers signalements : </goodvibes></p>
+		
+		<ul>
+			<li th:each="report : ${reports}">
+				<div style="font-size: 17px">
+					<p> Nouveau signalement de <a th:href="@{/profile(displayname=${report.reporter.displayname})}" th:text="${report.reporter.displayname}"></a></p>
+						
+					<span th:text="'Titre : ' +${report.title}"></span>
+				</div>
+				
+				<div style="font-size: 15px">
+					<span th:text="${report.content}"></span>
+				</div>
+				
+				<div>
+				<a th:href="@{/seedetailspublication(id=${report.publication.id})}">Lien vers la publication</a>
+				</div>
+				<br></br>
+			</li>
+		</ul>
+	</div>
 	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 	
