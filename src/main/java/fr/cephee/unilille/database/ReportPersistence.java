@@ -12,4 +12,5 @@ public interface ReportPersistence  extends CrudRepository<Report, Integer>{
 	public List<Report> findByReporter(Member reporter);
 	public List<Report> findByPublication(Publication publication);
 	public List<Report> findById(Integer id);
+	public List<Report> findAllByOrderByDateDesc();
 }

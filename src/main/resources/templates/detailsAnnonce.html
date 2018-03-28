@@ -108,32 +108,53 @@
 					<h5>Description:</h5>
 					<p th:text="${publi.content}"></p>
 					
-					 <!-- Modal Trigger -->
-					  <a class="waves-effect waves-light btn modal-trigger blue" href="#modal1" th:style="${member.displayname} == ${publi.author.displayname} ? 'display:none'">Contacter l'auteur<i class="material-icons right" >contact_mail</i></a>
+					<!-- ModalEmail Trigger -->
+					<a class="waves-effect waves-light btn modal-trigger blue" href="#modal1" th:style="${member.displayname} == ${publi.author.displayname} ? 'display:none'">Contacter l'auteur<i class="material-icons right" >contact_mail</i></a>
+					<!-- ModalReport Trigger -->
+					<a class="btn modal-trigger red" href="#modalReport" th:text="#{publi.report}"></a>
 				
-					  <!-- Modal Structure -->
-					  <div id="modal1" class="modal">
-					    <div class="modal-content" style="background-color: white;" >
-					    
-					      
-					     <form class="col s12" action="#" th:action="@{/sendemailfrompublication}" th:object="${emailForm}" method="post" style="background-color: white; clear: both;  margin-bottom: 20px;">
-							<p><goodvibes style="font-size: 30px">Votre message :</goodvibes></p>
-				
-							<label for="object">Titre :</label> 
-							<input id="object" name="object" type="text" ></input>
-				
-							<label for="content" th:text="'Contenu : '"></label>
-							<textarea class="materialize-textarea"  data-length="500" id="content" name="content" ></textarea>
+					<!-- ModalEmail Structure -->
+					<div id="modal1" class="modal">
+						<div class="modal-content" style="background-color: white;" >
+					    	<form class="col s12" action="#" th:action="@{/sendemailfrompublication}" th:object="${emailForm}" method="post" style="background-color: white; clear: both;  margin-bottom: 20px;">
+								<p><goodvibes style="font-size: 30px">Votre message :</goodvibes></p>
+					
+								<label for="object">Titre :</label> 
+								<input id="object" name="object" type="text" ></input>
+					
+								<label for="content" th:text="'Contenu : '"></label>
+								<textarea class="materialize-textarea"  data-length="500" id="content" name="content" ></textarea>
+								
+								<input id="publicationId" name="publicationId" type="text" th:value="${publi.id}"  style ="display:none;"></input>
 							
-							<input id="publicationId" name="publicationId" type="text" th:value="${publi.id}"  style ="display:none;"></input>
-							
-
-					      <button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action"> Envoyer par e-mail 
-								<i class="material-icons right">send</i>
-						  </button>
-					  </form>
-				    </div>
-				  </div>
+					      		<button class="btn waves-effect waves-light" id="buttonEditProfile" type="submit" name="action"> Envoyer par e-mail 
+									<i class="material-icons right">send</i>
+						  		</button>
+					  		</form>
+				    	</div>
+					</div>
+					
+					<!-- ModalReport Structure -->
+					<div id="modalReport" class="modal">
+						<div class="modal-content" style="background-color: white;">
+							<form class="col s12" action="#" th:action="@{/report(publicationid=${publi.id})}" th:object="${reportForm}" method="post"
+								style="background-color: white; clear: both; margin-bottom: 20px;">
+								<p>
+									<goodvibes style="font-size: 30px">Votre signalement :</goodvibes>
+								</p>
+		
+								<label for="title">Titre :</label>
+								<input id="title" name="title" type="text"></input> 
+								<label for="content" th:text="'Description : '"></label>
+								<textarea class="materialize-textarea" data-length="500" id="content" name="content"></textarea>
+		
+								<button	class="btn waves-effect waves-light" id="buttonSendReport" th:text="#{publi.report}" type="submit" name="action">
+									<i class="material-icons right">send</i>
+								</button>
+							</form>
+						</div>
+					</div>
+						
 				</div>
 			</div>
 		</div>

@@ -119,6 +119,30 @@
 						</span>
 						<h5>Description:</h5>
 						<p th:text="${publi.content}"></p>
+						
+						<!-- ModalReport Trigger -->
+						<a class="btn modal-trigger red" href="#modalReport" th:text="#{publi.report}"></a>
+						
+						<!-- ModalReport Structure -->
+						<div id="modalReport" class="modal">
+							<div class="modal-content" style="background-color: white;">
+								<form class="col s12" action="#" th:action="@{/report(publicationid=${publi.id})}" th:object="${reportForm}" method="post"
+									style="background-color: white; clear: both; margin-bottom: 20px;">
+									<p>
+										<goodvibes style="font-size: 30px">Votre signalement :</goodvibes>
+									</p>
+			
+									<label for="title">Titre :</label>
+									<input id="title" name="title" type="text"></input> 
+									<label for="content" th:text="'Description : '"></label>
+									<textarea class="materialize-textarea" data-length="500" id="content" name="content"></textarea>
+			
+									<button	class="btn waves-effect waves-light" id="buttonSendReport" th:text="#{publi.report}" type="submit" name="action">
+										<i class="material-icons right">send</i>
+									</button>
+								</form>
+							</div>
+						</div>
 					</div>
 			</div>
 		</div>

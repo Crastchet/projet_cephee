@@ -1,6 +1,6 @@
 package fr.cephee.unilille.controller;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.cephee.unilille.database.CompetencePersistence;
 import fr.cephee.unilille.database.MemberPersistence;
@@ -22,10 +20,7 @@ import fr.cephee.unilille.database.PublicationProjectPersistence;
 import fr.cephee.unilille.database.ReportPersistence;
 import fr.cephee.unilille.database.SkillPersistence;
 import fr.cephee.unilille.model.Member;
-import fr.cephee.unilille.model.ProfileForm;
-import fr.cephee.unilille.model.Publication;
 import fr.cephee.unilille.model.Report;
-import fr.cephee.unilille.model.ReportForm;
 
 @Controller
 public class AdministrationController {
@@ -52,6 +47,9 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private CompetencePersistence datacom;
+	
+	@Autowired
+	private ReportPersistence datarep;
 	
 	
 	/**
@@ -83,6 +81,10 @@ private final Logger log = LoggerFactory.getLogger(this.getClass());
 		model.addAttribute("nbmembersactivated", nbMembersActivated);
 		model.addAttribute("nbmembersvisitors", nbMembersVisitors);
 		model.addAttribute("nbmembers", nbMembersActivated + nbMembersVisitors);
+		
+		//Reports
+		List<Report> reports = datarep.findAllByOrderByDateDesc();
+		model.addAttribute("reports", reports);
 		
 		return "dashboardAdmin";
 	}

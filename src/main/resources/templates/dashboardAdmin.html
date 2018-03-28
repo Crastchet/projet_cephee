@@ -31,6 +31,13 @@
 		<li th:text="'Nombre de membres au profil visiteur : ' + ${nbmembersvisitors}"></li>
 	</ul>
 	
+	<ul>
+		<li th:each="report : ${reports}" th:text="${report.title}">
+			<p th:text="${report}">Pourquoi ça s'affiche pas :'()</p>
+			<a th:href="@{/seedetailspublication(id=${report.publication.id})}">Lien vers</a>
+		</li>
+	</ul>
+	
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 	
 </body>
