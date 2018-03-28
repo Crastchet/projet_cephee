@@ -30,6 +30,7 @@ import fr.cephee.unilille.database.NotificationPersistence;
 import fr.cephee.unilille.database.ParticipantDataPersistence;
 import fr.cephee.unilille.database.PublicationEventPersistence;
 import fr.cephee.unilille.database.PublicationPersistence;
+import fr.cephee.unilille.database.ReportPersistence;
 import fr.cephee.unilille.model.Category;
 import fr.cephee.unilille.model.Competence;
 import fr.cephee.unilille.model.Member;
@@ -41,6 +42,8 @@ import fr.cephee.unilille.model.PublicationEvent;
 import fr.cephee.unilille.model.PublicationEventForm;
 import fr.cephee.unilille.model.PublicationForm;
 import fr.cephee.unilille.model.PublicationProject;
+import fr.cephee.unilille.model.Report;
+import fr.cephee.unilille.model.ReportForm;
 import fr.cephee.unilille.model.TypePublicationWrapper;
 
 @Controller
@@ -69,6 +72,10 @@ public class PublicationController {
 	
 	@Autowired
 	private NotificationPersistence datanotif;
+	
+	@Autowired
+	private ReportPersistence datarep;
+	
 
 	@RequestMapping(value = "/formtypepublication")
 	public String publicationTypeForm(@ModelAttribute TypePublicationWrapper form, Model model, HttpSession session) {
@@ -560,6 +567,51 @@ public class PublicationController {
 			model.addAttribute("publi", publi);
 			return "detailsEvent";
 		}
+	}
+	
+	
+	/**
+	 * Handle reports from members
+	 */
+	@RequestMapping("/report")
+	public String report(
+			@RequestParam(value="publicationid", required=true) Integer publicationId,
+			@ModelAttribute("reportForm") ReportForm reportForm,
+			Model model,
+			HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		model.addAttribute("member", member);
+		
+		//Check publication exists
+		Publication publication = datapub.findById(publicationId);
+		//If publication doesn't exist OR is not published - error page
+		if( publication == null || !publication.isAuthorised() ) {
+			model.addAttribute("displaymessage", "Publication introuvable");
+			return "errorPage";
+		}
+		//Check title not empty
+		String title = reportForm.getTitle();
+		if( title == null || title.replaceAll(" ", "").isEmpty() ) {
+			model.addAttribute("displaymessage", "Titre manquant");
+			return "errorPage";
+		}
+		//Check content not too long
+		String content = reportForm.getContent();
+		if( content.length() > 500 ) {
+			model.addAttribute("displaymessage", "Description trop longue");
+			return "errorPage";
+		}
+		
+		Report report = new Report();
+		report.setPublication(publication);
+		report.setReporter(member);
+		report.setDate(new Date());
+		report.setTitle(title);
+		report.setContent(content);
+		
+		datarep.save(report);
+		return this.seeDetailsPublication(publicationId, model, session);
 	}
 		
 }
