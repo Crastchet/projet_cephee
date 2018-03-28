@@ -37,23 +37,17 @@
          			<label for="titre">Titre de l'évenement</label>
         		</div>
       		</div>
-			<!-- <p>
-				Titre : <input type="text" th:field="*{title}" id="titre"
-					onchange="checkEverything()" />
-			</p> -->
+			
 			
 			<!-- Description -->
 			<div class="row">
        			<div class="input-field col s12">
           			<i class="material-icons prefix">description</i>
-          			<textarea id="content" class="materialize-textarea" data-length="120" th:field="*{content}" onchange="checkEverything()"></textarea>
+          			<textarea id="content" class="materialize-textarea" data-length="250" th:field="*{content}" onchange="checkEverything()"></textarea>
          			<label for="content">Description</label>
         		</div>
       		</div>
-			<!-- <p>
-				Description : <input type="text" th:field="*{content}" id="content"
-					onchange="checkEverything()" />
-			</p> -->
+			
 	
 			<!-- Lieu -->
 			<div class="row">
@@ -63,18 +57,9 @@
          			<label for="location">Lieu de l'evenement</label>
         		</div>
       		</div>
-			<!-- <p>
-				Lieu de l'evenement : <input type="text" th:field="*{location}"
-					id="location" onchange="checkEverything()" />
-			</p> -->
+			
 	
-			<!-- Date -->
-			<!-- <div id="datedebut">
-			<i class="material-icons prefix">date_range</i>
-			<label> Date de début de l'evenement</label> <input id="dateStart"
-				type="date" value="date de debut de l'evenement"
-				th:field="*{startevent}" onchange="checkEverything()" />
-			</div> -->
+			
 			
 			<div class="row">
        			<div class="input-field col s12">
@@ -83,11 +68,7 @@
 	         			<label for="dateStart">Date de l'évènement</label>
         		</div>
       		</div>
-			<!-- <div id="datedebut">
-				<label> Date de début de l'evenement</label> <input id="dateStart"
-					type="date" value="date de debut de l'evenement"
-					th:field="*{startevent}" onchange="checkEverything()" />
-			</div> -->
+			
 	
 			<!-- Heure -->
 			<div class="row">

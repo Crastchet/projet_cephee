@@ -40,12 +40,6 @@
 				</div>
 			</div>
 	
-			<!--  <div class="row">
-				<div class="input-field col s12">
-					<i class="material-icons prefix">person</i> <input id="author"
-						type="text" class="validate" th:field="*{author.displayname}"/> <label for="Auteur">Rechercher par auteur</label>
-				</div>
-			</div>-->
 			
 			<div class="input-field col s12" id="projectSelect">
 				<select multiple="multiple" th:field="*{typeResearch}" id="elementType">
@@ -66,21 +60,6 @@
 				</div>
 			</div>
 			
-			<!--  <div class="calendarResearch" style="display:none" id="calendarSearch">
-       			<div class="input-field col s12">
-	       				<i class="material-icons prefix">date_range</i>
-	          			<input id="dateStart" type="date" class="datepicker" th:object="${publicationEventForm}" th:field="*{startevent}"></input>
-	         			<label for="dateStart">Recherche d'un évènement depuis...</label>
-        		</div>
-      		</div>
-      		
-      		<div class="calendarResearch" style="display:none" id="calendarSearch2">
-       			<div class="input-field col s12">
-	       				<i class="material-icons prefix">date_range</i>
-	          			<input id="dateEnd" type="date" class="datepicker2" th:object="${publicationEventForm}" th:field="*{endevent}"></input>
-	         			<label for="dateEnd"> ...jusqu'à...</label>
-        		</div>
-      		</div> -->
       		
 			<div class="input-field col s12">
 				<select multiple="multiple" th:field="*{listCompetence}">
