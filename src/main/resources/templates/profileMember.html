@@ -20,7 +20,7 @@
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 
 	<div id="profileBigScreen" class="row">
-profile
+
 		<div th:replace="profileHeader">&nbsp;</div>
 
 		<div id="divmesinformations" class="col s12 m6 l4" style="display: block">
@@ -171,13 +171,15 @@ profile
 		</div>
 
 		<div id="divrecherche" class="col s12 m12 l8" style="margin-top:10px; display: none;">
-			<goodvibes style="font-size: 35px">Ce qu'il recherche</goodvibes>
+			<goodvibes style="font-size: 35px">Les catégories qu'il a le plus recherché : </goodvibes>
+			<goodvibes style="font-size: 15px">(Dans l'ordre décroissant) </goodvibes>
+
+			<div th:each="mapEntry: ${interests}">
+				<p th:text="${mapEntry.key.title}"></p>
+			</div>
 		</div>
 
-		<div id="divnotif" class="col s12 m12 l8" style="margin-top:10px; display: none;">
-			<goodvibes style="font-size: 35px"> Ses participations </goodvibes>
-		</div>
-
+		
 	</div>
 </main>
 	<style>

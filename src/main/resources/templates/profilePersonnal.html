@@ -161,7 +161,12 @@
 		</div>
 
 		<div id="divrecherche" class="col s12 m12 l8" style="margin-top:10px; display: none;">
-			<goodvibes style="font-size: 35px">Ce que vous recherchez</goodvibes>
+			<goodvibes style="font-size: 35px">Les catégories que vous recherchez le plus : </goodvibes>
+			<goodvibes style="font-size: 15px">(Dans l'ordre décroissant) </goodvibes>
+
+			<div th:each="mapEntry: ${interests}">
+				<p th:text="${mapEntry.key.title}"></p>
+			</div>
 		</div>
 
 		<div id="divnotif" class="col s12 m12 l8"

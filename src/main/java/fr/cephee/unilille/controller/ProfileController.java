@@ -1,8 +1,11 @@
 package fr.cephee.unilille.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
@@ -151,9 +154,21 @@ public class ProfileController {
 	private void addProfileSearchInterests(Member member, Model model) {
 		MemberInterest memberInterest = dataint.findByMember(member);
 		Map<Category, Integer> interests = memberInterest.getInterests();
-		model.addAttribute("interests", interests);
+		Map<Category, Integer> interestsSorted = this.sortByValue(interests);
+		model.addAttribute("interests", interestsSorted);
 	}
 	
+	  private <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+	        List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
+	        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+
+	        Map<K, V> result = new LinkedHashMap<>();
+	        for (Entry<K, V> entry : list) {
+	            result.put(entry.getKey(), entry.getValue());
+	        }
+
+	        return result;
+	    }
 	
 	@RequestMapping("/deletenotification")
 	public String deleteNotif(Integer notification, Model model, HttpSession session)

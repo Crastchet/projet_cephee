@@ -234,9 +234,10 @@ public class PublicationController {
 			Publication publi = datapub.findById(publication.getId());
 			if (publi instanceof PublicationEvent)
 			{		
-				List<Participantdata> listparticipant = dataparticipate.findByPubli(publication.getId());
+				List<Participantdata> listparticipant = dataparticipate.findByPubli(publication.getId());				
 				for (Participantdata partd : listparticipant)
 				{
+					if (partd.getMem() != publi.getAuthor().getId()) {
 						Notification notification = new Notification();
 						notification.setContent("L'évènement " + publi.getTitle() + " crée par " + publi.getAuthor().getDisplayname() + " a été supprimé");
 						notification.setAuthor(publi.getAuthor());
@@ -244,6 +245,7 @@ public class PublicationController {
 						System.out.println("ID : " + member.getId());
 						notification.setMemberTargeted(member);
 						datanotif.save(notification);
+					}
 				}
 				dataparticipate.deleteByPubli(publi.getId());
 			}
