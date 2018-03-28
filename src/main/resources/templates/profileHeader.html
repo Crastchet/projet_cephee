@@ -33,10 +33,9 @@
 				</a>
 			</li>
 			<li class="col s3 m6 l12">
-				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');">
+				<a th:if="${membersession} == true" class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');">
 					<i class="material-icons left">notifications</i>
-					<span th:case="true">Notifications</span>
-					<span th:case="false">Ses participations</span>
+					<span>Notifications</span>
 				</a>
 			</li>
 		</ul>
