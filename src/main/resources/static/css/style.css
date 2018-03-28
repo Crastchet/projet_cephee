@@ -71,3 +71,17 @@ span > a {
 #buttonEmailFromPublication {
 	margin-top:15px;
 }
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+	
+	#headerLogo {
+		display:none;
+	}
+}
+
+@media only screen and (min-width: 0px) and (max-width: 734px) {
+	
+	#connectedAs {
+		display:none;
+	}
+}

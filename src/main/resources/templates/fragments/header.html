@@ -6,22 +6,22 @@
 
 	<header th:fragment="header">
 		<center>
-			<goodvibes> UniLille <img src="img/logo.png" height="100" width="100" style="position:absolute;top:0;right:0" /> </goodvibes>
+			<goodvibes> UniLille <img id="headerLogo" src="img/logo.png" height="100" width="100" style="position:absolute;top:0;right:0" /> </goodvibes>
 		</center>
 		
 		
 		<nav>
 			<div class="nav-wrapper">
-				<ul id="nav-mobile" class="left hide-on-med-and-down">
+				<ul id="nav-mobile1" class="left hide-on-small-only">
 					<li><a th:href="@{/home}" th:text="#{nav.accueil}"></a></li>
 					<li><a th:href="@{/lastpublications}" th:text="#{nav.derPub}"></a></li>
 					<li><a th:href="@{/research}" th:text="#{nav.recherche}"></a></li>
 					<li><a th:href="@{/profile}" th:text="#{nav.profil}"></a></li>
 					<li><a th:href="@{/admin}" th:if="${member.getIsAdmin() == true}" th:text="Administration"></a></li>
 				</ul>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">								    
+				<ul id="nav-mobile2" class="right hide-on-small-only">								    
 					<li style = "margin-right: 10px;font-weight: bold;font-size: 14px; color: white;">
-						<span th:text="#{nav.co}"></span> <span id="headerDisplayname" th:text="${member.displayname}"></span>
+						<span id="connectedAs" th:text="#{nav.co}"></span> <span id="headerDisplayname" th:text="${member.displayname}"></span>
 					</li>
 					<li>
 						<a style ="font-weight: bold;font-size: 14px;" th:href="@{/logout}" th:text="#{nav.deco}"></a>

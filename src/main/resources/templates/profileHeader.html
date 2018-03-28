@@ -9,31 +9,31 @@
 </head>
 <body background="img/spiration-light.png">
 
-	<div id="profileMenu" class="col s12 m12 l4 row">
+	<div id="profileMenu" class="col s12 m12 l4 row" th:classappend="${membersession} ? 'personnal' : 'notpersonnal'">
 		<ul>
-			<li class="col s3 m6 l12">
+			<li class="col l12" th:classappend="${membersession} ? 's3 m6' : 's4 m4'">
 				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divmescompetences');afficher_div('divmesinformations');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divnotif');">
 					<i class="material-icons left">add_circle_outline</i>
 					<span th:case="true">Vos informations</span>
 					<span th:case="false">Ses informations</span>
 				</a>
 			</li>
-			<li class="col s3 m6 l12">
+			<li class="col l12" th:classappend="${membersession} ? 's3 m6' : 's4 m4'">
 				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divrecherche');masquer_div('divnotif');">
 					<i class="material-icons left">mode_edit</i>
 					<span th:case="true">Vos publications</span>
 					<span th:case="false">Ses publications</span>
 				</a>
 			</li>
-			<li class="col s3 m6 l12">
+			<li class="col l12" th:classappend="${membersession} ? 's3 m6' : 's4 m4'">
 				<a th:switch="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divrecherche');masquer_div('divpubli');masquer_div('divmesinformations');masquer_div('divmescompetences');masquer_div('divnotif');">
 					<i class="material-icons left">search</i>
-					<span th:case="true">Ce que vous recherchez</span>
-					<span th:case="false">Ce qu'il recherche</span>
+					<span th:case="true">Vous recherchez</span>
+					<span th:case="false">Ses recherches</span>
 				</a>
 			</li>
-			<li class="col s3 m6 l12">
-				<a th:if="${membersession} == true" class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');">
+			<li class="col l12" th:classappend="${membersession} ? 's3 m6' : 's0 m0'">
+				<a th:if="${membersession}" class="waves-effect waves-light btn-large" onclick="afficher_div('divnotif');masquer_div('divpubli');masquer_div('divrecherche');masquer_div('divmesinformations');masquer_div('divmescompetences');">
 					<i class="material-icons left">notifications</i>
 					<span>Notifications</span>
 				</a>
