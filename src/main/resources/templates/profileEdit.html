@@ -44,13 +44,13 @@
 			</p>
 
 <!-- 			<label for="userDisplayname">Pseudo :</label>  -->
-<!-- 			<input id="userDisplayname" name="displayname" th:field="*{displayname}" th:value="${member.displayname}" onchange="checkEditProfileForm()"></input> -->
+<!-- 			<input id="userDisplayname" name="displayname" th:field="*{displayname}" th:value="${member.displayname}" onKeyUp="checkEditProfileForm()"></input> -->
 
 			<label for="userEmail">Adresse email :</label> 
-			<input id="userEmail" name="email" type="email" th:field="*{email}" th:value="${member.email}" onchange="checkEditProfileForm()"></input>
+			<input id="userEmail" name="email" type="email" th:field="*{email}" th:value="${member.email}" onKeyUp="checkEditProfileForm()"></input>
 
 			<label for="userDescription" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
-			<textarea id="userDescription" name="description" th:field="*{description}" th:value="${member.description}" onchange="checkEditProfileForm()"></textarea>
+			<textarea id="userDescription" name="description" th:field="*{description}" th:value="${member.description}" onKeyUp="checkEditProfileForm()"></textarea>
 
 			<button th:if="${member.id} == ${memberprofile.id}" class="btn waves-effect waves-light" id="buttonEditProfile"	type="submit" name="action">Éditer votre profil <i class="material-icons right">send</i></button>
 			<button th:unless="${member.id} == ${memberprofile.id}" class="btn waves-effect waves-light" id="buttonEditProfile"	type="submit" name="action">Éditer son profil <i class="material-icons right">send</i></button>

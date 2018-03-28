@@ -39,7 +39,7 @@
 		<ul>
 			<li th:each="report : ${reports}">
 				<div style="font-size: 17px">
-					<p> Nouveau signalement de <a th:href="@{/profile(displayname=${report.reporter.displayname})}" th:text="${report.reporter.displayname}"></a></p>
+					<p>Nouveau signalement de <a th:href="@{/profile(displayname=${report.reporter.displayname})}" th:text="${report.reporter.displayname}"></a></p>
 						
 					<span th:text="'Titre : ' +${report.title}"></span>
 				</div>

@@ -32,10 +32,10 @@
 				th:object="${profileActivationForm}" method="post">
 				<div>
 					<label for="userDisplayname" class="ui-hidden-accessible">Pseudo : (3 à 10 caractères)</label>
-					<input type="text" name="displayname" id="userDisplayname" placeholder="Pseudo" class="materialize-textarea" th:field="*{displayname}" onchange="checkActivationForm()"></input>
+					<input type="text" name="displayname" id="userDisplayname" placeholder="Pseudo" class="materialize-textarea" th:field="*{displayname}" onKeyUp="checkActivationForm()"></input>
 				
 					<label for="userEmail" class="ui-hidden-accessible">Adresse email :</label>
-					<input type="email" name="email" id="userEmail" placeholder="Adresse email" class="materialize-textarea" th:field="*{email}" onchange="checkActivationForm()"></input>
+					<input type="email" name="email" id="userEmail" placeholder="Adresse email" class="materialize-textarea" th:field="*{email}" onKeyUp="checkActivationForm()"></input>
 						
 					<label for="userDescription" class="ui-hidden-accessible" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
 					<textarea name="description" id="userDescription" placeholder="Décrivez vous" class="materialize-textarea" data-length="500" th:field="*{description}" onkeydown="checkActivationForm()"></textarea>

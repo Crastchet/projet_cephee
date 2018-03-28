@@ -37,7 +37,7 @@
 			<div class="row">
        			<div class="input-field col s12">
        				<i class="material-icons prefix">title</i>
-          			<input id="titre" type="text" class="validate" th:field="*{title}" onchange="checkForm()"/>
+          			<input id="titre" type="text" class="validate" th:field="*{title}" onKeyUp="checkForm()"/>
          			<label for="titre">Titre de l'Annonce</label>
         		</div>
       		</div>
@@ -46,7 +46,7 @@
 			<div class="row">
        			<div class="input-field col s12">
           			<i class="material-icons prefix">description</i>
-          			<textarea id="content" class="materialize-textarea" data-length="250" th:field="*{content}" onchange="checkForm()"></textarea>
+          			<textarea id="content" class="materialize-textarea" data-length="250" th:field="*{content}" onKeyUp="checkForm()"></textarea>
          			<label for="content">Description</label>
         		</div>
       		</div>

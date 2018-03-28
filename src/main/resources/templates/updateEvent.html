@@ -36,7 +36,7 @@
 			<div class="row">
        			<div class="input-field col s12">
        				<i class="material-icons prefix">title</i>
-          			<input id="titre" type="text" class="validate" th:field="*{title}" onchange="checkEverythingModified()"/>
+          			<input id="titre" type="text" class="validate" th:field="*{title}" onKeyUp="checkEverythingModified()"/>
          			<label for="titre">Titre de l'évenement</label>
         		</div>
       		</div>
@@ -45,7 +45,7 @@
 			<div class="row">
        			<div class="input-field col s12">
           			<i class="material-icons prefix">description</i>
-          			<textarea id="content" class="materialize-textarea" data-length="250" th:field="*{content}" onchange="checkEverythingModified()"></textarea>
+          			<textarea id="content" class="materialize-textarea" data-length="250" th:field="*{content}" onKeyUp="checkEverythingModified()"></textarea>
          			<label for="content">Description</label>
         		</div>
       		</div>
@@ -54,7 +54,7 @@
 			<div class="row">
        			<div class="input-field col s12">
        				<i class="material-icons prefix">location_on</i>
-          			<input id="location" type="text" class="validate" th:field="*{location}" onchange="checkEverythingModified()"/>
+          			<input id="location" type="text" class="validate" th:field="*{location}" onKeyUp="checkEverythingModified()"/>
          			<label for="location">Lieu de l'evenement</label>
         		</div>
       		</div>
@@ -64,7 +64,7 @@
 				<div class="row">
 	       			<div class="input-field col s12">
 		       				<i class="material-icons prefix">date_range</i>
-		          			<input id="dateStart" type="date" class="datepicker" th:field="*{startevent}" onchange="checkEverythingModified()"/>
+		          			<input id="dateStart" type="date" class="datepicker" th:field="*{startevent}" onKeyUp="checkEverythingModified()"/>
 		         			<label for="dateStart">Date de début de l'evenement</label>
 	        		</div>
 	      		</div>
@@ -75,7 +75,7 @@
 						<div class="inputClock">
 							<i class="material-icons prefix">access_time</i>
 							<input value="Choisissez votre heure" id="timeStart"
-								class="timepicker" type="text" onchange="checkEverythingModified()"
+								class="timepicker" type="text" onKeyUp="checkEverythingModified()"
 								th:field="*{hourstartevent}" />
 							<label for="timeStart">Heure de début de l'evenement</label>
 						</div>
