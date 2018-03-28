@@ -125,6 +125,7 @@ public class ProfileController {
 				return "errorPage";
 			//If profile is activated
 			else {
+				this.addProfileSearchInterests(member, model);
 				this.addProfilePublications(member, model);
 				this.addProfileSkills(member, model);
 				return "profileMember";
