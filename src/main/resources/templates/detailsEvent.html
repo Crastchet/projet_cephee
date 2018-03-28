@@ -96,6 +96,7 @@
 						<li th:text="${it.title}"></li>
 					</th:block>
 				</ul>
+				<div th:if="${member.getIsActivated()} == true">
 					<form action="#" th:if="${participeDeja} == false" th:action="@{/participate}" th:object="${publi}" method="post">
 						<button class="btn waves-effect waves-light" id="boutonCreation" type="submit" name="action">
 						Je participe <i class="material-icons right">send</i>
@@ -106,6 +107,7 @@
 						Je ne participe plus <i class="material-icons right">send</i>
 						</button>
 					</form>
+				</div>
 				</div>
 				<div class="card white">
 

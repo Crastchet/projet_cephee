@@ -172,4 +172,5 @@ public class NavigationController {
 		model.addAttribute("listSearched", finalResult);
 		return "researchResult";
 	}
+	
 }

@@ -34,7 +34,7 @@
 	      </ul>
 	    </div>
 	    <!-- Les dernières publications -->
-	    <div id="tab1" class="col s12">
+	    <div style="size: 500px;" id="tab1" class="col s12">
 	    	
 	    	<div class="carousel" data-indicators="true" style="height:800px;">
 				<div class="carousel-item" style="height:600px; width:600px;" th:each="item : *{listlasttenpub}">
@@ -148,11 +148,17 @@
  // Destroy carousel
  $('.carousel').carousel('destroy');
  
-	$(document).ready(function(){
+	/* $(document).ready(function(){
 	    //$('ul.tabs').tabs();
 	    $('ul.tabs').tabs({ 
 	    	 //swipeable : true
 	    });
-	});
+	}); */
+	/* $(document).ready(function(){
+	      $('ul.tabs').tabs({
+	        responsiveThreshold: 'Infinity',
+	        swipeable: 'true'
+	      });
+	    }); */
  </script>
 </html>

@@ -9,6 +9,8 @@
     </head>
 
 <body background="img/spiration-light.png">
+
+<main>
   	<div th:replace="fragments/header :: header">&nbsp;</div>
 	
 	
@@ -46,6 +48,19 @@
 		</div>
 		
 	</div>
+</main>
+
+	<style>
+		body {
+    		display: flex;
+   			min-height: 100vh;
+    		flex-direction: column;
+  		}
+
+  		main {
+    		flex: 1 0 auto;
+  		}
+	</style>
 
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>
 	<script type="text/javascript" th:src="@{/js/profileControls.js}"></script>

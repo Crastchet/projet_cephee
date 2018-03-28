@@ -17,6 +17,7 @@
 					<li><a th:href="@{/lastpublications}" th:text="#{nav.derPub}"></a></li>
 					<li><a th:href="@{/research}" th:text="#{nav.recherche}"></a></li>
 					<li><a th:href="@{/profile}" th:text="#{nav.profil}"></a></li>
+					<li><a th:href="@{/admin}" th:if="${member.getIsAdmin() == true}" th:text="Administration"></a></li>
 				</ul>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">								    
 					<li style = "margin-right: 10px;font-weight: bold;font-size: 14px; color: white;">
