@@ -123,7 +123,7 @@
 						<p th:text="${publi.content}"></p>
 						
 						<!-- ModalReport Trigger -->
-						<a class="btn modal-trigger red" href="#modalReport" th:text="#{publi.report}"></a>
+						<a id="buttonReportFromPublication" class="btn modal-trigger red" style="position: absolute;right: 20px;top: 20px;" href="#modalReport" th:text="#{publi.report}"></a>
 						
 						<!-- ModalReport Structure -->
 						<div id="modalReport" class="modal">
