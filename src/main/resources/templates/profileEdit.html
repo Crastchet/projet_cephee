@@ -22,7 +22,8 @@
 
 	<div style="margin-left: 30px;">
 		<blockquote>
-			<goodvibes style="font-size: 70px" th:text="'Votre profil'"></goodvibes>
+			<goodvibes th:if="${member.id} == ${memberprofile.id}" style="font-size: 70px" th:text="'Votre profil'"></goodvibes>
+			<goodvibes th:unless="${member.id} == ${memberprofile.id}" style="font-size: 70px" th:text="'Profil de ' + ${memberprofile.displayname}"></goodvibes>
 		</blockquote>
 	</div>
 	
@@ -30,10 +31,17 @@
 <div class="col s10 offset-s2" id="divmenu" style = "text-align: center;margin-left: 100px;">
  <ul class="collapsible popout" data-collapsible="accordion">
     <li>
-      <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></div>
+      <div class="collapsible-header">
+      	<i class="material-icons">arrow_drop_down</i>
+      	<goodvibes th:if="${member.id} == ${memberprofile.id}" style="font-size: 30px">Modifier vos informations</goodvibes>
+      	<goodvibes th:unless="${member.id} == ${memberprofile.id}" style="font-size: 30px">Modifier ses informations</goodvibes>
+      </div>
       <div class="row collapsible-body" style="background-color: white;">
 		<form class="col s6 offset-s3" action="#" th:action="@{/editprofileregisterinfos(displayname=${memberprofile.displayname})}" th:object="${profileForm}" method="post" style="background-color: white; clear: both">
-			<p><goodvibes style="font-size: 30px">Modifier vos informations</goodvibes></p>
+			<p>
+				<goodvibes th:if="${member.id} == ${memberprofile.id}" style="font-size: 30px">Modifier vos informations</goodvibes>
+				<goodvibes th:unless="${member.id} == ${memberprofile.id}" style="font-size: 30px">Modifier ses informations</goodvibes>
+			</p>
 
 <!-- 			<label for="userDisplayname">Pseudo :</label>  -->
 <!-- 			<input id="userDisplayname" name="displayname" th:field="*{displayname}" th:value="${member.displayname}" onchange="checkEditProfileForm()"></input> -->
@@ -44,17 +52,19 @@
 			<label for="userDescription" th:text="'Description : (' + ${DESCRIPTION_SIZE_MIN} + ' caractères minimum)'"></label>
 			<textarea id="userDescription" name="description" th:field="*{description}" th:value="${member.description}" onchange="checkEditProfileForm()"></textarea>
 
-			<button class="btn waves-effect waves-light" id="buttonEditProfile"
-				type="submit" name="action">
-				Éditer votre profil <i class="material-icons right">send</i>
-			</button>
+			<button th:if="${member.id} == ${memberprofile.id}" class="btn waves-effect waves-light" id="buttonEditProfile"	type="submit" name="action">Éditer votre profil <i class="material-icons right">send</i></button>
+			<button th:unless="${member.id} == ${memberprofile.id}" class="btn waves-effect waves-light" id="buttonEditProfile"	type="submit" name="action">Éditer son profil <i class="material-icons right">send</i></button>
 
 			</form>
 		</div>
     </li>
     <li>
-      <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><goodvibes style="font-size: 30px">Modifier vos compétences</goodvibes></div>
-      <div class="row collapsible-body" style="background-color: white;">
+	<div class="collapsible-header">
+		<i class="material-icons">arrow_drop_down</i>
+		<goodvibes th:if="${member.id} == ${memberprofile.id}" style="font-size: 30px">Modifier vos compétences</goodvibes>
+		<goodvibes th:unless="${member.id} == ${memberprofile.id}" style="font-size: 30px">Modifier ses compétences</goodvibes>
+	</div>
+	<div class="row collapsible-body" style="background-color: white;">
 		<form class="col s6 offset-s3" action="#"
 			th:action="@{/editprofileregisterskill(displayname=${memberprofile.displayname})}"
 			th:object="${profileSkillForm}" method="post"
