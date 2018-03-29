@@ -85,3 +85,21 @@ span > a {
 		display:none;
 	}
 }
+
+@media only screen and (min-width: 601px) { 
+	#buttonDropdown1 {
+		display:none;
+	}
+	#navBigScreen {
+		display:block;
+	}
+}
+
+@media only screen and (max-width: 600px) { 
+	#buttonDropdown1 {
+		display:block;
+	}
+	#navBigScreen {
+		display:none;
+	}
+}

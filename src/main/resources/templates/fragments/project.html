@@ -65,7 +65,6 @@
 				th:if="${item.class.name == 'fr.cephee.unilille.model.PublicationEvent'}"
 				th:text="'Je participe'"></a>  --><a
 				th:href="@{/seedetailspublication(id=${item.id})}" th:text="#{publi.voir}"></a>
-				<a th:text="#{publi.report}"></a>
 			</div>
 			
 		</div>
@@ -123,31 +122,8 @@
 		
 			<div class="card-action" style="background-color: white;">
 				<a th:href="@{/seedetailspublication(id=${item.id})}" th:text="#{publi.voir}"></a>
-				<!-- ModalReport Trigger -->
-				<a th:href="'#modalReport' + ${item.id}" th:text="#{publi.report}"></a>
 			</div>
 						
-			<!-- ModalReport Structure -->
-			<div th:id="'modalReport' + ${item.id}" class="modal">
-				<div class="modal-content" style="background-color: white;">
-					<form class="col s12" action="#" th:action="@{/report(publicationid=${item.id})}" th:object="${reportForm}" method="post"
-						style="background-color: white; clear: both; margin-bottom: 20px;">
-						<p>
-							<goodvibes style="font-size: 30px">Votre signalement :</goodvibes>
-						</p>
-
-						<label for="title">Titre :</label>
-						<input id="title" name="title" type="text"></input> 
-						<label for="content" th:text="'Description : '"></label>
-						<textarea class="materialize-textarea" data-length="500" id="content" name="content"></textarea>
-
-						<button	class="btn waves-effect waves-light" id="buttonSendReport" th:text="#{publi.report}" type="submit" name="action">
-							<i class="material-icons right">send</i>
-						</button>
-					</form>
-				</div>
-			</div>
-				
 		</div>
 	
 	</div>

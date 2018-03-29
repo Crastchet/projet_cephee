@@ -9,8 +9,20 @@
 			<goodvibes> UniLille <img id="headerLogo" src="img/logo.png" height="100" width="100" style="position:absolute;top:0;right:0" /> </goodvibes>
 		</center>
 		
+		<!-- Dropdown Trigger -->
+  		<a id="buttonDropdown1" class='dropdown-trigger btn' data-target='dropdown1'>MENU</a>
+
+		<!-- Dropdown Structure -->
 		
-		<nav>
+		<ul id='dropdown1' class='dropdown-content'>
+				    <li><a th:href="@{/home}" th:text="#{nav.accueil}"></a></li>
+							<li><a th:href="@{/lastpublications}" th:text="#{nav.derPub}"></a></li>
+							<li><a th:href="@{/research}" th:text="#{nav.recherche}"></a></li>
+							<li><a th:href="@{/profile}" th:text="#{nav.profil}"></a></li>
+							<li><a th:href="@{/admin}" th:if="${member.getIsAdmin() == true}" th:text="Administration"></a></li>
+		</ul>
+		
+		<nav id="navBigScreen">
 			<div class="nav-wrapper">
 				<ul id="nav-mobile1" class="left hide-on-small-only">
 					<li><a th:href="@{/home}" th:text="#{nav.accueil}"></a></li>
@@ -30,7 +42,10 @@
 			</div>
 		</nav>
 	</header>
-
 </body>
+
+<script>
+  $('.dropdown-trigger').dropdown();
+</script>
 
 </html>

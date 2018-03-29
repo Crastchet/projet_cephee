@@ -37,7 +37,7 @@
 		<p><goodvibes style="font-size: 25px">Les derniers signalements : </goodvibes></p>
 		
 		<ul>
-			<li th:each="report : ${reports}">
+			<li style="border: blue; border-style: dashed; margin:15px 0;" th:each="report : ${reports}">
 				<div style="font-size: 17px">
 					<p>Nouveau signalement de <a th:href="@{/profile(displayname=${report.reporter.displayname})}" th:text="${report.reporter.displayname}"></a></p>
 						
