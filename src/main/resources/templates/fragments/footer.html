@@ -76,9 +76,7 @@
 					$(document).ready(function() {
 					    $("#locales").change(function () {
 					        var selectedOption = $('#locales').val();
-					        var adresseActuelle = window.location;
-					        var arr = adresseActuelle.toString().split("/?lang=");
-					        adresseActuelle.replace(arr[0]);
+					        var adresseActuelle = window.location.toString().split("?lang=")[0];
 					        if (selectedOption != ''){
 					        	/* if (adresseActuelle.includes('?')){
 					        		adresseActuelle = adresseActuelle.substr(0, adresseActuelle.indexOf('?'))
